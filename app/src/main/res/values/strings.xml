@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Burgest</string>
+    <string name="menu_recent">เมนู</string>
+    <string name="menu_delivery">ติดตามเบอร์เกอร์</string>
+    <string name="menu_topup">ติดตามการเติมเงิน</string>
+    <string name="menu_more">อื่น ๆ</string>
+    <string name="menu_location">ตำแหน่ง</string>
+
+
+    <string name="require_email">กรุณากรอก Email</string>
+    <string name="require_password">กรุณากรอกรหัสผ่าน</string>
+    <string name="invalid_pass_confirm">กรุณากรอกรหัสผ่านให้ตรงกัน</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+</resources>

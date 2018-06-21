@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+        <LinearLayout
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/pic"
+                android:padding="@dimen/space"
+                android:layout_width="150dp"
+                android:layout_height="150dp" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/amount"
+                        android:paddingLeft="@dimen/space"
+                        android:paddingBottom="@dimen/space"
+                        android:textSize="@dimen/textsize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:text="amount :" />
+                    <TextView
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/date"
+                        android:paddingLeft="@dimen/space"
+                        android:textSize="@dimen/textsize"
+                        android:paddingBottom="@dimen/space"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:text="Date :" />
+                    <TextView
+                        android:gravity="center"
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/status"
+                        android:paddingLeft="@dimen/space"
+                        android:textSize="@dimen/textsize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffff"
+                        android:textStyle="bold"
+                        android:text="Status :" />
+                </LinearLayout>
+
+        </LinearLayout>
+
+</RelativeLayout>

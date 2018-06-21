@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_location"
+        android:enabled="true"
+        android:icon="@drawable/ic_locatino"
+        android:title="Location"/>
+    <item
+        android:id="@+id/item_recent"
+        android:enabled="true"
+        android:icon="@drawable/ic_burger"
+        android:title="MenuBurger"/>
+    <item
+        android:id="@+id/item_favorite"
+        android:enabled="true"
+        android:icon="@drawable/ic_delivery"
+        android:title="FollowBurger"/>
+    <item
+        android:id="@+id/item_scan"
+        android:enabled="true"
+        android:icon="@drawable/ic_topup"
+        android:title="FollowTopUp"/>
+    <item
+        android:id="@+id/item_other"
+        android:enabled="true"
+        android:icon="@drawable/ic_more"
+        android:title="OtherMenus"/>
+
+</menu>
