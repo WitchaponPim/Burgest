@@ -45,7 +45,7 @@ public class Fm1 extends Fragment {
     OrderList_ItemCallback orderList_itemCallback= new OrderList_ItemCallback() {
         @Override
         public void onResponse(Orderlist_item listItem, Retrofit retrofit) {
-            Log.d("dialog", "onResponse: "+listItem.getItems().get(0).getProductName());
+
             CustomDialog_detailOrderlist cdd=new CustomDialog_detailOrderlist(getActivity(),listItem);
             cdd.show();
         }

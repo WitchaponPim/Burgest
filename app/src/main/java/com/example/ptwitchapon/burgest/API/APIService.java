@@ -60,5 +60,4 @@ public interface APIService {
     @FormUrlEncoded
     @POST("get-non-topup-confirm-by-user.php")
     Call<TopupModel> getTopupstatus(@Field("id_member") String id_member);
-
 }

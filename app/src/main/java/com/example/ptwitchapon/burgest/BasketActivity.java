@@ -18,14 +18,26 @@ import android.widget.TextView;
 
 import com.example.ptwitchapon.burgest.API.ConnectManager;
 import com.example.ptwitchapon.burgest.Adapter.BasketAdapter;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_edit;
 import com.example.ptwitchapon.burgest.Callback.OrderCallback;
+import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
+import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.OrderResponse;
+import com.example.ptwitchapon.burgest.Model.Orderlist;
+import com.example.ptwitchapon.burgest.Model.Orderlist_item;
 import com.example.ptwitchapon.burgest.Tool.GPSTracker;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 import com.squareup.okhttp.ResponseBody;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Retrofit;
 
@@ -34,22 +46,23 @@ public class BasketActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
     private static final int REQUEST_LOCATION = 1;
-    LocationManager locationManager;
 
+    LocationManager locationManager;
+    StringBuffer sb;
     TextView txttotal;
     String TAG = "Basket";
     Button pay;
-
     ConnectManager connectManager = new ConnectManager();
     OrderCallback orderCallback = new OrderCallback() {
         @Override
         public void onResponse(OrderResponse orderResponse, Retrofit retrofit) {
-            Log.d(TAG, "onResponse: ");
+            Utils.object = new JSONObject();
+            Utils.object2 = new JSONObject();
+            Utils.array = new JSONArray();
+            Utils.orderbanlist = new ArrayList<>();
+            Utils.order = new Order();
             Utils.toast(getApplicationContext(),"Order success");
             onBackPressed();
-            Utils.object = null;
-            Utils.object2 = null;
-            Utils.array = null;
         }
 
         @Override
@@ -59,7 +72,7 @@ public class BasketActivity extends AppCompatActivity {
 
         @Override
         public void onBodyError(ResponseBody responseBody) {
-            Log.d(TAG, "onBodyError: ");
+            Log.d(TAG, "onBodyError: "+responseBody.toString());
         }
 
         @Override
@@ -79,11 +92,25 @@ public class BasketActivity extends AppCompatActivity {
         orderlist.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         orderlist.setLayoutManager(layoutManager);
-        adapter = new BasketAdapter(Utils.order,getApplicationContext());
+        adapter = new BasketAdapter(Utils.order, getApplicationContext(), this, new BasketAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Order.OrderBean orderlist, int position) {
+                Utils.toast(getApplicationContext(),orderlist.getId_product());
+                CustomDialog_edit cdd=new CustomDialog_edit(BasketActivity.this,orderlist,position);
+                cdd.show();
+            }
+        });
         orderlist.setAdapter(adapter);
 
         txttotal.setText(String.valueOf(gettotal())+" ฿");
 
+
+        Gson g = new Gson();
+        String jsonString = g.toJson(Utils.order.getOrder());
+        sb = new StringBuffer("{\"order\":");
+        sb.append(jsonString);
+        sb.append(",\"id_member\":\""+Utils.user.getChecklogin().getId_member()+"\"}");
+        Log.d("Ammy", "onCreate: "+sb.toString());
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +119,9 @@ public class BasketActivity extends AppCompatActivity {
                     if (Double.valueOf(Utils.user.getChecklogin().getCash())<gettotal()){
                         Utils.toast(getApplicationContext(),"กรุณาเติมเงินในระบบก่อนครับ");
                     }else {
-                        connectManager.order(orderCallback,Utils.object.toString());
+
+//                        connectManager.order(orderCallback,Utils.object.toString());
+                        connectManager.order(orderCallback,sb.toString());
                     }
 //                }
 //                else{
@@ -105,6 +134,11 @@ public class BasketActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     public void addOn(View view){

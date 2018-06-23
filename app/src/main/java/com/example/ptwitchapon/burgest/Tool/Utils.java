@@ -59,10 +59,10 @@ public class Utils {
 
     public static User user;
 
-    public static String ipHost ="http://10.10.95.31/hamburger/hamburger/inc/";
-    public static String ipTopupPic = "http://10.10.95.31/hamburger/hamburger/paymentimg/";
+    public static String ipHost ="http://burgest.apidech.com/inc/";
+    public static String ipTopupPic = "http://burgest.apidech.com/paymentimg/";
 
-    public static String ipPic = "http://10.10.95.31/hamburger/img/";
+    public static String ipPic = "http://burgest.apidech.com/img/";
 
     public static Product product;
 

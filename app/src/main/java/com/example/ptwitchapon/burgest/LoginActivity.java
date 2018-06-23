@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         user = (EditText) findViewById(R.id.user);
         pass = (EditText) findViewById(R.id.pass);
 
+        connect.login(loginCallback,"o@a.com","1234");
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         String a,b;
         a = user.getText().toString();
         b = pass.getText().toString();
-        connect.login(loginCallback,a,b);
+//        connect.login(loginCallback,a,b);
     }
 
 

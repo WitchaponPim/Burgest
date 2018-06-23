@@ -1,5 +1,6 @@
 package com.example.ptwitchapon.burgest.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +20,8 @@ import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 /**
  * Created by Killy77 on 21/4/2561.
  */
@@ -27,12 +31,16 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
 
     Order order;
     private Context context;
-
+    private Activity activity;
     private static int currentPosition = 0;
+    BasketAdapter.OnItemClickListener listener;
 
-    public BasketAdapter(Order order, Context context) {
+    public BasketAdapter(Order order, Context context, Activity activity,BasketAdapter.OnItemClickListener listener) {
         this.order = order;
         this.context = context;
+        this.activity = activity;
+        this.listener = listener;
+
     }
 
     @Override
@@ -41,9 +49,13 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
         return new FollowViewHolder(v);
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Order.OrderBean orderlist, int position);
+    }
+
     @Override
     public void onBindViewHolder(final FollowViewHolder holder, final int position) {
-        Order.OrderBean listbean = order.getOrder().get(position);
+        final Order.OrderBean listbean = order.getOrder().get(position);
         holder.ordername.setText("Order #"+listbean.getId_product());
         holder.Pname.setText(getname(listbean.getId_product()));
         holder.price.setText(listbean.getPrice());
@@ -75,6 +87,12 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
                 notifyDataSetChanged();
             }
         });
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemClick(listbean,position);
+            }
+        });
     }
 
     @Override
@@ -86,13 +104,14 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
         TextView ordername,price,Pname,total;
         ImageView imageView;
         LinearLayout linearLayout,list_item;
+        Button edit;
 
         FollowViewHolder(View itemView) {
             super(itemView);
             ordername = (TextView) itemView.findViewById(R.id.ordername);
             Pname = (TextView) itemView.findViewById(R.id.typename);
             price = (TextView) itemView.findViewById(R.id.price);
-
+            edit = (Button) itemView.findViewById(R.id.edit) ;
             total = (TextView) itemView.findViewById(R.id.total);
             list_item = (LinearLayout) itemView.findViewById(R.id.list_item) ;
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);

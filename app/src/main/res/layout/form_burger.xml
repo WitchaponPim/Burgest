@@ -57,6 +57,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
+                    android:checked="true"
                     android:text="onion" />
 
                 <CheckBox
@@ -64,6 +65,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
+                    android:checked="true"
                     android:text="lettus" />
             </LinearLayout>
 
@@ -79,6 +81,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
+                    android:checked="true"
                     android:text="tomato" />
 
                 <CheckBox
@@ -86,6 +89,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
+                    android:checked="true"
                     android:text="cucumber" />
             </LinearLayout>
 
