@@ -95,6 +95,7 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
                     Utils.object2.put("comment", comment.getText().toString());
                     Utils.object2.put("sauce", getsauce());
                     Utils.object2.put("veg", getVeg());
+                    Utils.object2.put("path",products.getPath());
 
                     Utils.orderbean.setId_product(products.getId_product());
                     Utils.orderbean.setPrice(products.getPrice());
@@ -104,6 +105,8 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
                     Utils.orderbean.setComment(comment.getText().toString());
                     Utils.orderbean.setSauce(getsauce());
                     Utils.orderbean.setVeg(getVeg());
+                    Utils.orderbean.setPath(products.getPath());
+
 
                     Utils.orderbanlist.add(Utils.orderbean);
 

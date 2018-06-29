@@ -20,6 +20,9 @@ import com.example.ptwitchapon.burgest.API.ConnectManager;
 import com.example.ptwitchapon.burgest.Adapter.BasketAdapter;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_edit;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other_edit;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water_edit;
 import com.example.ptwitchapon.burgest.Callback.OrderCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
 import com.example.ptwitchapon.burgest.Model.Order;
@@ -96,8 +99,16 @@ public class BasketActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Order.OrderBean orderlist, int position) {
                 Utils.toast(getApplicationContext(),orderlist.getId_product());
-                CustomDialog_edit cdd=new CustomDialog_edit(BasketActivity.this,orderlist,position);
-                cdd.show();
+                if (Integer.valueOf(orderlist.getId_product())>=35&&Integer.valueOf(orderlist.getId_product())<=39){
+                    CustomDialog_other_edit other=new CustomDialog_other_edit(BasketActivity.this,orderlist,position);
+                    other.show();
+                }else if (Integer.valueOf(orderlist.getId_product())>=40&&Integer.valueOf(orderlist.getId_product())<=45){
+                    CustomDialog_water_edit water=new CustomDialog_water_edit(BasketActivity.this,orderlist,position);
+                    water.show();
+                }else {
+                    CustomDialog_edit cdd=new CustomDialog_edit(BasketActivity.this,orderlist,position);
+                    cdd.show();
+                }
             }
         });
         orderlist.setAdapter(adapter);
@@ -105,12 +116,6 @@ public class BasketActivity extends AppCompatActivity {
         txttotal.setText(String.valueOf(gettotal())+" ฿");
 
 
-        Gson g = new Gson();
-        String jsonString = g.toJson(Utils.order.getOrder());
-        sb = new StringBuffer("{\"order\":");
-        sb.append(jsonString);
-        sb.append(",\"id_member\":\""+Utils.user.getChecklogin().getId_member()+"\"}");
-        Log.d("Ammy", "onCreate: "+sb.toString());
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +124,12 @@ public class BasketActivity extends AppCompatActivity {
                     if (Double.valueOf(Utils.user.getChecklogin().getCash())<gettotal()){
                         Utils.toast(getApplicationContext(),"กรุณาเติมเงินในระบบก่อนครับ");
                     }else {
-
+                        Gson g = new Gson();
+                        String jsonString = g.toJson(Utils.order.getOrder());
+                        sb = new StringBuffer("{\"order\":");
+                        sb.append(jsonString);
+                        sb.append(",\"id_member\":\""+Utils.user.getChecklogin().getId_member()+"\"}");
+                        Log.d("Ammy", "onCreate: "+sb.toString());
 //                        connectManager.order(orderCallback,Utils.object.toString());
                         connectManager.order(orderCallback,sb.toString());
                     }
@@ -149,7 +159,7 @@ public class BasketActivity extends AppCompatActivity {
 
 
     }
-    public int gettotal(){
+    public static int gettotal(){
         int total = 0;
         for (int i = 0;i<Utils.order.getOrder().size();i++){
             total = total+  Integer.valueOf(Utils.order.getOrder().get(i).getTotal());

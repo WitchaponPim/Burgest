@@ -48,6 +48,7 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
         super(a);
         // TODO Auto-generated constructor stub
         this.orderBean = orderBean;
+
         this.position = position;
         this.c = a;
     }
@@ -76,8 +77,9 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
         name.setText(getname(orderBean.getId_product()));
         price.setText(orderBean.getPrice() + " ฿");
         qty.setText(orderBean.getQty());
-
-
+        Picasso.with(c)
+                .load(Utils.ipPic + orderBean.getPath())
+                .into(proImg);
         yes.setOnClickListener(this);
         no.setOnClickListener(this);
 
@@ -156,7 +158,7 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
         return veg;
     }
 
-    public String getname(String name) {
+    public static String getname(String name) {
         String productname = null;
 
         switch (name) {

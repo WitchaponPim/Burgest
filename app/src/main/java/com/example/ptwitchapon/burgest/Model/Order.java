@@ -50,6 +50,15 @@ public class Order {
         private String id_promotion;
         private String comment;
         private String sauce;
+        private String path;
+
+        public String getPath() {
+            return path;
+        }
+
+        public void setPath(String path) {
+            this.path = path;
+        }
 
         public String getTotal() {
             return total;

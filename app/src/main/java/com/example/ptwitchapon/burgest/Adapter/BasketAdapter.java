@@ -2,6 +2,7 @@ package com.example.ptwitchapon.burgest.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ptwitchapon.burgest.BasketActivity;
 import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Product;
@@ -64,6 +66,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
 
 
 
+
         holder.linearLayout.setVisibility(View.GONE);
 
         //if the position is equals to the item position which is to be expanded
@@ -93,6 +96,22 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
                 listener.onItemClick(listbean,position);
             }
         });
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                order.getOrder().remove(position);
+                Utils.order = order;
+
+                holder.txttotal.setText(String.valueOf(BasketActivity.gettotal())+" ฿");
+
+//                activity.startActivity(new Intent(activity,BasketActivity.class));
+//                activity.finish();
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, order.getOrder().size());
+
+            }
+        });
+
     }
 
     @Override
@@ -101,13 +120,14 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
     }
 
     class FollowViewHolder extends RecyclerView.ViewHolder {
-        TextView ordername,price,Pname,total;
-        ImageView imageView;
+        TextView ordername,price,Pname,total,txttotal;
+        ImageView delete;
         LinearLayout linearLayout,list_item;
         Button edit;
 
         FollowViewHolder(View itemView) {
             super(itemView);
+            txttotal = (TextView) activity.findViewById(R.id.totaltxt);
             ordername = (TextView) itemView.findViewById(R.id.ordername);
             Pname = (TextView) itemView.findViewById(R.id.typename);
             price = (TextView) itemView.findViewById(R.id.price);
@@ -115,6 +135,8 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
             total = (TextView) itemView.findViewById(R.id.total);
             list_item = (LinearLayout) itemView.findViewById(R.id.list_item) ;
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
+            delete = (ImageView) itemView.findViewById(R.id.delete);
+
         }
     }
 

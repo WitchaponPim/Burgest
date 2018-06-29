@@ -72,12 +72,14 @@ public class CustomDialog_water extends Dialog implements View.OnClickListener {
                     int total = Integer.valueOf(qty.getText().toString())*Integer.valueOf(products.getPrice());
                     Utils.object2.put("total", String.valueOf(total));
                     Utils.object2.put("id_promotion", "1");
+                    Utils.object2.put("path",products.getPath());
 
                     Utils.orderbean.setId_product(products.getId_product());
                     Utils.orderbean.setPrice(products.getPrice());
                     Utils.orderbean.setQty(qty.getText().toString());
                     Utils.orderbean.setTotal(String.valueOf(total));
                     Utils.orderbean.setId_promotion("1");
+                    Utils.orderbean.setPath(products.getPath());
 
                     Utils.orderbanlist.add(Utils.orderbean);
 
