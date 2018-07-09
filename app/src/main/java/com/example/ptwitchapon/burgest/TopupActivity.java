@@ -118,30 +118,36 @@ public class TopupActivity extends AppCompatActivity {
     }
 
     public void upload(String amount){
-        final String TAG ="Upload";
-        Log.d(TAG, "upload: ");
-        RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        if(file!=null&&!this.amount.getText().equals("")){
+            final String TAG ="Upload";
+            Log.d(TAG, "upload: ");
+            RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpeg"), file);
 
-        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("image", file.getName(), requestBody );
+            MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("image", file.getName(), requestBody );
 
-        RequestBody idmember = RequestBody.create(MediaType.parse("text/plain"), Utils.user.getChecklogin().getId_member());
-        RequestBody amountt = RequestBody.create(MediaType.parse("text/plain"), amount);
-        RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+            RequestBody idmember = RequestBody.create(MediaType.parse("text/plain"), Utils.user.getChecklogin().getId_member());
+            RequestBody amountt = RequestBody.create(MediaType.parse("text/plain"), amount);
+            RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), file.getName());
 
-        APIService2 getResponse = ConnectTopup.getClient().create(APIService2.class);
-        Call<AddTopupModel> call = getResponse.uploadFile(idmember,amountt,fileToUpload, filename);
-        call.enqueue(new Callback<AddTopupModel>() {
-            @Override
-            public void onResponse(Call<AddTopupModel> call, Response<AddTopupModel> response) {
-                Utils.toast(getApplicationContext(),response.body().getInsert().getDescription());
-                Log.d(TAG, "onResponse: "+response.body().getInsert().getDescription());
-                onBackPressed();
-            }
-            @Override
-            public void onFailure(Call<AddTopupModel> call, Throwable t) {
-                Utils.toast(getApplicationContext(),t.toString());
-                Log.d(TAG, "onFailure: "+t.toString());
-            }
-        });
+            APIService2 getResponse = ConnectTopup.getClient().create(APIService2.class);
+            Call<AddTopupModel> call = getResponse.uploadFile(idmember,amountt,fileToUpload, filename);
+            call.enqueue(new Callback<AddTopupModel>() {
+                @Override
+                public void onResponse(Call<AddTopupModel> call, Response<AddTopupModel> response) {
+                    Utils.toast(getApplicationContext(),response.body().getInsert().getDescription());
+                    Log.d(TAG, "onResponse: "+response.body().getInsert().getDescription());
+                    onBackPressed();
+                }
+                @Override
+                public void onFailure(Call<AddTopupModel> call, Throwable t) {
+                    Utils.toast(getApplicationContext(),t.toString());
+                    Log.d(TAG, "onFailure: "+t.toString());
+                }
+            });
+        }else {
+            Utils.toast(getApplicationContext(),"ใส่จำนวนเงินกับอัพสลิปด้วยจ๊ะ");
+        }
+
+
     }
 }

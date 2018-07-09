@@ -124,14 +124,22 @@ public class BasketActivity extends AppCompatActivity {
                     if (Double.valueOf(Utils.user.getChecklogin().getCash())<gettotal()){
                         Utils.toast(getApplicationContext(),"กรุณาเติมเงินในระบบก่อนครับ");
                     }else {
-                        Gson g = new Gson();
-                        String jsonString = g.toJson(Utils.order.getOrder());
-                        sb = new StringBuffer("{\"order\":");
-                        sb.append(jsonString);
-                        sb.append(",\"id_member\":\""+Utils.user.getChecklogin().getId_member()+"\"}");
-                        Log.d("Ammy", "onCreate: "+sb.toString());
+
+                        if (Double.valueOf(Utils.mylattitude) > 13.761519 && Double.valueOf(Utils.mylongitude) > 100.548816&&Double.valueOf(Utils.mylattitude) < 13.787612 && Double.valueOf(Utils.mylongitude) < 100.576368) {
+                            Gson g = new Gson();
+                            String jsonString = g.toJson(Utils.order.getOrder());
+                            sb = new StringBuffer("{\"order\":");
+                            sb.append(jsonString);
+                            sb.append(",\"id_member\":\""+Utils.user.getChecklogin().getId_member()+"\"}");
+                            Log.d("Ammy", "onCreate: "+sb.toString());
 //                        connectManager.order(orderCallback,Utils.object.toString());
-                        connectManager.order(orderCallback,sb.toString());
+                            connectManager.order(orderCallback,sb.toString());
+
+                        }else {
+                            Utils.toast(getApplicationContext(), "เกินพื้นที่ที่กำหนด ไม่สามารถสั่งซื้อได้");
+                        }
+
+
                     }
 //                }
 //                else{
@@ -157,8 +165,8 @@ public class BasketActivity extends AppCompatActivity {
 
         onBackPressed();
 
-
     }
+
     public static int gettotal(){
         int total = 0;
         for (int i = 0;i<Utils.order.getOrder().size();i++){

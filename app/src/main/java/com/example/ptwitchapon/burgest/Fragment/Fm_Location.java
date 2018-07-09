@@ -51,7 +51,6 @@ public class Fm_Location extends Fragment implements OnMapReadyCallback ,Locatio
     LocationManager locationManager;
     String lattitude,longitude;
 
-    GPSTracker gpsTracker = new GPSTracker(getContext());
     public static Fm_Location newInstance() {
         return new Fm_Location();
     }
@@ -108,7 +107,7 @@ public class Fm_Location extends Fragment implements OnMapReadyCallback ,Locatio
                 .color(getResources().getColor(R.color.colorPrimary));
         mMap.addPolyline(rectLine);
 
-        mMap.addMarker(new MarkerOptions().position(me).title("Hey I'm Here").snippet("Hello myfriend"));
+        mMap.addMarker(new MarkerOptions().position(me).title("I'm Here").snippet("Hello myfriend"));
 
         mMap.addMarker(new MarkerOptions().position(burgest).title("Burgest").snippet("The Burgest Delivery"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(me));
@@ -166,8 +165,11 @@ public class Fm_Location extends Fragment implements OnMapReadyCallback ,Locatio
             if(location != null){
                 double latti = location.getLatitude();
                 double longi = location.getLongitude();
+                Utils.mylattitude = String.valueOf(latti);
+                Utils.mylongitude = String.valueOf(longi);
                 lattitude = String.valueOf(latti);
                 longitude =String.valueOf(longi);
+
                 Log.d("Latitude", "getLocation: "+lattitude +" , "+longitude);
             }
             else{

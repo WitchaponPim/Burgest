@@ -59,6 +59,8 @@ public class Utils {
 
     public static User user;
 
+    public static String mylattitude,mylongitude;
+
     public static String ipHost ="http://burgest.apidech.com/inc/";
     public static String ipTopupPic = "http://burgest.apidech.com/paymentimg/";
 

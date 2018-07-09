@@ -27,6 +27,7 @@ import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.TabActivity;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.example.ptwitchapon.burgest.TopupActivity;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,10 +116,7 @@ public class OtherFM extends Fragment {
                             getActivity().finish();
                             break;
                         case "Scan QR":
-                            intent =
-                                    new Intent("com.google.zxing.client.android.SCAN");
-                            startActivityForResult(Intent.createChooser(intent
-                                    , "Scan with"), REQUEST_QR_SCAN);
+                            new IntentIntegrator(getActivity()).initiateScan();
                             break;
                         case "Account":
                             Intent intent2 = new Intent(getContext(), AccountActivity.class);
