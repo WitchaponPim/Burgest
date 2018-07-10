@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
                     android:checked="true"
-                    android:text="onion" />
+                    android:text="Onion" />
 
                 <CheckBox
                     android:id="@+id/c2"
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
                     android:checked="true"
-                    android:text="lettus" />
+                    android:text="Lettus" />
             </LinearLayout>
 
             <LinearLayout
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
                     android:checked="true"
-                    android:text="tomato" />
+                    android:text="Tomato" />
 
                 <CheckBox
                     android:id="@+id/c4"
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
                     android:checked="true"
-                    android:text="cucumber" />
+                    android:text="Cucumber" />
             </LinearLayout>
 
             <LinearLayout
@@ -118,7 +118,7 @@
                             android:id="@+id/r1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="tomato Sauce" />
+                            android:text="tomato sauce" />
                         <RadioButton
                             android:id="@+id/r2"
                             android:layout_width="wrap_content"
@@ -162,20 +162,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight=".5"
-                            android:text="EGG 10฿" />
+                            android:text="Egg 10฿" />
 
                         <CheckBox
                             android:id="@+id/ex2"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight=".5"
-                            android:text="CHEESE 10฿" />
+                            android:text="Cheese 10฿" />
                         <CheckBox
                             android:id="@+id/ex3"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_weight=".5"
-                            android:text="BACON 10฿" />
+                            android:text="Bacon 10฿" />
                     </LinearLayout>
                 </LinearLayout>
 

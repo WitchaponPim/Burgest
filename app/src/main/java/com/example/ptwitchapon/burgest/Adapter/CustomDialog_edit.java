@@ -25,6 +25,8 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 /**
  * Created by Killy77 on 27/4/2561.
  */
@@ -34,10 +36,12 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
     public Activity c;
     public Dialog d;
     public Button yes, no;
+    String[] extraarray;
+    String[] vegarray;
     int position;
     String sauce;
-    CheckBox c1, c2, c3, c4;
-    String veg;
+    CheckBox c1, c2, c3, c4,ex1,ex2,ex3;
+    String veg,extra;
     TextView name, price;
     EditText qty, comment;
     RadioButton r1, r2, r3, r4;
@@ -48,7 +52,6 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
         super(a);
         // TODO Auto-generated constructor stub
         this.orderBean = orderBean;
-
         this.position = position;
         this.c = a;
     }
@@ -73,9 +76,86 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
         c2 = (CheckBox) findViewById(R.id.c2);
         c3 = (CheckBox) findViewById(R.id.c3);
         c4 = (CheckBox) findViewById(R.id.c4);
-
+        ex1 =(CheckBox) findViewById(R.id.ex1);
+        ex2 =(CheckBox) findViewById(R.id.ex2);
+        ex3 =(CheckBox) findViewById(R.id.ex3);
+        c1.setChecked(false);
+        c2.setChecked(false);
+        c3.setChecked(false);
+        c4.setChecked(false);
         name.setText(getname(orderBean.getId_product()));
         price.setText(orderBean.getPrice() + " ฿");
+        if(!orderBean.getComment().isEmpty()){
+            comment.setText(orderBean.getComment());
+        }
+        if (!orderBean.getSauce().isEmpty()){
+            switch (orderBean.getSauce()){
+                case "tomato sauce":
+                    r1.setChecked(true);
+                    break;
+                case "mayonnaise sauce":
+                    r2.setChecked(true);
+                    break;
+                case "blackpaper sauce":
+                    r3.setChecked(true);
+                    break;
+                case "thousand sauce":
+                    r4.setChecked(true);
+                    break;
+            }
+
+        }
+
+        if (!orderBean.getExtra().isEmpty()){
+            extraarray = orderBean.getExtra().split("\\|");
+            for (int i=0;i<extraarray.length;i++){
+                Log.d("EditDialog", "onCreate: "+extraarray[i]);
+                switch (extraarray[i]){
+                    case "Egg":
+                        ex1.setChecked(true);
+                        break;
+                    case "Cheese":
+                        ex2.setChecked(true);
+                        break;
+                    case "Bacon":
+                        ex3.setChecked(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        if (!orderBean.getVeg().isEmpty()){
+            vegarray = orderBean.getVeg().split("\\|");
+            for (int i=0;i<vegarray.length;i++){
+                Log.d("EditDialog", "onCreate: "+vegarray[i]);
+                switch (vegarray[i]){
+                    case "Onion":
+                        c1.setChecked(true);
+                        break;
+                    case "Lettus":
+                        c2.setChecked(true);
+                        break;
+                    case "Tomato":
+                        c3.setChecked(true);
+                        break;
+                    case "Cucumber":
+                        c4.setChecked(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
         qty.setText(orderBean.getQty());
         Picasso.with(c)
                 .load(Utils.ipPic + orderBean.getPath())
@@ -109,6 +189,9 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
                 Utils.orderbean.setComment(comment.getText().toString());
                 Utils.orderbean.setSauce(getsauce());
                 Utils.orderbean.setVeg(getVeg());
+                Utils.orderbean.setExtra(getExtra());
+                Utils.orderbean.setPath(orderBean.getPath());
+
                 Utils.orderbanlist.set(position,Utils.orderbean);
                 c.startActivity(new Intent(c,BasketActivity.class));
                 c.finish();
@@ -141,23 +224,82 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
 
     public String getVeg() {
         StringBuffer add = new StringBuffer();
-
+        boolean f =true;
         if (c1.isChecked()) {
-            add.append(c1.getText().toString());
+            if (f){
+                add.append(c1.getText().toString());
+                f = false;
+            }else {
+                add.append("|" + c1.getText().toString());
+            }
         }
+
         if (c2.isChecked()) {
-            add.append(" " + c2.getText().toString());
+            if (f){
+                add.append(c2.getText().toString());
+                f = false;
+            }else {
+                add.append("|" + c2.getText().toString());
+            }
         }
+
         if (c3.isChecked()) {
-            add.append(" " + c3.getText().toString());
+            if (f){
+                add.append(c3.getText().toString());
+                f = false;
+            }else {
+                add.append("|" + c3.getText().toString());
+            }
         }
+
         if (c4.isChecked()) {
-            add.append(" " + c4.getText().toString());
+            if (f){
+                add.append(c4.getText().toString());
+                f = false;
+            }else {
+                add.append("|" + c4.getText().toString());
+            }
         }
+
         veg = add.toString();
+        Log.d("Veg", "getVeg: "+veg);
         return veg;
     }
 
+    public String getExtra() {
+        StringBuffer add = new StringBuffer();
+        boolean f =true;
+        if (ex1.isChecked()) {
+            if (f){
+                add.append(ex1.getText().toString());
+                f = false;
+            }else {
+                add.append("|" + ex1.getText().toString());
+            }
+        }
+
+        if (ex2.isChecked()) {
+            if (f){
+                add.append(ex2.getText().toString());
+                f = false;
+            }else {
+                add.append("|" + ex2.getText().toString());
+            }
+        }
+
+        if (ex3.isChecked()) {
+            if (f){
+                add.append(ex3.getText().toString());
+                f = false;
+            }else {
+                add.append("|" + ex3.getText().toString());
+            }
+        }
+
+        extra = add.toString();
+        Log.d("Veg", "getVeg: "+veg);
+        return extra.replace(" 10฿","");
+    }
     public static String getname(String name) {
         String productname = null;
 

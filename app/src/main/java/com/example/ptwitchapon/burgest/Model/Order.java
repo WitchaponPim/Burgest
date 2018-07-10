@@ -12,6 +12,25 @@ public class Order {
      * id_member : 2
      */
     private String id_member;
+    private String lat;
+    private String lng;
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
     private List<OrderBean> order;
 
     public String getId_member() {
@@ -44,6 +63,7 @@ public class Order {
 
         private String total;
         private String veg;
+        private String extra;
         private String price;
         private String id_product;
         private String qty;
@@ -51,6 +71,14 @@ public class Order {
         private String comment;
         private String sauce;
         private String path;
+
+        public String getExtra() {
+            return extra;
+        }
+
+        public void setExtra(String extra) {
+            this.extra = extra;
+        }
 
         public String getPath() {
             return path;

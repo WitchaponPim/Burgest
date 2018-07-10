@@ -64,7 +64,7 @@ public class BasketActivity extends AppCompatActivity {
             Utils.array = new JSONArray();
             Utils.orderbanlist = new ArrayList<>();
             Utils.order = new Order();
-            Utils.toast(getApplicationContext(),"Order success");
+            Utils.toast(getApplicationContext(), "Order success");
             onBackPressed();
         }
 
@@ -75,7 +75,7 @@ public class BasketActivity extends AppCompatActivity {
 
         @Override
         public void onBodyError(ResponseBody responseBody) {
-            Log.d(TAG, "onBodyError: "+responseBody.toString());
+            Log.d(TAG, "onBodyError: " + responseBody.toString());
         }
 
         @Override
@@ -98,22 +98,22 @@ public class BasketActivity extends AppCompatActivity {
         adapter = new BasketAdapter(Utils.order, getApplicationContext(), this, new BasketAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Order.OrderBean orderlist, int position) {
-                Utils.toast(getApplicationContext(),orderlist.getId_product());
-                if (Integer.valueOf(orderlist.getId_product())>=35&&Integer.valueOf(orderlist.getId_product())<=39){
-                    CustomDialog_other_edit other=new CustomDialog_other_edit(BasketActivity.this,orderlist,position);
+                Utils.toast(getApplicationContext(), orderlist.getId_product());
+                if (Integer.valueOf(orderlist.getId_product()) >= 35 && Integer.valueOf(orderlist.getId_product()) <= 39) {
+                    CustomDialog_other_edit other = new CustomDialog_other_edit(BasketActivity.this, orderlist, position);
                     other.show();
-                }else if (Integer.valueOf(orderlist.getId_product())>=40&&Integer.valueOf(orderlist.getId_product())<=45){
-                    CustomDialog_water_edit water=new CustomDialog_water_edit(BasketActivity.this,orderlist,position);
+                } else if (Integer.valueOf(orderlist.getId_product()) >= 40 && Integer.valueOf(orderlist.getId_product()) <= 45) {
+                    CustomDialog_water_edit water = new CustomDialog_water_edit(BasketActivity.this, orderlist, position);
                     water.show();
-                }else {
-                    CustomDialog_edit cdd=new CustomDialog_edit(BasketActivity.this,orderlist,position);
+                } else {
+                    CustomDialog_edit cdd = new CustomDialog_edit(BasketActivity.this, orderlist, position);
                     cdd.show();
                 }
             }
         });
         orderlist.setAdapter(adapter);
 
-        txttotal.setText(String.valueOf(gettotal())+" ฿");
+        txttotal.setText(String.valueOf(gettotal()) + " ฿");
 
 
         pay.setOnClickListener(new View.OnClickListener() {
@@ -121,26 +121,26 @@ public class BasketActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                if(Utils.Checklocation(getLocation().latitude,getLocation().longitude)){
 
-                    if (Double.valueOf(Utils.user.getChecklogin().getCash())<gettotal()){
-                        Utils.toast(getApplicationContext(),"กรุณาเติมเงินในระบบก่อนครับ");
-                    }else {
+                if (Double.valueOf(Utils.user.getChecklogin().getCash()) < gettotal()) {
+                    Utils.toast(getApplicationContext(), "กรุณาเติมเงินในระบบก่อนครับ");
+                } else {
 
-                        if (Double.valueOf(Utils.mylattitude) > 13.761519 && Double.valueOf(Utils.mylongitude) > 100.548816&&Double.valueOf(Utils.mylattitude) < 13.787612 && Double.valueOf(Utils.mylongitude) < 100.576368) {
-                            Gson g = new Gson();
-                            String jsonString = g.toJson(Utils.order.getOrder());
-                            sb = new StringBuffer("{\"order\":");
-                            sb.append(jsonString);
-                            sb.append(",\"id_member\":\""+Utils.user.getChecklogin().getId_member()+"\"}");
-                            Log.d("Ammy", "onCreate: "+sb.toString());
+//                    if (Double.valueOf(Utils.mylattitude) > 13.761519 && Double.valueOf(Utils.mylongitude) > 100.548816 && Double.valueOf(Utils.mylattitude) < 13.787612 && Double.valueOf(Utils.mylongitude) < 100.576368) {
+                        Gson g = new Gson();
+                        String jsonString = g.toJson(Utils.order.getOrder());
+                        sb = new StringBuffer("{\"order\":");
+                        sb.append(jsonString);
+                        sb.append(",\"id_member\":\"" + Utils.user.getChecklogin().getId_member() + "\",\"lat\":\""+Utils.lat1+"\",\"lng\":\"" + Utils.lng1 + "\"}");
+                        Log.d("Ammy", "onCreate: " + sb.toString());
 //                        connectManager.order(orderCallback,Utils.object.toString());
-                            connectManager.order(orderCallback,sb.toString());
+//                        connectManager.order(orderCallback,sb.toString());
 
-                        }else {
-                            Utils.toast(getApplicationContext(), "เกินพื้นที่ที่กำหนด ไม่สามารถสั่งซื้อได้");
-                        }
+//                    } else {
+//                        Utils.toast(getApplicationContext(), "เกินพื้นที่ที่กำหนด ไม่สามารถสั่งซื้อได้");
+//                    }
 
 
-                    }
+                }
 //                }
 //                else{
 //
@@ -151,7 +151,6 @@ public class BasketActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     @Override
@@ -159,7 +158,7 @@ public class BasketActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    public void addOn(View view){
+    public void addOn(View view) {
 
         Utils.addup = true;
 
@@ -167,10 +166,10 @@ public class BasketActivity extends AppCompatActivity {
 
     }
 
-    public static int gettotal(){
+    public static int gettotal() {
         int total = 0;
-        for (int i = 0;i<Utils.order.getOrder().size();i++){
-            total = total+  Integer.valueOf(Utils.order.getOrder().get(i).getTotal());
+        for (int i = 0; i < Utils.order.getOrder().size(); i++) {
+            total = total + Integer.valueOf(Utils.order.getOrder().get(i).getTotal());
         }
         return total;
     }
