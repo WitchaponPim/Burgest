@@ -3,6 +3,7 @@ package com.example.ptwitchapon.burgest.Fragment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.example.ptwitchapon.burgest.AR.ARActivity;
 import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.TabActivity;
 import com.example.ptwitchapon.burgest.Tool.GPSTracker;
@@ -42,7 +44,7 @@ import java.util.ArrayList;
  * Created by Killy77 on 17/6/2561.
  */
 
-public class Fm_Location extends Fragment implements OnMapReadyCallback ,LocationListener {
+public class Fm_Location extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     EditText searchView;
 
@@ -64,7 +66,12 @@ public class Fm_Location extends Fragment implements OnMapReadyCallback ,Locatio
         button = (Button) v.findViewById(R.id.button);
 
 //        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
-
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AR();
+            }
+        });
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             Utils.toast(getContext(),"GPS not Support");
@@ -178,25 +185,9 @@ public class Fm_Location extends Fragment implements OnMapReadyCallback ,Locatio
         }
 
     }
-    @Override
-    public void onLocationChanged(Location location) {
-        Log.d("Latitude", "onLocationChanged: "+location.getLatitude() +" + "+location.getLongitude());
-
+    public void AR(){
+        startActivity(new Intent(getActivity(), ARActivity.class));
     }
 
-    @Override
-    public void onProviderDisabled(String provider) {
-        Log.d("Latitude","disable");
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-        Log.d("Latitude","enable");
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.d("Latitude","status");
-    }
 }
 

@@ -35,13 +35,16 @@ public class SelectTypeActivity extends AppCompatActivity {
             public void onItemClick(int position, String menu) {
                 switch (position){
                     case 0:
+                        //member
                         startActivity(new Intent(SelectTypeActivity.this,SplashActivity.class));
                         finish();
                         break;
                     case 1:
+                        //driver
 
                         break;
                     case 2:
+                        //member
                         startActivity(new Intent(SelectTypeActivity.this,ManageActivity.class));
                         finish();
                         break;
