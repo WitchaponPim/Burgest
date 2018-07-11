@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -35,14 +38,14 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
 
     public Activity c;
     public Dialog d;
-    public Button yes, no;
+    public Button yes, no,add,del;
     String[] extraarray;
     String[] vegarray;
-    int position;
+    int p, exp, qtyp, total,position;
     String sauce;
-    CheckBox c1, c2, c3, c4,ex1,ex2,ex3;
-    String veg,extra;
-    TextView name, price;
+    CheckBox c1, c2, c3, c4, ex1, ex2, ex3;
+    String veg, extra, q;
+    TextView name, price, txtextra, txttotal;
     EditText qty, comment;
     RadioButton r1, r2, r3, r4;
     ImageView proImg;
@@ -63,9 +66,13 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
         setContentView(R.layout.form_burger);
         yes = (Button) findViewById(R.id.btn_ok);
         no = (Button) findViewById(R.id.btn_cancel);
+        add= (Button) findViewById(R.id.add);
+        del = (Button) findViewById(R.id.del);
         proImg = (ImageView) findViewById(R.id.proImg);
         name = (TextView) findViewById(R.id.name);
         price = (TextView) findViewById(R.id.price);
+        txtextra = (TextView) findViewById(R.id.extra);
+        txttotal = (TextView) findViewById(R.id.totalprice);
         qty = (EditText) findViewById(R.id.qty);
         comment = (EditText) findViewById(R.id.comment);
         r1 = (RadioButton) findViewById(R.id.r1);
@@ -76,18 +83,29 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
         c2 = (CheckBox) findViewById(R.id.c2);
         c3 = (CheckBox) findViewById(R.id.c3);
         c4 = (CheckBox) findViewById(R.id.c4);
-        ex1 =(CheckBox) findViewById(R.id.ex1);
-        ex2 =(CheckBox) findViewById(R.id.ex2);
-        ex3 =(CheckBox) findViewById(R.id.ex3);
+        ex1 = (CheckBox) findViewById(R.id.ex1);
+        ex2 = (CheckBox) findViewById(R.id.ex2);
+        ex3 = (CheckBox) findViewById(R.id.ex3);
+
         c1.setChecked(false);
         c2.setChecked(false);
         c3.setChecked(false);
         c4.setChecked(false);
+
+        q = qty.getText().toString();
+        qtyp = Integer.valueOf(q);
+        p = Integer.valueOf(orderBean.getPrice());
+        total = Integer.valueOf(p * qtyp);
+
         name.setText(getname(orderBean.getId_product()));
-        price.setText(orderBean.getPrice() + " ฿");
+
+        setAlltext();
+
+
         if(!orderBean.getComment().isEmpty()){
             comment.setText(orderBean.getComment());
         }
+
         if (!orderBean.getSauce().isEmpty()){
             switch (orderBean.getSauce()){
                 case "tomato sauce":
@@ -147,21 +165,76 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
                 }
             }
         }
-
-
-
-
-
-
-
-
-
         qty.setText(orderBean.getQty());
-        Picasso.with(c)
-                .load(Utils.ipPic + orderBean.getPath())
-                .into(proImg);
+        qty.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String a;
+                if (charSequence.toString().isEmpty()) {
+                    charSequence = "0";
+                    a = String.valueOf(charSequence);
+                    q = a;
+                    qtyp = Integer.valueOf(q);
+                    total = qtyp * p;
+                    setAlltext();
+                } else {
+                    a = String.valueOf(charSequence);
+                    q = a;
+                    qtyp = Integer.valueOf(q);
+                    total = qtyp * p;
+                    setAlltext();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        ex1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                setAlltext();
+            }
+        });
+        ex2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                setAlltext();
+            }
+        });
+        ex3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                setAlltext();
+            }
+        });
+
+        add.setOnClickListener(this);
+        del.setOnClickListener(this);
         yes.setOnClickListener(this);
         no.setOnClickListener(this);
+
+    }
+
+    public void setAlltext() {
+        price.setText(total + " ฿");
+        qtyp = Integer.valueOf(q);
+        exp = getexp() * qtyp;
+        if (ex1.isChecked() || ex2.isChecked() || ex3.isChecked()) {
+            txtextra.setVisibility(View.VISIBLE);
+            txtextra.setText(" + " + exp + " ฿");
+            txttotal.setText(String.valueOf(total + exp) + " ฿");
+        } else {
+            txtextra.setVisibility(View.GONE);
+            txttotal.setVisibility(View.GONE);
+        }
+
 
     }
 
@@ -183,14 +256,24 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
                 Utils.orderbean.setId_product(orderBean.getId_product());
                 Utils.orderbean.setPrice(orderBean.getPrice());
                 Utils.orderbean.setQty(qty.getText().toString());
-                int total = Integer.valueOf(qty.getText().toString()) * Integer.valueOf(orderBean.getPrice());
-                Utils.orderbean.setTotal(String.valueOf(total));
+                Utils.orderbean.setTotal(String.valueOf(total+exp));
                 Utils.orderbean.setId_promotion("1");
                 Utils.orderbean.setComment(comment.getText().toString());
                 Utils.orderbean.setSauce(getsauce());
                 Utils.orderbean.setVeg(getVeg());
                 Utils.orderbean.setExtra(getExtra());
                 Utils.orderbean.setPath(orderBean.getPath());
+
+//                Utils.orderbean.setId_product(products.getId_product());
+//                Utils.orderbean.setPrice(products.getPrice());
+//                Utils.orderbean.setQty(qty.getText().toString());
+//                Utils.orderbean.setTotal(String.valueOf(total+exp));
+//                Utils.orderbean.setId_promotion("1");
+//                Utils.orderbean.setComment(comment.getText().toString());
+//                Utils.orderbean.setSauce(getsauce());
+//                Utils.orderbean.setVeg(getVeg());
+//                Utils.orderbean.setExtra(getExtra());
+//                Utils.orderbean.setPath(products.getPath());
 
                 Utils.orderbanlist.set(position,Utils.orderbean);
                 c.startActivity(new Intent(c,BasketActivity.class));
@@ -458,4 +541,44 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
 
         return productname;
     }
+    public int getexp() {
+        if (ex1.isChecked() || ex2.isChecked() || ex3.isChecked()) {
+            txttotal.setVisibility(View.VISIBLE);
+            if (ex1.isChecked()) {
+                exp = 10;
+            }
+
+            if (ex2.isChecked()) {
+                exp = 10;
+            }
+
+            if (ex3.isChecked()) {
+                exp = 10;
+            }
+
+            if (ex1.isChecked() && ex2.isChecked()) {
+                exp = 20;
+            }
+
+            if (ex1.isChecked() && ex3.isChecked()) {
+                exp = 20;
+            }
+
+            if (ex2.isChecked() && ex3.isChecked()) {
+                exp = 20;
+            }
+
+            if (ex1.isChecked() && ex2.isChecked() && ex3.isChecked()) {
+                exp = 30;
+            }
+
+        } else {
+            exp = 0;
+//            txttotal.setVisibility(View.GONE);
+        }
+
+
+        return exp;
+    }
+
 }
