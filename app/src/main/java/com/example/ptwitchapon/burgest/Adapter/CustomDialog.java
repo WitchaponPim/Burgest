@@ -25,6 +25,7 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 /**
  * Created by Killy77 on 27/4/2561.
@@ -35,11 +36,12 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
     public Activity c;
     public Dialog d;
     public Button yes, no;
-    int p,exp;
+    int p,exp,qtyp,total;
+
     String sauce;
     CheckBox c1, c2, c3, c4,ex1,ex2,ex3;
-    String veg,extra;
-    TextView name, price;
+    String veg,extra,q;
+    TextView name, price,txtextra,txttotal;
     EditText qty, comment;
     RadioButton r1, r2, r3, r4;
     ImageView proImg;
@@ -63,6 +65,8 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
         proImg = (ImageView) findViewById(R.id.proImg);
         name = (TextView) findViewById(R.id.name);
         price = (TextView) findViewById(R.id.price);
+        txtextra = (TextView) findViewById(R.id.extra);
+        txttotal = (TextView) findViewById(R.id.totalprice);
         qty = (EditText) findViewById(R.id.qty);
         comment = (EditText) findViewById(R.id.comment);
         r1 = (RadioButton) findViewById(R.id.r1);
@@ -77,12 +81,17 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
         ex2 =(CheckBox) findViewById(R.id.ex2);
         ex3 =(CheckBox) findViewById(R.id.ex3);
 
+        q = qty.getText().toString();
+        qtyp = Integer.valueOf(q);
+        p = Integer.valueOf(products.getPrice());
+        total = Integer.valueOf(p*qtyp);
+
+
+
         name.setText(products.getProductName());
-        p = Integer.valueOf(products.getPrice())+getexp();
-
-        price.setText(String.valueOf(p) + " ฿");
 
 
+        setAlltext();
         Picasso.with(c)
                 .load(Utils.ipPic + products.getPath())
                 .into(proImg);
@@ -96,12 +105,16 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
                 if (charSequence.toString().isEmpty()){
                     charSequence="0";
                     a = String.valueOf(charSequence);
-                    p =(Integer.valueOf(a)*Integer.valueOf(products.getPrice()))+getexp();
-                    price.setText(p+ " ฿");
+                    q=a;
+                    qtyp = Integer.valueOf(q);
+                    total =qtyp*p;
+                    setAlltext();
                 }else {
                     a = String.valueOf(charSequence);
-                    p =(Integer.valueOf(a)*Integer.valueOf(products.getPrice()))+getexp();
-                    price.setText(p+ " ฿");
+                    q=a;
+                    qtyp = Integer.valueOf(q);
+                    total =qtyp*p;
+                    setAlltext();
                 }
             }
 
@@ -110,70 +123,48 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
 
             }
         });
-//        ex1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if (b){
-//                    p = (Integer.valueOf(qty.getText().toString())*Integer.valueOf(products.getPrice()))+getexp();
-//                    price.setText(String.valueOf(p) + " ฿");
-//                }else {
-//                    p = (Integer.valueOf(qty.getText().toString())*Integer.valueOf(products.getPrice()))+getexp();
-//                    price.setText(String.valueOf(p) + " ฿");
-//                }
-//            }
-//        });
-//        ex2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if (b){
-//                    p = (Integer.valueOf(qty.getText().toString())*Integer.valueOf(products.getPrice()))+getexp();
-//                    price.setText(String.valueOf(p) + " ฿");
-//                }else {
-//                    p = (Integer.valueOf(qty.getText().toString())*Integer.valueOf(products.getPrice()))+getexp();
-//                    price.setText(String.valueOf(p) + " ฿");
-//                }
-//            }
-//        });
-//        ex3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if (b){
-//                    p = (Integer.valueOf(qty.getText().toString())*Integer.valueOf(products.getPrice()))+getexp();
-//                    price.setText(String.valueOf(p) + " ฿");
-//                }else {
-//                    p = (Integer.valueOf(qty.getText().toString())*Integer.valueOf(products.getPrice()))+getexp();
-//                    price.setText(String.valueOf(p) + " ฿");
-//                }
-//            }
-//        });
-//
-//
-//        qty.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                String a;
-//                if (charSequence.toString().isEmpty()){
-//                    charSequence="0";
-//                    a = String.valueOf(charSequence);
-//                    p =(Integer.valueOf(a)*Integer.valueOf(products.getPrice()))+getexp();
-//                    price.setText(p+ " ฿");
-//                }else {
-//                    a = String.valueOf(charSequence);
-//                    p =(Integer.valueOf(a)*Integer.valueOf(products.getPrice()))+getexp();
-//                    price.setText(p+ " ฿");
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
+        ex1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                setAlltext();
+            }
+        });
+        ex2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                setAlltext();
+            }
+        });
+        ex3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                setAlltext();
+            }
+        });
+
+
         yes.setOnClickListener(this);
         no.setOnClickListener(this);
+
+    }
+
+    public void setAlltext(){
+        price.setText(total + " ฿");
+        qtyp = Integer.valueOf(q);
+        exp = getexp()*qtyp;
+        if(ex1.isChecked()||ex2.isChecked()||ex3.isChecked()){
+            txtextra.setVisibility(View.VISIBLE);
+            txtextra.setText(" + "+exp+" ฿");
+            txttotal.setText(String.valueOf(total+exp)+" ฿");
+        }else {
+            txtextra.setVisibility(View.GONE);
+            txttotal.setVisibility(View.GONE);
+        }
+
+
 
     }
 
@@ -329,8 +320,10 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
         Log.d("Veg", "getVeg: "+veg);
         return extra.replace(" 10฿","");
     }
+
     public int getexp(){
         if (ex1.isChecked()||ex2.isChecked()||ex3.isChecked()){
+            txttotal.setVisibility(View.VISIBLE);
             if (ex1.isChecked()) {
                 exp = 10;
             }
@@ -358,8 +351,10 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
             if (ex1.isChecked()&&ex2.isChecked()&&ex3.isChecked()) {
                 exp = 30;
             }
+
         }else {
             exp =0;
+//            txttotal.setVisibility(View.GONE);
         }
 
 
