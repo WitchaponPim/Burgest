@@ -26,6 +26,8 @@ import com.example.ptwitchapon.burgest.Model.OrderResponse;
 import com.example.ptwitchapon.burgest.Model.Product;
 import com.example.ptwitchapon.burgest.Model.User;
 import com.example.ptwitchapon.burgest.Tool.Utils;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.okhttp.ResponseBody;
 
 import org.json.JSONArray;
@@ -109,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         register = (TextView) findViewById(R.id.regis);
         user = (EditText) findViewById(R.id.user);
         pass = (EditText) findViewById(R.id.pass);
-
+        Log.i("MyTokeneiei", FirebaseInstanceId.getInstance().getToken());
         connect.login (loginCallback,"o@a.com","1234");
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +128,18 @@ public class LoginActivity extends AppCompatActivity {
         a = user.getText().toString();
         b = pass.getText().toString();
 //        connect.login(loginCallback,a,b);
+    }
+
+
+    public void subscribe(View view) {
+
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
+
+    }
+    public void unsubscribe(View view) {
+
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("news");
+
     }
 
 

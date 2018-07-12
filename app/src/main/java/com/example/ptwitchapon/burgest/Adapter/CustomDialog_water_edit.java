@@ -89,6 +89,6 @@ public class CustomDialog_water_edit extends Dialog implements View.OnClickListe
             default:
                 break;
         }
-        dismiss();
+
     }
 }

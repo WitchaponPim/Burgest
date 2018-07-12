@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "3065262688",
+    "firebase_url": "https://my-project-1526203227150.firebaseio.com",
+    "project_id": "my-project-1526203227150",
+    "storage_bucket": "my-project-1526203227150.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3065262688:android:b813834d1d74a226",
+        "android_client_info": {
+          "package_name": "com.example.ptwitchapon.burgest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3065262688-an2hej0reui5upll3vc70m9bohaji36m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLsVOz1_WQI3y-csK0SAzvNHc5QL-b2ZY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

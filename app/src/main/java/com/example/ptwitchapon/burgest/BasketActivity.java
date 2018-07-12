@@ -99,10 +99,10 @@ public class BasketActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Order.OrderBean orderlist, int position) {
                 Utils.toast(getApplicationContext(), orderlist.getId_product());
-                if (Integer.valueOf(orderlist.getId_product()) >= 35 && Integer.valueOf(orderlist.getId_product()) <= 39) {
+                if (Integer.valueOf(orderlist.getId_product()) >= 10035 && Integer.valueOf(orderlist.getId_product()) <= 10039) {
                     CustomDialog_other_edit other = new CustomDialog_other_edit(BasketActivity.this, orderlist, position);
                     other.show();
-                } else if (Integer.valueOf(orderlist.getId_product()) >= 40 && Integer.valueOf(orderlist.getId_product()) <= 45) {
+                } else if (Integer.valueOf(orderlist.getId_product()) >= 10040 && Integer.valueOf(orderlist.getId_product()) <= 10045) {
                     CustomDialog_water_edit water = new CustomDialog_water_edit(BasketActivity.this, orderlist, position);
                     water.show();
                 } else {
