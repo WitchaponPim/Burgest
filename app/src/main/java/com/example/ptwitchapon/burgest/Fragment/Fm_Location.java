@@ -33,6 +33,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -47,25 +49,26 @@ import java.util.ArrayList;
 public class Fm_Location extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     EditText searchView;
-
+    private Circle circle;
+    Location Burgest = new Location("Burgest");
     Button button;
     int REQUEST_LOCATION =1;
     LocationManager locationManager;
     String lattitude,longitude;
-
+    float distance;
     public static Fm_Location newInstance() {
         return new Fm_Location();
     }
 
 
-    @SuppressLint("MissingPermission")
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_location, container, false);
         button = (Button) v.findViewById(R.id.button);
 
-//        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+        //ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,34 +105,62 @@ public class Fm_Location extends Fragment implements OnMapReadyCallback {
         // Add a marker in Sydney and move the camera , ,
 
         LatLng burgest = new LatLng(13.775139, 100.562442);
+        Burgest.setLatitude(13.775139);
+        Burgest.setLongitude(100.562442);
+        Burgest.setAltitude(0);
         LatLng me = new LatLng(Double.valueOf(lattitude),Double.valueOf(longitude));
 
 
-        PolylineOptions rectLine = new PolylineOptions()
-                .add(new LatLng(13.761519, 100.548816))
-                .add(new LatLng(13.761519, 100.576368))
-                .add(new LatLng(13.787612, 100.576368))
-                .add(new LatLng(13.787612, 100.548816))
-                .add(new LatLng(13.761519, 100.548816))
-                .color(getResources().getColor(R.color.colorPrimary));
-        mMap.addPolyline(rectLine);
+//        PolylineOptions rectLine = new PolylineOptions()
+//                .add(new LatLng(13.761519, 100.548816))
+//                .add(new LatLng(13.761519, 100.576368))
+//                .add(new LatLng(13.787612, 100.576368))
+//                .add(new LatLng(13.787612, 100.548816))
+//                .add(new LatLng(13.761519, 100.548816))
+//                .color(getResources().getColor(R.color.colorPrimary));
+         circle = mMap.addCircle(new CircleOptions()
+                .center(new LatLng(13.775139, 100.562442))
+                .radius(4000)
+                .strokeWidth(10)
+                .strokeColor(getResources().getColor(R.color.colorPrimary))
+                .fillColor(Color.argb(128,201,126,29))
+                .clickable(true));
+        mMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
+
+            @Override
+            public void onCircleClick(Circle circle) {
+                // Flip the r, g and b components of the circle's
+                // stroke color.
+                Utils.toast(getContext(), "อยู่ในพื้นที่" +
+                        "");
+            }
+        });
+
 
         mMap.addMarker(new MarkerOptions().position(me).title("I'm Here").snippet("Hello myfriend"));
 
         mMap.addMarker(new MarkerOptions().position(burgest).title("Burgest").snippet("The Burgest Delivery"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(me));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(burgest.latitude, burgest.longitude), 14.0f));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(burgest.latitude, burgest.longitude), 12.5f));
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+                Location a = new Location("check");
+                a.setLatitude(latLng.latitude);
+                a.setLongitude(latLng.longitude);
+                a.setAltitude(0);
+                distance = a.distanceTo(Burgest);
 
-                if (latLng.latitude > 13.761519 && latLng.longitude > 100.548816&&latLng.latitude < 13.787612 && latLng.longitude < 100.576368) {
+//                if (latLng.latitude > 13.761519 && latLng.longitude > 100.548816&&latLng.latitude < 13.787612 && latLng.longitude < 100.576368) {
+//                    Utils.toast(getContext(), String.valueOf(latLng.latitude) + " , " + String.valueOf(latLng.longitude));
+//                }else {
+//                    Utils.toast(getContext(), "Out of area !!!!");
+//                }
+                if (distance<4000) {
                     Utils.toast(getContext(), String.valueOf(latLng.latitude) + " , " + String.valueOf(latLng.longitude));
-
                 }else {
                     Utils.toast(getContext(), "Out of area !!!!");
-
                 }
             }
         });

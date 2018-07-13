@@ -2,6 +2,7 @@ package com.example.ptwitchapon.burgest.AR;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -17,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -32,8 +34,8 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     private AROverlayView arOverlayView;
     private Camera camera;
     private ARCamera arCamera;
-    private TextView tvCurrentLocation;
-
+    private TextView tvCurrentLocation,notice;
+    Location burgest = new Location("Burgest");
     private SensorManager sensorManager;
     private final static int REQUEST_CAMERA_PERMISSIONS_CODE = 11;
     public static final int REQUEST_LOCATION_PERMISSIONS_CODE = 0;
@@ -51,11 +53,14 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar);
-
+        burgest.setLatitude(13.775139);
+        burgest.setLongitude(100.562442);
+        burgest.setAltitude(0);
         sensorManager = (SensorManager) this.getSystemService(SENSOR_SERVICE);
         cameraContainerLayout = (FrameLayout) findViewById(R.id.camera_container_layout);
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
         tvCurrentLocation = (TextView) findViewById(R.id.tv_current_location);
+        notice = (TextView) findViewById(R.id.notice);
         arOverlayView = new AROverlayView(this);
     }
 
@@ -225,6 +230,15 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
             arOverlayView.updateCurrentLocation(location);
             tvCurrentLocation.setText(String.format("lat: %s \nlon: %s \naltitude: %s \n",
                     location.getLatitude(), location.getLongitude(), location.getAltitude()));
+           float distance = burgest.distanceTo(location);
+           if(distance>4000){
+               notice.setVisibility(View.VISIBLE);
+               notice.setText("OUT OF AREA!!!");
+           }else{
+               notice.setVisibility(View.VISIBLE);
+               notice.setTextColor(Color.GREEN);
+               notice.setText("AREA AVAILABLE");
+           }
         }
     }
 

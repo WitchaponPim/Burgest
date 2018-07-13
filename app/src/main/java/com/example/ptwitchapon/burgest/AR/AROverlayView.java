@@ -25,6 +25,7 @@ public class AROverlayView extends View {
     private Location currentLocation;
     private List<ARPoint> arPoints;
     Location burgest = new Location("Burgest");
+
     float distance;
 
 
@@ -52,6 +53,7 @@ public class AROverlayView extends View {
     //time 1000
     public void updateCurrentLocation(Location currentLocation){
         this.currentLocation = currentLocation;
+
         this.invalidate();
         distance = this.currentLocation.distanceTo(burgest)/1000;
     }

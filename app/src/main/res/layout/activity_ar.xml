@@ -23,4 +23,13 @@
         android:layout_margin="20dp"
         android:textColor="@android:color/white"
         android:text="GPS is loading..."/>
+    <TextView
+        android:id="@+id/notice"
+        android:visibility="gone"
+        android:textColor="#ff0000"
+        android:layout_marginTop="@dimen/space_X"
+        android:gravity="center"
+        android:text="notice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>
