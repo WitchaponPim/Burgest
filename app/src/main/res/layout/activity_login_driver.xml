@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
@@ -18,14 +17,24 @@
         <LinearLayout
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
+            android:orientation="vertical"
             android:layout_height="0dp"
             android:layout_weight="1.8">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".9"
                 android:scaleType="fitCenter"
                 android:src="@drawable/logo" />
+            <TextView
+                android:textColor="#ffff"
+                android:text="Driver"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_weight=".1"
+                android:layout_height="0dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -41,9 +50,9 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/edt_bg"
                 android:paddingLeft="20dp"
-                android:hint="Example@mail.com"
+                android:hint="Username"
                 android:maxLines="1"
-                android:inputType="textEmailAddress"
+                android:inputType="textPersonName"
                 android:textColor="@color/colortext"
                 android:textColorHint="@color/colortextHint"
                 android:textSize="20dp"
@@ -81,12 +90,4 @@
 
     </LinearLayout>
 
-<TextView
-    android:id="@+id/regis"
-    android:layout_alignParentBottom="true"
-    android:layout_centerInParent="true"
-    android:textColor="@color/colorWhite"
-    android:text="Register"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
 </RelativeLayout>

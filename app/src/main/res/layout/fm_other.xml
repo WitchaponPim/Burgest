@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/colorBG"
+    android:background="@drawable/bg"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context="com.alongkot.burgestmanager.ManageActivity">
+    >
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

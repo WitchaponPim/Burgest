@@ -53,6 +53,7 @@ public class BasketActivity extends AppCompatActivity {
     LocationManager locationManager;
     StringBuffer sb;
     TextView txttotal;
+    String id_promotion="0";
     String TAG = "Basket";
     Button pay;
     ConnectManager connectManager = new ConnectManager();
@@ -130,10 +131,10 @@ public class BasketActivity extends AppCompatActivity {
                         String jsonString = g.toJson(Utils.order.getOrder());
                         sb = new StringBuffer("{\"order\":");
                         sb.append(jsonString);
-                        sb.append(",\"id_member\":\"" + Utils.user.getChecklogin().getId_member() + "\",\"lat\":\""+Utils.lat1+"\",\"lng\":\"" + Utils.lng1 + "\"}");
+                        sb.append(",\"id_member\":\"" + Utils.user.getChecklogin().getId_member() + "\",\"lat\":\""+Utils.lat1+"\",\"lng\":\"" + Utils.lng1 + "\",\"id_promotion\":\""+id_promotion+"\"}");
                         Log.d("Ammy", "onCreate: " + sb.toString());
 //                        connectManager.order(orderCallback,Utils.object.toString());
-//                        connectManager.order(orderCallback,sb.toString());
+                        connectManager.order(orderCallback,sb.toString());
 
 //                    } else {
 //                        Utils.toast(getApplicationContext(), "เกินพื้นที่ที่กำหนด ไม่สามารถสั่งซื้อได้");

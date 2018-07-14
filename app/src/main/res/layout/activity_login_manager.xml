@@ -18,14 +18,24 @@
         <LinearLayout
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
+            android:orientation="vertical"
             android:layout_height="0dp"
             android:layout_weight="1.8">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".9"
                 android:scaleType="fitCenter"
                 android:src="@drawable/logo" />
+            <TextView
+                android:textColor="#ffff"
+                android:text="Manager"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_weight=".1"
+                android:layout_height="0dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -41,9 +51,9 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/edt_bg"
                 android:paddingLeft="20dp"
-                android:hint="Example@mail.com"
+                android:hint="Username"
                 android:maxLines="1"
-                android:inputType="textEmailAddress"
+                android:inputType="textPersonName"
                 android:textColor="@color/colortext"
                 android:textColorHint="@color/colortextHint"
                 android:textSize="20dp"

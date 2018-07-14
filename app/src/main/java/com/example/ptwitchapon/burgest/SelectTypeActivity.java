@@ -41,7 +41,8 @@ public class SelectTypeActivity extends AppCompatActivity {
                         break;
                     case 1:
                         //driver
-
+                        startActivity(new Intent(SelectTypeActivity.this,LoginDriverActivity.class));
+                        finish();
                         break;
                     case 2:
                         //member

@@ -82,27 +82,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "onBodyErrorIsNull: ");
         }
     };
-    OrderCallback orderCallback = new OrderCallback() {
-        @Override
-        public void onResponse(OrderResponse orderResponse, Retrofit retrofit) {
-            Utils.toast(getApplicationContext(),orderResponse.getChecklogin().getStatus());
-        }
 
-        @Override
-        public void onFailure(Throwable t) {
-            Utils.toast(getApplicationContext(),"fail");
-        }
-
-        @Override
-        public void onBodyError(ResponseBody responseBody) {
-            Utils.toast(getApplicationContext(),"error");
-        }
-
-        @Override
-        public void onBodyErrorIsNull() {
-            Utils.toast(getApplicationContext(),"errorisnull");
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +91,8 @@ public class LoginActivity extends AppCompatActivity {
         register = (TextView) findViewById(R.id.regis);
         user = (EditText) findViewById(R.id.user);
         pass = (EditText) findViewById(R.id.pass);
-        Log.i("MyTokeneiei", FirebaseInstanceId.getInstance().getToken());
-        connect.login (loginCallback,"o@a.com","1234");
+        
+        connect.login (loginCallback,"o@a.com","1234",FirebaseInstanceId.getInstance().getToken());
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
         String a,b;
         a = user.getText().toString();
         b = pass.getText().toString();
-//        connect.login(loginCallback,a,b);
+//        connect.login(loginCallback,a,b,FirebaseInstanceId.getInstance().getToken());
     }
 
 

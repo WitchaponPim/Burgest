@@ -1,36 +1,33 @@
 package com.example.ptwitchapon.burgest.API;
 
-import android.util.Log;
-
 import com.example.ptwitchapon.burgest.Callback.EditCallback;
 import com.example.ptwitchapon.burgest.Callback.LoginCallback;
+import com.example.ptwitchapon.burgest.Callback.Login_DCallback;
 import com.example.ptwitchapon.burgest.Callback.MenuCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderListCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
 import com.example.ptwitchapon.burgest.Callback.RegisterCallback;
+import com.example.ptwitchapon.burgest.Callback.StoreCallback;
 import com.example.ptwitchapon.burgest.Callback.TopupListCallback;
+import com.example.ptwitchapon.burgest.Model.DriverModel;
 import com.example.ptwitchapon.burgest.Model.EditResponse;
-import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.OrderResponse;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
 import com.example.ptwitchapon.burgest.Model.Product;
 import com.example.ptwitchapon.burgest.Model.Regis;
+import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.Model.TopupModel;
 import com.example.ptwitchapon.burgest.Model.User;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.squareup.okhttp.ResponseBody;
-
-import org.json.JSONObject;
 
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by Killy77 on 14/4/2561.
@@ -49,8 +46,8 @@ public class ConnectManager {
             .build();
     APIService con = retrofit.create(APIService.class);
 
-    public void login(final LoginCallback listener, String user, String pass) {
-        Call call = con.postLogin(user, pass);
+    public void login(final LoginCallback listener, String user, String pass,String token) {
+        Call call = con.postLogin(user, pass,token);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Response<User> response, Retrofit retrofit) {
@@ -75,6 +72,34 @@ public class ConnectManager {
             }
         });
     }
+
+    public void loginDriver(final Login_DCallback listener, String user, String pass,String token) {
+        Call call = con.loginDriver(user, pass,token);
+        call.enqueue(new Callback<DriverModel>() {
+            @Override
+            public void onResponse(Response<DriverModel> response, Retrofit retrofit) {
+                DriverModel driver = response.body();
+                if (driver == null) {
+                    //404 or the response cannot be converted to User.
+                    ResponseBody responseBody = response.errorBody();
+                    if (responseBody != null) {
+                        listener.onBodyError(responseBody);
+                    } else {
+                        listener.onBodyErrorIsNull();
+                    }
+                } else {
+                    //200
+                    listener.onResponse(driver, retrofit);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onFailure(t);
+            }
+        });
+    }
+
     public void register(final RegisterCallback listener, String name, String lastname, String email, String password, String tel, String lat) {
         Call call = con.postRegister(name, lastname,email,password,tel,lat);
         call.enqueue(new Callback<Regis>() {
@@ -117,6 +142,32 @@ public class ConnectManager {
                 } else {
                     //200
                     listener.onResponse(product, retrofit);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onFailure(t);
+            }
+        });
+
+    }
+    public void getstore(final StoreCallback listener) {
+        Call call = con.getStore();
+        call.enqueue(new Callback<StoreModel>() {
+            @Override
+            public void onResponse(Response<StoreModel> response, Retrofit retrofit) {
+                StoreModel store = response.body();
+                if (store == null) {
+                    ResponseBody responseBody = response.errorBody();
+                    if (responseBody != null) {
+                        listener.onBodyError(responseBody);
+                    } else {
+                        listener.onBodyErrorIsNull();
+                    }
+                } else {
+                    //200
+                    listener.onResponse(store, retrofit);
                 }
             }
 

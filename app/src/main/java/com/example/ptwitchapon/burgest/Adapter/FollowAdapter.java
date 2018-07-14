@@ -70,7 +70,7 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FollowView
 //        holder.count.setText(items.getFirstname());
 
         holder.status.setText(items.getStatus());
-        holder.status.setBackgroundResource(getcolor(items.getStatus()));
+        holder.status.setBackgroundResource(getcolor(items.getId_status()));
 
 
     }
@@ -106,11 +106,17 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FollowView
         int colorres = 0;
 
         switch (status){
-            case "รอการอนุมัติ":
+            case "1":
                 colorres = R.color.colorS1;
                 break;
-            case "ยืนยันการสั่งวื้อ":
+            case "2":
                 colorres = R.color.colorS2;
+                break;
+            case "3":
+                colorres = R.color.colorS3;
+                break;
+            case "4":
+                colorres = R.color.colorPrimary;
                 break;
         }
 

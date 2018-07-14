@@ -1,6 +1,7 @@
 package com.example.ptwitchapon.burgest.API;
 
 
+import com.example.ptwitchapon.burgest.Model.DriverModel;
 import com.example.ptwitchapon.burgest.Model.EditResponse;
 import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.OrderResponse;
@@ -8,6 +9,7 @@ import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
 import com.example.ptwitchapon.burgest.Model.Product;
 import com.example.ptwitchapon.burgest.Model.Regis;
+import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.Model.TopupModel;
 import com.example.ptwitchapon.burgest.Model.User;
 
@@ -23,7 +25,12 @@ import retrofit.http.POST;
 public interface APIService {
     @FormUrlEncoded
     @POST("checklogin.php")
-    Call<User> postLogin(@Field("email") String user, @Field("password") String pass);
+    Call<User> postLogin(@Field("email") String user, @Field("password") String pass,@Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("checkadminlogin.php")
+    Call<DriverModel> loginDriver(@Field("username") String user, @Field("password") String pass,@Field("token")String token);
+
 
     @FormUrlEncoded
     @POST("insertuser.php")
@@ -44,6 +51,9 @@ public interface APIService {
 
     @GET("menu.php")
     Call<Product> getMenu();
+
+    @GET("get-storedetail.php")
+    Call<StoreModel> getStore();
 
     @FormUrlEncoded
     @POST("order.php")

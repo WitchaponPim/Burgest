@@ -116,13 +116,13 @@ public class TopupStatusAdapter extends RecyclerView.Adapter<TopupStatusAdapter.
         int colorres = 0;
         switch (status) {
             case "1":
-                colorres = R.color.colorS2;
-                break;
-            case "2":
                 colorres = R.color.colorS1;
                 break;
+            case "2":
+                colorres = R.color.colorS2;
+                break;
             case "3":
-                colorres = R.color.colorS4;
+                colorres = R.color.colorS3;
                 break;
         }
         return colorres;

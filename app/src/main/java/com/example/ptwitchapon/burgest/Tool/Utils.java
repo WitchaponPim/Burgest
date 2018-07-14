@@ -14,10 +14,12 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.ptwitchapon.burgest.Model.DriverModel;
 import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Product;
 import com.example.ptwitchapon.burgest.Model.QrScan;
+import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.Model.User;
 import com.google.android.gms.maps.model.LatLng;
 import com.mindorks.paracamera.Camera;
@@ -65,8 +67,9 @@ public class Utils {
     public static String ipTopupPic = "http://burgest.apidech.com/paymentimg/";
 
     public static String ipPic = "http://burgest.apidech.com/img/";
-
+    public static StoreModel storeModel ;
     public static Product product;
+    public static DriverModel driver;
 
     public static Orderlist orderlist;
 

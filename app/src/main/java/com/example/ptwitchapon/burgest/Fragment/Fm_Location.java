@@ -68,7 +68,12 @@ public class Fm_Location extends Fragment implements OnMapReadyCallback {
         View v = inflater.inflate(R.layout.fragment_location, container, false);
         button = (Button) v.findViewById(R.id.button);
 
-        //ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
+        if(ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION)
+                !=PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        }
+
+            //ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
