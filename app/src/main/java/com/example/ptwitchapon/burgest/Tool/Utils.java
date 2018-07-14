@@ -14,11 +14,13 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.ptwitchapon.burgest.Model.DeliveryOrderModel;
 import com.example.ptwitchapon.burgest.Model.DriverModel;
 import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Product;
 import com.example.ptwitchapon.burgest.Model.QrScan;
+import com.example.ptwitchapon.burgest.Model.StockModel;
 import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.Model.User;
 import com.google.android.gms.maps.model.LatLng;
@@ -70,13 +72,24 @@ public class Utils {
     public static StoreModel storeModel ;
     public static Product product;
     public static DriverModel driver;
-
+    public static DeliveryOrderModel driver_allOrder;
+    public static StockModel stock;
     public static Orderlist orderlist;
 
     public static boolean isLogin = false;
 
     public static boolean Checklocation(double lat,double lng){
-        if (lat > 13.761519 && lng > 100.548816&&lat < 13.787612 && lng < 100.576368) {
+        Location Burgest = new Location("Burgest");
+        Burgest.setLatitude(Double.valueOf(Utils.storeModel.getStore().get(0).getLatitude()));
+        Burgest.setLongitude(Double.valueOf(Utils.storeModel.getStore().get(0).getLongitude()));
+        Burgest.setAltitude(0);
+
+        Location chk = new Location("chk");
+        chk.setLongitude(lat);
+        chk.setLongitude(lng);
+        chk.setAltitude(0);
+
+        if (Burgest.distanceTo(chk)<Double.valueOf(Utils.storeModel.getStore().get(0).getDistance())) {
             //in
             return true;
         }else {

@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.ptwitchapon.burgest.API.ConnectManager;
+import com.example.ptwitchapon.burgest.Callback.DriverOrderCallback;
 import com.example.ptwitchapon.burgest.Callback.Login_DCallback;
+import com.example.ptwitchapon.burgest.Model.DeliveryOrderModel;
 import com.example.ptwitchapon.burgest.Model.DriverModel;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -27,11 +29,34 @@ public class LoginDriverActivity extends AppCompatActivity {
 //            if (driver.getCheckloginadmin().getPosition().equals("2")){
                 FirebaseMessaging.getInstance().subscribeToTopic("Driver");
                 Utils.toast(getApplicationContext(),driver.getCheckloginadmin().getFirstname());
-                startActivity(new Intent(LoginDriverActivity.this,TabDriverActivity.class));
-                finish();
+                connectManager.getAllOrder(driverOrderCallback);
+
 //            }else {
 //                Utils.toast(getApplicationContext(),"Not your position");
 //            }
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBody) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+    };
+    DriverOrderCallback driverOrderCallback = new DriverOrderCallback() {
+        @Override
+        public void onResponse(DeliveryOrderModel delivery, Retrofit retrofit) {
+            Utils.driver_allOrder = delivery;
+            startActivity(new Intent(LoginDriverActivity.this,TabDriverActivity.class));
+            finish();
         }
 
         @Override

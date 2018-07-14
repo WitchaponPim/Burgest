@@ -16,4 +16,18 @@
         <item name="colorButtonNormal">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="Button2" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="colorButtonNormal">#3b3b3b</item>
+    </style>
+
+    <style name="Accept" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#c0d6b8</item>
+        <item name="colorButtonNormal">#449c24</item>
+    </style>
+    <style name="Detail" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#c0d6b8</item>
+        <item name="colorButtonNormal">#274fbf</item>
+    </style>
+
 </resources>

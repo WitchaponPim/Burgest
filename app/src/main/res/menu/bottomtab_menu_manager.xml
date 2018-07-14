@@ -4,12 +4,7 @@
         android:id="@+id/item_recent"
         android:enabled="true"
         android:icon="@drawable/ic_burger"
-        android:title="AllOrder"/>
-    <item
-        android:id="@+id/item_favorite"
-        android:enabled="true"
-        android:icon="@drawable/ic_delivery"
-        android:title="MyOrder"/>
+        android:title="Stock"/>
     <item
         android:id="@+id/item_other"
         android:enabled="true"

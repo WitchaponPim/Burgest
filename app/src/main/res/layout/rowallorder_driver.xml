@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:paddingLeft="@dimen/space"
+                android:text="Order"
+                android:textColor="#000000"
+                android:textSize="@dimen/textsize"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_alignParentLeft="true"
+                android:id="@+id/mem_name"
+                android:paddingLeft="@dimen/space"
+                android:textSize="@dimen/textsize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+
+                android:text="name" />
+            <TextView
+                android:layout_alignParentLeft="true"
+                android:id="@+id/mem_tel"
+                android:paddingLeft="@dimen/space"
+                android:textSize="@dimen/textsize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+
+                android:text="memtel" />
+
+            <TextView
+                android:layout_alignParentLeft="true"
+                android:id="@+id/mem_distance"
+                android:gravity="end"
+                android:paddingRight="@dimen/space"
+                android:textSize="@dimen/textsize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:text="distance" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:textColor="#ffff"
+                    android:theme="@style/Detail"
+                    android:id="@+id/btndetail"
+                    android:text="Detail"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:textColor="#ffff"
+                    android:theme="@style/Accept"
+                    android:id="@+id/btnaccept"
+                    android:text="Accept"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+</LinearLayout>

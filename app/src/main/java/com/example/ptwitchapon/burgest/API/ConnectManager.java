@@ -1,5 +1,6 @@
 package com.example.ptwitchapon.burgest.API;
 
+import com.example.ptwitchapon.burgest.Callback.DriverOrderCallback;
 import com.example.ptwitchapon.burgest.Callback.EditCallback;
 import com.example.ptwitchapon.burgest.Callback.LoginCallback;
 import com.example.ptwitchapon.burgest.Callback.Login_DCallback;
@@ -8,8 +9,10 @@ import com.example.ptwitchapon.burgest.Callback.OrderCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderListCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
 import com.example.ptwitchapon.burgest.Callback.RegisterCallback;
+import com.example.ptwitchapon.burgest.Callback.StockCallback;
 import com.example.ptwitchapon.burgest.Callback.StoreCallback;
 import com.example.ptwitchapon.burgest.Callback.TopupListCallback;
+import com.example.ptwitchapon.burgest.Model.DeliveryOrderModel;
 import com.example.ptwitchapon.burgest.Model.DriverModel;
 import com.example.ptwitchapon.burgest.Model.EditResponse;
 import com.example.ptwitchapon.burgest.Model.OrderResponse;
@@ -17,6 +20,7 @@ import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
 import com.example.ptwitchapon.burgest.Model.Product;
 import com.example.ptwitchapon.burgest.Model.Regis;
+import com.example.ptwitchapon.burgest.Model.StockModel;
 import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.Model.TopupModel;
 import com.example.ptwitchapon.burgest.Model.User;
@@ -170,13 +174,36 @@ public class ConnectManager {
                     listener.onResponse(store, retrofit);
                 }
             }
-
             @Override
             public void onFailure(Throwable t) {
                 listener.onFailure(t);
             }
         });
+    }
 
+    public void getstock(final StockCallback listener) {
+        Call call = con.getStock();
+        call.enqueue(new Callback<StockModel>() {
+            @Override
+            public void onResponse(Response<StockModel> response, Retrofit retrofit) {
+                StockModel stock = response.body();
+                if (stock == null) {
+                    ResponseBody responseBody = response.errorBody();
+                    if (responseBody != null) {
+                        listener.onBodyError(responseBody);
+                    } else {
+                        listener.onBodyErrorIsNull();
+                    }
+                } else {
+                    //200
+                    listener.onResponse(stock, retrofit);
+                }
+            }
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onFailure(t);
+            }
+        });
     }
 
     public void order(final OrderCallback listener, String order) {
@@ -203,7 +230,6 @@ public class ConnectManager {
                 listener.onFailure(t);
             }
         });
-
     }
     public void orderList(final OrderListCallback listener,String id_member) {
         Call call = con.orderlist_member(id_member);
@@ -289,12 +315,66 @@ public class ConnectManager {
         });
 
     }
+    public void edit_Account_driver(final EditCallback listener,String firstname
+            ,String lastname
+            ,String id_emp) {
+        Call call = con.editAccount_driver(firstname,lastname,id_emp);
+        call.enqueue(new Callback<EditResponse>() {
+            @Override
+            public void onResponse(Response<EditResponse> response, Retrofit retrofit) {
+                EditResponse edit = response.body();
+                if (edit == null) {
+                    ResponseBody responseBody = response.errorBody();
+                    if (responseBody != null) {
+                        listener.onBodyError(responseBody);
+                    } else {
+                        listener.onBodyErrorIsNull();
+                    }
+                } else {
+                    //200
+                    listener.onResponse(edit, retrofit);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onFailure(t);
+            }
+        });
+
+    }
     public void getTopup(final TopupListCallback listener, String id_member) {
         Call call = con.getTopupstatus(id_member);
         call.enqueue(new Callback<TopupModel>() {
             @Override
             public void onResponse(Response<TopupModel> response, Retrofit retrofit) {
                 TopupModel topup = response.body();
+                if (topup == null) {
+                    ResponseBody responseBody = response.errorBody();
+                    if (responseBody != null) {
+                        listener.onBodyError(responseBody);
+                    } else {
+                        listener.onBodyErrorIsNull();
+                    }
+                } else {
+                    //200
+                    listener.onResponse(topup, retrofit);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onFailure(t);
+            }
+        });
+
+    }
+    public void getAllOrder(final DriverOrderCallback listener) {
+        Call call = con.getDriverorder();
+        call.enqueue(new Callback<DeliveryOrderModel>() {
+            @Override
+            public void onResponse(Response<DeliveryOrderModel> response, Retrofit retrofit) {
+                DeliveryOrderModel topup = response.body();
                 if (topup == null) {
                     ResponseBody responseBody = response.errorBody();
                     if (responseBody != null) {

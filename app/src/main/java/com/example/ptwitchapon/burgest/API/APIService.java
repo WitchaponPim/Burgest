@@ -1,6 +1,7 @@
 package com.example.ptwitchapon.burgest.API;
 
 
+import com.example.ptwitchapon.burgest.Model.DeliveryOrderModel;
 import com.example.ptwitchapon.burgest.Model.DriverModel;
 import com.example.ptwitchapon.burgest.Model.EditResponse;
 import com.example.ptwitchapon.burgest.Model.Order;
@@ -9,6 +10,7 @@ import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
 import com.example.ptwitchapon.burgest.Model.Product;
 import com.example.ptwitchapon.burgest.Model.Regis;
+import com.example.ptwitchapon.burgest.Model.StockModel;
 import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.Model.TopupModel;
 import com.example.ptwitchapon.burgest.Model.User;
@@ -49,11 +51,23 @@ public interface APIService {
             , @Field("Tel") String tel
             , @Field("id_member") String id_member);
 
+    @FormUrlEncoded
+    @POST("update-emp.php")
+    Call<EditResponse> editAccount_driver(@Field("Firstname") String name
+            , @Field("Lastname") String lastname
+            , @Field("id_emp") String id_emp);
+
     @GET("menu.php")
     Call<Product> getMenu();
 
     @GET("get-storedetail.php")
     Call<StoreModel> getStore();
+
+    @GET("get-stock.php")
+    Call<StockModel> getStock();
+
+    @GET("get-order-delivery.php")
+    Call<DeliveryOrderModel> getDriverorder();
 
     @FormUrlEncoded
     @POST("order.php")

@@ -109,9 +109,9 @@ public class Fm_Location extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
         // Add a marker in Sydney and move the camera , ,
 
-        LatLng burgest = new LatLng(13.775139, 100.562442);
-        Burgest.setLatitude(13.775139);
-        Burgest.setLongitude(100.562442);
+        LatLng burgest = new LatLng(Double.valueOf(Utils.storeModel.getStore().get(0).getLatitude()), Double.valueOf(Utils.storeModel.getStore().get(0).getLongitude()));
+        Burgest.setLatitude(Double.valueOf(Utils.storeModel.getStore().get(0).getLatitude()));
+        Burgest.setLongitude(Double.valueOf(Utils.storeModel.getStore().get(0).getLongitude()));
         Burgest.setAltitude(0);
         LatLng me = new LatLng(Double.valueOf(lattitude),Double.valueOf(longitude));
 
@@ -124,8 +124,8 @@ public class Fm_Location extends Fragment implements OnMapReadyCallback {
 //                .add(new LatLng(13.761519, 100.548816))
 //                .color(getResources().getColor(R.color.colorPrimary));
          circle = mMap.addCircle(new CircleOptions()
-                .center(new LatLng(13.775139, 100.562442))
-                .radius(4000)
+                .center(new LatLng(Double.valueOf(Utils.storeModel.getStore().get(0).getLatitude()), Double.valueOf(Utils.storeModel.getStore().get(0).getLongitude())))
+                .radius(Double.valueOf(Utils.storeModel.getStore().get(0).getDistance()))
                 .strokeWidth(10)
                 .strokeColor(getResources().getColor(R.color.colorPrimary))
                 .fillColor(Color.argb(128,201,126,29))

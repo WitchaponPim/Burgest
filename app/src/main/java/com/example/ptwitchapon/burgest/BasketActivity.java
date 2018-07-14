@@ -53,7 +53,7 @@ public class BasketActivity extends AppCompatActivity {
     LocationManager locationManager;
     StringBuffer sb;
     TextView txttotal;
-    String id_promotion="0";
+    String id_promotion = "0";
     String TAG = "Basket";
     Button pay;
     ConnectManager connectManager = new ConnectManager();
@@ -120,34 +120,26 @@ public class BasketActivity extends AppCompatActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(Utils.Checklocation(getLocation().latitude,getLocation().longitude)){
-
-                if (Double.valueOf(Utils.user.getChecklogin().getCash()) < gettotal()) {
-                    Utils.toast(getApplicationContext(), "กรุณาเติมเงินในระบบก่อนครับ");
-                } else {
-
+                if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
+                    if (Double.valueOf(Utils.user.getChecklogin().getCash()) < gettotal()) {
+                        Utils.toast(getApplicationContext(), "กรุณาเติมเงินในระบบก่อนครับ");
+                    } else {
 //                    if (Double.valueOf(Utils.mylattitude) > 13.761519 && Double.valueOf(Utils.mylongitude) > 100.548816 && Double.valueOf(Utils.mylattitude) < 13.787612 && Double.valueOf(Utils.mylongitude) < 100.576368) {
                         Gson g = new Gson();
                         String jsonString = g.toJson(Utils.order.getOrder());
                         sb = new StringBuffer("{\"order\":");
                         sb.append(jsonString);
-                        sb.append(",\"id_member\":\"" + Utils.user.getChecklogin().getId_member() + "\",\"lat\":\""+Utils.lat1+"\",\"lng\":\"" + Utils.lng1 + "\",\"id_promotion\":\""+id_promotion+"\"}");
+                        sb.append(",\"id_member\":\"" + Utils.user.getChecklogin().getId_member() + "\",\"lat\":\"" + Utils.lat1 + "\",\"lng\":\"" + Utils.lng1 + "\",\"id_promotion\":\"" + id_promotion + "\"}");
                         Log.d("Ammy", "onCreate: " + sb.toString());
 //                        connectManager.order(orderCallback,Utils.object.toString());
-                        connectManager.order(orderCallback,sb.toString());
-
+                        connectManager.order(orderCallback, sb.toString());
 //                    } else {
 //                        Utils.toast(getApplicationContext(), "เกินพื้นที่ที่กำหนด ไม่สามารถสั่งซื้อได้");
 //                    }
-
-
+                    }
+                } else {
+                    Utils.toast(getApplicationContext(), "ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
                 }
-//                }
-//                else{
-//
-//
-//                    Utils.toast(getApplicationContext(),"ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
-//                }
             }
         });
 
@@ -175,25 +167,21 @@ public class BasketActivity extends AppCompatActivity {
         return total;
     }
 
-//    public LatLng getLocation() {
-//
-//        LocationManager locationManager = (LocationManager) BasketActivity.this.getSystemService(Context.LOCATION_SERVICE);
-//        if (ActivityCompat.checkSelfPermission(BasketActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(BasketActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//
-//        }
-//
-//        Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-//
-//        double lng = location.getLongitude();
-//
-//        double lat = location.getLatitude();
-//
-//        LatLng myLocation = new LatLng(lat, lng);
-//
-//
-//        return myLocation;
-//
-//    }
+    public LatLng getLocation() {
+
+        LocationManager locationManager = (LocationManager) BasketActivity.this.getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(BasketActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(BasketActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        }
+        Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        double lng = location.getLongitude();
+        double lat = location.getLatitude();
+        LatLng myLocation = new LatLng(lat, lng);
+
+
+        return myLocation;
+
+    }
 
 
 }

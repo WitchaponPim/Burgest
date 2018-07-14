@@ -46,7 +46,7 @@ public class SelectTypeActivity extends AppCompatActivity {
                         break;
                     case 2:
                         //member
-                        startActivity(new Intent(SelectTypeActivity.this,ManageActivity.class));
+                        startActivity(new Intent(SelectTypeActivity.this,LoginManagerActivity.class));
                         finish();
                         break;
                 }

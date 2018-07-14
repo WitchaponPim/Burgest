@@ -1,10 +1,17 @@
 package com.example.ptwitchapon.burgest;
 
+import android.*;
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,11 +25,13 @@ import com.example.ptwitchapon.burgest.Fragment.OtherFM;
 import com.example.ptwitchapon.burgest.Fragment.StatusTopup;
 import com.example.ptwitchapon.burgest.Fragment.fm_menu;
 import com.example.ptwitchapon.burgest.Fragment.fm_order_driver;
+import com.example.ptwitchapon.burgest.Fragment.fm_other_driver;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 
 public class TabDriverActivity extends AppCompatActivity {
     BottomNavigationView mBottomNav;
     Toolbar toolbar;
+    LocationManager locationManager;
     String TAG = "Driver";
 
 
@@ -36,6 +45,18 @@ public class TabDriverActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimary));
         getSupportActionBar().setTitle("Follow");
         toolbar.setVisibility(View.GONE);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if(ActivityCompat.checkSelfPermission(TabDriverActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                !=PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(TabDriverActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(TabDriverActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Utils.toast(getApplicationContext(),"GPS not Support");
+        }else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            getLocation();
+        }
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -63,8 +84,7 @@ public class TabDriverActivity extends AppCompatActivity {
                         break;
                     case R.id.item_other:
                         toolbar.setVisibility(View.GONE);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fm_order_driver.newInstance()).commit();
-
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fm_other_driver.newInstance()).commit();
                         break;
                     default:
                         break;
@@ -72,6 +92,27 @@ public class TabDriverActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+    private void getLocation(){
+        if(ActivityCompat.checkSelfPermission(TabDriverActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(TabDriverActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(TabDriverActivity.this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},1);
+
+        }else{
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            if(location != null){
+                double latti = location.getLatitude();
+                double longi = location.getLongitude();
+                Utils.mylattitude = String.valueOf(latti);
+                Utils.mylongitude = String.valueOf(longi);
+
+            }
+            else{
+
+            }
+        }
+
     }
 
 
