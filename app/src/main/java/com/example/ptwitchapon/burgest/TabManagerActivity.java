@@ -18,25 +18,60 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.ptwitchapon.burgest.API.APIService2;
+import com.example.ptwitchapon.burgest.API.ConnectManager;
 import com.example.ptwitchapon.burgest.API.ConnectTopup;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_stock;
+import com.example.ptwitchapon.burgest.Callback.StockCallback;
+import com.example.ptwitchapon.burgest.Firebase.MyFirebaseInstanceIDService;
+import com.example.ptwitchapon.burgest.Firebase.MyFirebaseMessagingService;
 import com.example.ptwitchapon.burgest.Fragment.fm_stock_manager;
 import com.example.ptwitchapon.burgest.Fragment.fm_other_driver;
 import com.example.ptwitchapon.burgest.Model.QrScan;
+import com.example.ptwitchapon.burgest.Model.StockModel;
 import com.example.ptwitchapon.burgest.Tool.Utils;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.squareup.okhttp.ResponseBody;
 
+import java.util.Map;
+
+import retrofit.Retrofit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TabManagerActivity extends AppCompatActivity {
+public class TabManagerActivity extends AppCompatActivity  {
     BottomNavigationView mBottomNav;
     Toolbar toolbar;
     Button scan;
-
     String TAG = "Driver";
 
+    ConnectManager connect = new ConnectManager();
+    StockCallback stockCallback = new StockCallback() {
+        @Override
+        public void onResponse(StockModel stock, Retrofit retrofit) {
+            CustomDialog_stock st = new CustomDialog_stock(TabManagerActivity.this,stock);
+            st.show();
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBody) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +80,6 @@ public class TabManagerActivity extends AppCompatActivity {
         mBottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav_view);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         scan = (Button) findViewById(R.id.scan);
-
         toolbar.setVisibility(View.GONE);
 
         getSupportFragmentManager()
@@ -88,11 +122,13 @@ public class TabManagerActivity extends AppCompatActivity {
             if(result.getContents() == null) {
                 Log.d("Ammy", "fail ");
             } else {
+
                 Log.d("Ammy", "onActivityResult: "+result.getContents());
+
+                connect.getstock(stockCallback,result.getContents());
 
 
             }
         }
     }
-
 }

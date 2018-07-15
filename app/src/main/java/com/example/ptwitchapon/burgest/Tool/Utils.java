@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.ptwitchapon.burgest.Model.DeliveryOrderModel;
 import com.example.ptwitchapon.burgest.Model.DriverModel;
+import com.example.ptwitchapon.burgest.Model.MyDeliverDriver;
 import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Product;
@@ -46,10 +47,12 @@ public class Utils {
     public static JSONObject object2 = new JSONObject();
     public static JSONArray array=new JSONArray();
 
+
     public static double lat1 = 13.761519;
     public static double lng1 = 100.548816;
-    public static double lat2 = 13.787612;
-    public static double lng2 = 100.576368;
+
+    public static double latview ;
+    public static double lngview ;
 
 
     public static Order order = new Order();
@@ -73,6 +76,7 @@ public class Utils {
     public static Product product;
     public static DriverModel driver;
     public static DeliveryOrderModel driver_allOrder;
+    public static MyDeliverDriver driver_myOrder;
     public static StockModel stock;
     public static Orderlist orderlist;
 

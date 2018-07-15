@@ -108,14 +108,11 @@ public class Fm_Location extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         // Add a marker in Sydney and move the camera , ,
-
         LatLng burgest = new LatLng(Double.valueOf(Utils.storeModel.getStore().get(0).getLatitude()), Double.valueOf(Utils.storeModel.getStore().get(0).getLongitude()));
         Burgest.setLatitude(Double.valueOf(Utils.storeModel.getStore().get(0).getLatitude()));
         Burgest.setLongitude(Double.valueOf(Utils.storeModel.getStore().get(0).getLongitude()));
         Burgest.setAltitude(0);
         LatLng me = new LatLng(Double.valueOf(lattitude),Double.valueOf(longitude));
-
-
 //        PolylineOptions rectLine = new PolylineOptions()
 //                .add(new LatLng(13.761519, 100.548816))
 //                .add(new LatLng(13.761519, 100.576368))

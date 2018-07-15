@@ -3,8 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.ptwitchapon.burgest.TabActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,15 +14,14 @@
             android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/stock"
+                android:id="@+id/myorder"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
             </android.support.v7.widget.RecyclerView>
 
 
         </LinearLayout>
 
     </ScrollView>
-
 
 </LinearLayout>

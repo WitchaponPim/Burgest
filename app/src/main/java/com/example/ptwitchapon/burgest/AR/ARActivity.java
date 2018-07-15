@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ptwitchapon.burgest.R;
+import com.example.ptwitchapon.burgest.Tool.Utils;
 
 public class ARActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
 
@@ -53,8 +54,8 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar);
-        burgest.setLatitude(13.775139);
-        burgest.setLongitude(100.562442);
+        burgest.setLatitude(Double.valueOf(Utils.storeModel.getStore().get(0).getLatitude()));
+        burgest.setLongitude(Double.valueOf(Utils.storeModel.getStore().get(0).getLongitude()));
         burgest.setAltitude(0);
         sensorManager = (SensorManager) this.getSystemService(SENSOR_SERVICE);
         cameraContainerLayout = (FrameLayout) findViewById(R.id.camera_container_layout);

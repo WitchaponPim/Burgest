@@ -30,10 +30,10 @@
         <activity android:name=".BasketActivity" />
         <activity android:name=".AccountActivity" />
         <activity android:name=".TopupActivity" />
-        <activity android:name=".TabDriverActivity"/>
-        <activity android:name=".AccountDriverActivity"/>
-        <activity android:name=".LoginManagerActivity"/>
-        <activity android:name=".TabManagerActivity"/>
+        <activity android:name=".TabDriverActivity" />
+        <activity android:name=".AccountDriverActivity" />
+        <activity android:name=".LoginManagerActivity" />
+        <activity android:name=".TabManagerActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -77,7 +77,10 @@
         </service>
 
         <activity android:name=".LoginDriverActivity" />
-        <activity android:name=".LoginManagerActivity"></activity>
+        <activity android:name=".LoginManagerActivity" />
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>

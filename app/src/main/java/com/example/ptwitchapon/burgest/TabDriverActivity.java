@@ -24,6 +24,7 @@ import com.example.ptwitchapon.burgest.Fragment.Fm_Location;
 import com.example.ptwitchapon.burgest.Fragment.OtherFM;
 import com.example.ptwitchapon.burgest.Fragment.StatusTopup;
 import com.example.ptwitchapon.burgest.Fragment.fm_menu;
+import com.example.ptwitchapon.burgest.Fragment.fm_myorder_driver;
 import com.example.ptwitchapon.burgest.Fragment.fm_order_driver;
 import com.example.ptwitchapon.burgest.Fragment.fm_other_driver;
 import com.example.ptwitchapon.burgest.Tool.Utils;
@@ -48,13 +49,13 @@ public class TabDriverActivity extends AppCompatActivity {
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if(ActivityCompat.checkSelfPermission(TabDriverActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                !=PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(TabDriverActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(TabDriverActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(TabDriverActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(TabDriverActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            Utils.toast(getApplicationContext(),"GPS not Support");
-        }else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Utils.toast(getApplicationContext(), "GPS not Support");
+        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             getLocation();
         }
 
@@ -62,6 +63,7 @@ public class TabDriverActivity extends AppCompatActivity {
                 .beginTransaction()
                 .add(R.id.content_main, fm_order_driver.newInstance())
                 .commit();
+
         mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -75,11 +77,10 @@ public class TabDriverActivity extends AppCompatActivity {
                                 .commit();
                         break;
                     case R.id.item_favorite:
-                            toolbar.setVisibility(View.VISIBLE);
-                            getSupportActionBar().setTitle("Follow");
-                            getSupportFragmentManager().beginTransaction().replace(R.id.content_main
-                                    , fm_order_driver.newInstance())
-                                    .commit();
+                        toolbar.setVisibility(View.GONE);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content_main
+                                , fm_myorder_driver.newInstance())
+                                .commit();
 
                         break;
                     case R.id.item_other:
@@ -93,22 +94,22 @@ public class TabDriverActivity extends AppCompatActivity {
             }
         });
     }
-    private void getLocation(){
-        if(ActivityCompat.checkSelfPermission(TabDriverActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(TabDriverActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(TabDriverActivity.this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},1);
 
-        }else{
+    private void getLocation() {
+        if (ActivityCompat.checkSelfPermission(TabDriverActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(TabDriverActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(TabDriverActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+        } else {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-            if(location != null){
+            if (location != null) {
                 double latti = location.getLatitude();
                 double longi = location.getLongitude();
                 Utils.mylattitude = String.valueOf(latti);
                 Utils.mylongitude = String.valueOf(longi);
 
-            }
-            else{
+            } else {
 
             }
         }

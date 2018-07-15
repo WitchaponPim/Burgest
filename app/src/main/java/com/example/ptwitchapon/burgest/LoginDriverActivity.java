@@ -26,14 +26,14 @@ public class LoginDriverActivity extends AppCompatActivity {
         public void onResponse(DriverModel driver, Retrofit retrofit) {
 
             Utils.driver = driver;
-//            if (driver.getCheckloginadmin().getPosition().equals("2")){
+            if (driver.getCheckloginadmin().getId_position().equals("2")){
                 FirebaseMessaging.getInstance().subscribeToTopic("Driver");
                 Utils.toast(getApplicationContext(),driver.getCheckloginadmin().getFirstname());
                 connectManager.getAllOrder(driverOrderCallback);
 
-//            }else {
-//                Utils.toast(getApplicationContext(),"Not your position");
-//            }
+            }else {
+                Utils.toast(getApplicationContext(),"Not your position");
+            }
         }
 
         @Override

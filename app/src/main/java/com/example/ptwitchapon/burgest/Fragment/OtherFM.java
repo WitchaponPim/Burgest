@@ -18,16 +18,26 @@ import android.widget.TextView;
 import com.example.ptwitchapon.burgest.API.APIService2;
 import com.example.ptwitchapon.burgest.API.ConnectTopup;
 import com.example.ptwitchapon.burgest.AccountActivity;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_QR;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_edit;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other_edit;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water_edit;
 import com.example.ptwitchapon.burgest.Adapter.FollowAdapter;
 import com.example.ptwitchapon.burgest.Adapter.OtherAdapter;
+import com.example.ptwitchapon.burgest.BasketActivity;
 import com.example.ptwitchapon.burgest.LoginActivity;
 
 import com.example.ptwitchapon.burgest.Model.QrScan;
 import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.TabActivity;
+import com.example.ptwitchapon.burgest.TabManagerActivity;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.example.ptwitchapon.burgest.TopupActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,30 +151,55 @@ public class OtherFM extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_QR_SCAN && resultCode == RESULT_OK) {
-            String contents = data.getStringExtra("SCAN_RESULT");
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                Log.d("Ammy", "fail ");
+            } else {
 
-            String id = contents.replace("http://localhost/hamburger/inc/qrupdate.php?id=","");
-//            Utils.toast(getContext(),id);
-//
-//            RequestBody idp = RequestBody.create(MediaType.parse("text/plain"), id);
+                Log.d("Ammy", "onActivityResult: "+result.getContents());
 
-            APIService2 getResponse = ConnectTopup.getClient().create(APIService2.class);
-            Call<QrScan> call = getResponse.Scan(id);
-            call.enqueue(new Callback<QrScan>() {
-                @Override
-                public void onResponse(Call<QrScan> call, Response<QrScan> response) {
-                    Utils.itemScan = response.body();
-                    Log.d(TAG, "onResponse: "+response.body().getChecklogin().getDescription().getProductName());
+                if (Integer.valueOf(result.getContents()) >= 10035 && Integer.valueOf(result.getContents()) <= 10039) {
+
+                    for(int i =0;i<Utils.product.getProduct().size();i++){
+                        for (int j =0;j< Utils.product.getProduct().get(i).getBurgur().size();j++){
+                            if(Utils.product.getProduct().get(i).getBurgur().get(j).getId_product().equals(result.getContents())){
+                                Log.d("Ammy", "QR_Other");
+                                CustomDialog_other other = new CustomDialog_other(getActivity(),Utils.product.getProduct().get(i).getBurgur().get(j));
+                                other.show();
+                            }
+                        }
+                    }
+
+
+                } else if (Integer.valueOf(result.getContents()) >= 10040 && Integer.valueOf(result.getContents()) <= 10045) {
+
+                    for(int i =0;i<Utils.product.getProduct().size();i++){
+                        for (int j =0;j< Utils.product.getProduct().get(i).getBurgur().size();j++){
+                            if(Utils.product.getProduct().get(i).getBurgur().get(j).getId_product().equals(result.getContents())){
+                                Log.d("Ammy", "QR_Water");
+                                CustomDialog_water water = new CustomDialog_water(getActivity(),Utils.product.getProduct().get(i).getBurgur().get(j));
+                                water.show();
+                            }
+                        }
+                    }
+
+
+                } else {
+
+                    for(int i =0;i<Utils.product.getProduct().size();i++){
+                        for (int j =0;j< Utils.product.getProduct().get(i).getBurgur().size();j++){
+                            if(Utils.product.getProduct().get(i).getBurgur().get(j).getId_product().equals(result.getContents())){
+                                Log.d("Ammy", "QR_Burger");
+                                CustomDialog cdd = new CustomDialog(getActivity(),Utils.product.getProduct().get(i).getBurgur().get(j));
+                                cdd.show();
+                            }
+                        }
+                    }
 
                 }
-                @Override
-                public void onFailure(Call<QrScan> call, Throwable t) {
 
-                    Log.d(TAG, "onFailure: "+t.toString());
-                }
-            });
-
+            }
         }
     }
 }

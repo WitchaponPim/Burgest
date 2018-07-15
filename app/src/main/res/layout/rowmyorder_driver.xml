@@ -53,12 +53,29 @@
                 android:textColor="#000000"
                 android:textStyle="bold"
                 android:text="distance" />
-            <Button
-                android:textColor="#ffff"
-                android:theme="@style/Button2"
-                android:text="ViewMap"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/viewmap"
+                    android:textColor="#ffff"
+                    android:theme="@style/Button2"
+                    android:text="ViewMap"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:textColor="#ffff"
+                    android:theme="@style/Accept"
+                    android:id="@+id/complete"
+                    android:text="Complete"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
 

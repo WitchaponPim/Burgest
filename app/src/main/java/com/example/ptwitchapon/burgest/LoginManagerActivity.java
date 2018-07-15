@@ -28,8 +28,8 @@ public class LoginManagerActivity extends AppCompatActivity {
         public void onResponse(DriverModel driver, Retrofit retrofit) {
             //Driver = Manager na ja
             Utils.driver = driver;
-            if (driver.getCheckloginadmin().getPosition().equals("3")){
-            connectManager.getstock(stockCallback);
+            if (driver.getCheckloginadmin().getId_position().equals("3")){
+            connectManager.getstock(stockCallback,"");
             }else {
                 Utils.toast(getApplicationContext(),"Not your position");
             }

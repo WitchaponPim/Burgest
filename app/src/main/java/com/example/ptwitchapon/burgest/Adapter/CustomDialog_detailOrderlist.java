@@ -40,6 +40,7 @@ public class CustomDialog_detailOrderlist extends Dialog implements View.OnClick
     public RecyclerView review;
     public RecyclerView.LayoutManager layoutManager;
     public RecyclerView.Adapter adapter;
+    public TextView total;
 
     Orderlist_item item;
 
@@ -59,11 +60,13 @@ public class CustomDialog_detailOrderlist extends Dialog implements View.OnClick
         setContentView(R.layout.form_orderlist_detail);
         yes = (Button) findViewById(R.id.btn_ok);
         review = (RecyclerView) findViewById(R.id.detail);
+        total = (TextView) findViewById(R.id.txttotal);
 
         review.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         review.setLayoutManager(layoutManager);
         adapter = new Orderlist_itemAdapter(getContext(), item);
+        total.setText("Total : "+item.getItems().get(0).getTotalPrice()+" ฿");
         review.setAdapter(adapter);
         yes.setOnClickListener(this);
 

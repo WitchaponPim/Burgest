@@ -92,6 +92,7 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
         c3.setChecked(false);
         c4.setChecked(false);
 
+        qty.setText(orderBean.getQty());
         q = qty.getText().toString();
         qtyp = Integer.valueOf(q);
         p = Integer.valueOf(orderBean.getPrice());
@@ -99,8 +100,10 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
 
         name.setText(getname(orderBean.getId_product()));
 
-        setAlltext();
 
+        Picasso.with(c)
+                .load(Utils.ipPic + orderBean.getPath())
+                .into(proImg);
 
         if(!orderBean.getComment().isEmpty()){
             comment.setText(orderBean.getComment());
@@ -170,7 +173,6 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String a;
@@ -195,7 +197,7 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
 
             }
         });
-
+        setAlltext();
         ex1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -241,6 +243,14 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.add:
+                qtyp = qtyp +1;
+                qty.setText(String.valueOf(qtyp));
+                break;
+            case R.id.del:
+                qtyp = qtyp -1;
+                qty.setText(String.valueOf(qtyp));
+                break;
             case R.id.btn_ok:
                 //                Utils.object2.put("id_product", orderBean.getId_product());
 //                Utils.object2.put("price", orderBean.getPrice());

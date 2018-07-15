@@ -7,14 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ptwitchapon.burgest.Model.DeliveryOrderModel;
-import com.example.ptwitchapon.burgest.Model.Product;
+import com.example.ptwitchapon.burgest.Model.MyDeliverDriver;
 import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.Tool.Utils;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -22,35 +20,34 @@ import java.util.List;
  * Created by Witchapon on 9/4/2561.
  */
 
-public class MainAdapter_Driver extends RecyclerView.Adapter<MainAdapter_Driver.MenuViewHolder> {
+public class MainAdapter_Driver_mydeliver extends RecyclerView.Adapter<MainAdapter_Driver_mydeliver.MenuViewHolder> {
 
 
-    MainAdapter_Driver.OnItemClickListener listener;
-    List<DeliveryOrderModel.OrderlistBean> orderlist;
+    MainAdapter_Driver_mydeliver.OnItemClickListener listener;
+    List<MyDeliverDriver.OrderBean> orderlist;
 
     Context context;
     public interface OnItemClickListener {
-        void onItemClick(List<DeliveryOrderModel.OrderlistBean> orderlist, int position);
-        void onDetailClick(List<DeliveryOrderModel.OrderlistBean> orderlist, int position);
-        void onAccept(List<DeliveryOrderModel.OrderlistBean> orderlist, int position);
+        void onViewmapClick(List<MyDeliverDriver.OrderBean> orderlist, int position);
+        void onCompleteClick(List<MyDeliverDriver.OrderBean> orderlist, int position);
     }
 
     @Override
-    public MainAdapter_Driver.MenuViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MainAdapter_Driver_mydeliver.MenuViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rowallorder_driver, parent, false);
-        return new MainAdapter_Driver.MenuViewHolder(v);
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rowmyorder_driver, parent, false);
+        return new MainAdapter_Driver_mydeliver.MenuViewHolder(v);
     }
 
 
-    public MainAdapter_Driver(Context context, List<DeliveryOrderModel.OrderlistBean> orderlist,MainAdapter_Driver.OnItemClickListener listener) {
+    public MainAdapter_Driver_mydeliver(Context context, List<MyDeliverDriver.OrderBean> orderlist, MainAdapter_Driver_mydeliver.OnItemClickListener listener) {
         this.orderlist = orderlist;
         this.context = context;
         this.listener = listener;
     }
 
     @Override
-    public void onBindViewHolder(MainAdapter_Driver.MenuViewHolder holder, int position) {
+    public void onBindViewHolder(MainAdapter_Driver_mydeliver.MenuViewHolder holder, int position) {
         holder.setMenu(orderlist,position);
         holder.setIsRecyclable(false);
     }
@@ -64,8 +61,8 @@ public class MainAdapter_Driver extends RecyclerView.Adapter<MainAdapter_Driver.
     public class MenuViewHolder extends RecyclerView.ViewHolder {
 
         public TextView name,order,tel,distance;
-        public Button detail,accept;
         double distance_length;
+        Button viewmap,complete;
         Location order_location = new Location("order");
         Location driver_location = new Location("driver");
         public MenuViewHolder(View itemView) {
@@ -74,31 +71,25 @@ public class MainAdapter_Driver extends RecyclerView.Adapter<MainAdapter_Driver.
             order = (TextView) itemView.findViewById(R.id.order);
             tel = (TextView) itemView.findViewById(R.id.mem_tel);
             distance =(TextView) itemView.findViewById(R.id.mem_distance);
-            detail = (Button) itemView.findViewById(R.id.btndetail);
-            accept = (Button) itemView.findViewById(R.id.btnaccept);
+            viewmap = (Button) itemView.findViewById(R.id.viewmap);
+            complete = (Button) itemView.findViewById(R.id.complete);
 
-            detail.setOnClickListener(new View.OnClickListener() {
+            complete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onDetailClick(orderlist,getAdapterPosition());
-                }
-            });
-            accept.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onAccept(orderlist,getAdapterPosition());
+                    listener.onCompleteClick(orderlist,getAdapterPosition());
                 }
             });
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            viewmap.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    listener.onItemClick(orderlist,getAdapterPosition());
+                public void onClick(View view) {
+                    listener.onViewmapClick(orderlist,getAdapterPosition());
                 }
             });
         }
 
-        public void setMenu(final List<DeliveryOrderModel.OrderlistBean> orderlist,int position){
+        public void setMenu(final List<MyDeliverDriver.OrderBean> orderlist,int position){
             order_location.setLatitude(Double.valueOf(orderlist.get(position).getLatitude()));
             order_location.setLongitude(Double.valueOf(orderlist.get(position).getLongitude()));
             order_location.setAltitude(0);

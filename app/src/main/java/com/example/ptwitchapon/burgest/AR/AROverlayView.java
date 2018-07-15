@@ -10,6 +10,7 @@ import android.opengl.Matrix;
 import android.view.View;
 
 
+import com.example.ptwitchapon.burgest.Tool.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,8 @@ public class AROverlayView extends View {
         super(context);
 
         this.context = context;
-        burgest.setLatitude(13.775139);
-        burgest.setLongitude(100.562442);
+        burgest.setLatitude(Double.valueOf(Utils.storeModel.getStore().get(0).getLatitude()));
+        burgest.setLongitude(Double.valueOf(Utils.storeModel.getStore().get(0).getLongitude()));
         burgest.setAltitude(0);
         //Demo points
         arPoints = new ArrayList<ARPoint>() {{

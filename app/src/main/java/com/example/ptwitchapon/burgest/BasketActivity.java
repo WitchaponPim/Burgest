@@ -22,6 +22,7 @@ import com.example.ptwitchapon.burgest.Adapter.CustomDialog;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_edit;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other_edit;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water_edit;
 import com.example.ptwitchapon.burgest.Callback.OrderCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
@@ -33,6 +34,8 @@ import com.example.ptwitchapon.burgest.Tool.GPSTracker;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.squareup.okhttp.ResponseBody;
 
 import org.json.JSONArray;
@@ -55,7 +58,7 @@ public class BasketActivity extends AppCompatActivity {
     TextView txttotal;
     String id_promotion = "0";
     String TAG = "Basket";
-    Button pay;
+    Button pay,scan;
     ConnectManager connectManager = new ConnectManager();
     OrderCallback orderCallback = new OrderCallback() {
         @Override
@@ -65,7 +68,7 @@ public class BasketActivity extends AppCompatActivity {
             Utils.array = new JSONArray();
             Utils.orderbanlist = new ArrayList<>();
             Utils.order = new Order();
-            Utils.toast(getApplicationContext(), "Order success");
+            Utils.toast(getApplicationContext(), orderResponse.getDescription());
             onBackPressed();
         }
 
@@ -93,6 +96,15 @@ public class BasketActivity extends AppCompatActivity {
         orderlist = (RecyclerView) findViewById(R.id.order);
         txttotal = (TextView) findViewById(R.id.totaltxt);
         pay = (Button) findViewById(R.id.pay);
+        scan = (Button) findViewById(R.id.scan) ;
+
+        scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new IntentIntegrator(BasketActivity.this).initiateScan();
+            }
+        });
+
         orderlist.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         orderlist.setLayoutManager(layoutManager);
@@ -120,7 +132,7 @@ public class BasketActivity extends AppCompatActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
+//                if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
                     if (Double.valueOf(Utils.user.getChecklogin().getCash()) < gettotal()) {
                         Utils.toast(getApplicationContext(), "กรุณาเติมเงินในระบบก่อนครับ");
                     } else {
@@ -137,9 +149,9 @@ public class BasketActivity extends AppCompatActivity {
 //                        Utils.toast(getApplicationContext(), "เกินพื้นที่ที่กำหนด ไม่สามารถสั่งซื้อได้");
 //                    }
                     }
-                } else {
-                    Utils.toast(getApplicationContext(), "ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
-                }
+//                } else {
+//                    Utils.toast(getApplicationContext(), "ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
+//                }
             }
         });
 
@@ -183,5 +195,20 @@ public class BasketActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                Log.d("Ammy", "fail ");
+            } else {
 
+                Log.d("Ammy", "onActivityResult: "+result.getContents());
+                    id_promotion = result.getContents();
+
+            }
+        }
+
+    }
 }

@@ -144,154 +144,154 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
         String productname = null;
 
         switch (name){
-            case "1" :
+            case "10001" :
                 productname = "CHICKEN";
                 break;
-            case "2" :
+            case "10002" :
                 productname = "CHICKEN EGG";
                 break;
-            case "3" :
+            case "10003" :
                 productname = "CHICKEN CHEESE";
                 break;
-            case "4" :
+            case "10004" :
                 productname = "CHICKEN CHEESE BACON";
                 break;
-            case "5" :
+            case "10005" :
                 productname = "CHICKEN CHEESE BACON EGG";
                 break;
-            case "6" :
+            case "10006" :
                 productname = "FISH";
                 break;
-            case "7" :
+            case "10007" :
                 productname = "FISH EGG";
                 break;
-            case "8" :
+            case "10008" :
                 productname = "FISH CHEESE";
                 break;
-            case "9" :
+            case "10009" :
                 productname = "FISH CHEESE EGG";
                 break;
-            case "10" :
+            case "10010" :
                 productname = "FISH CHEESE BACON";
                 break;
-            case "11" :
+            case "10011" :
                 productname = "BEEF LARGE";
                 break;
-            case "12" :
+            case "10012" :
                 productname = "BEEF LARGE CHEESE";
                 break;
-            case "13" :
+            case "10013" :
                 productname = "BEEF LARGE BACON";
                 break;
-            case "14" :
+            case "10014" :
                 productname = "BEEF LARGE DOUBLE CHEESE";
                 break;
-            case "15" :
+            case "10015" :
                 productname = "BEEF LARGE CHEESE BACON";
                 break;
-            case "16" :
+            case "10016" :
                 productname = "BEEF LARGE CHEESE BACON EGG";
                 break;
-            case "17" :
+            case "10017" :
                 productname = "DUBLE BEEF";
                 break;
-            case "18" :
+            case "10018" :
                 productname = "DUBLE BEEF DUBLE CHEESE";
                 break;
-            case "19" :
+            case "10019" :
                 productname = "DUBLE BEEF DUBLE CHEESE BACON";
                 break;
-            case "20" :
+            case "10020" :
                 productname = "BEEF";
                 break;
-            case "21" :
+            case "10021" :
                 productname = "BEEF CHEESE";
                 break;
-            case "22" :
+            case "10022" :
                 productname = "BEEF CHEESE BACON";
                 break;
-            case "23" :
+            case "10023" :
                 productname = "PORK";
                 break;
-            case "24" :
+            case "10024" :
                 productname = "PORK EGG";
                 break;
-            case "25" :
+            case "10025" :
                 productname = "PORK CHEESE";
                 break;
-            case "26" :
+            case "10026" :
                 productname = "PORK BACON";
                 break;
-            case "27" :
+            case "10027" :
                 productname = "PORK CHEESE EGG";
                 break;
-            case "28" :
+            case "10028" :
                 productname = "PORK CHEESE BACON";
                 break;
-            case "29" :
+            case "10029" :
                 productname = "DUBLE PORK";
                 break;
-            case "30" :
+            case "10030" :
                 productname = "PORK CHEESE BACON EGG";
                 break;
-            case "31" :
+            case "10031" :
                 productname = "DUBLE PORK DUBLE CHEESE";
                 break;
-            case "32" :
+            case "10032" :
                 productname = "DUBLE PORK DUBLE CHEESE BACON";
                 break;
-            case "33" :
+            case "10033" :
                 productname = "SPICY";
                 break;
-            case "34" :
+            case "10034" :
                 productname = "SPICY CHEESE";
                 break;
-            case "35" :
+            case "10035" :
                 productname = "FRENFRIED SMALL";
                 break;
-            case "36" :
+            case "10036" :
                 productname = "FRENFRIED MEDIUM";
                 break;
-            case "37" :
+            case "10037" :
                 productname = "FRENFRIED LARGE";
                 break;
-            case "38" :
+            case "10038" :
                 productname = "KARA-AGE";
                 break;
-            case "39" :
+            case "10039" :
                 productname = "CHEESE BALL";
                 break;
-            case "40" :
+            case "10040" :
                 productname = "COKE MEDIUM";
                 break;
-            case "41" :
+            case "10041" :
                 productname = "COKE SMALL";
                 break;
-            case "42" :
+            case "10042" :
                 productname = "SPRITE MEDIUM";
                 break;
-            case "43" :
+            case "10043" :
                 productname = "SPRITE SMALL";
                 break;
-            case "44" :
+            case "10044" :
                 productname = "WATER MEDIUM";
                 break;
-            case "45" :
+            case "10045" :
                 productname = "WATER SMALL";
                 break;
-            case "46" :
+            case "10046" :
                 productname = "SET A BEEF LARGE CHEESE + FRENFRIED SMALL + COKE SMALL";
                 break;
-            case "47" :
+            case "10047" :
                 productname = "SET B PORK CHEESE + FRENFRIED SMALL + COKE SMALL";
                 break;
-            case "48" :
+            case "10048" :
                 productname = "SET C CHICKEN CHEESE + FRENFRIED SMALL + COKE SMALL";
                 break;
-            case "49" :
+            case "10049" :
                 productname = "SET D SPICY CHEESE + FRENFRIED SMALL + COKE SMALL";
                 break;
-            case "50" :
+            case "10050" :
                 productname = "SET E FISH CHEESE + FRENFRIED SMALL + COKE SMALL";
                 break;
         }

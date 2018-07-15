@@ -16,6 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.ptwitchapon.burgest.API.ConnectManager;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_QR;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water;
 import com.example.ptwitchapon.burgest.Callback.OrderListCallback;
 import com.example.ptwitchapon.burgest.Fragment.Fm1;
 import com.example.ptwitchapon.burgest.Fragment.Fm_Location;
@@ -26,6 +30,8 @@ import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.google.gson.Gson;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.squareup.okhttp.ResponseBody;
 
 import org.json.JSONException;
@@ -41,7 +47,6 @@ public class TabActivity extends AppCompatActivity {
     String TAG = "Menu";
     FloatingActionButton fab;
 
-    int REQUEST_QR_SCAN = 12345;
     ConnectManager connect = new ConnectManager();
 
 
@@ -154,5 +159,60 @@ public class TabActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, OtherFM.newInstance()).commit();
         }
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                Log.d("Ammy", "fail ");
+            } else {
+
+                Log.d("Ammy", "onActivityResult: "+result.getContents());
+
+                if (Integer.valueOf(result.getContents()) >= 10035 && Integer.valueOf(result.getContents()) <= 10039) {
+
+                    for(int i =0;i<Utils.product.getProduct().size();i++){
+                        for (int j =0;j< Utils.product.getProduct().get(i).getBurgur().size();j++){
+                            if(Utils.product.getProduct().get(i).getBurgur().get(j).getId_product().equals(result.getContents())){
+                                Log.d("Ammy", "QR_Other");
+                                CustomDialog_other other = new CustomDialog_other(TabActivity.this,Utils.product.getProduct().get(i).getBurgur().get(j));
+                                other.show();
+                            }
+                        }
+                    }
+
+
+                } else if (Integer.valueOf(result.getContents()) >= 10040 && Integer.valueOf(result.getContents()) <= 10045) {
+
+                    for(int i =0;i<Utils.product.getProduct().size();i++){
+                        for (int j =0;j< Utils.product.getProduct().get(i).getBurgur().size();j++){
+                            if(Utils.product.getProduct().get(i).getBurgur().get(j).getId_product().equals(result.getContents())){
+                                Log.d("Ammy", "QR_Water");
+                                CustomDialog_water water = new CustomDialog_water(TabActivity.this,Utils.product.getProduct().get(i).getBurgur().get(j));
+                                water.show();
+                            }
+                        }
+                    }
+
+
+                } else {
+
+                    for(int i =0;i<Utils.product.getProduct().size();i++){
+                        for (int j =0;j< Utils.product.getProduct().get(i).getBurgur().size();j++){
+                            if(Utils.product.getProduct().get(i).getBurgur().get(j).getId_product().equals(result.getContents())){
+                                Log.d("Ammy", "QR_Burger");
+                                CustomDialog cdd = new CustomDialog(TabActivity.this,Utils.product.getProduct().get(i).getBurgur().get(j));
+                                cdd.show();
+                            }
+                        }
+                    }
+
+                }
+
+            }
+        }
     }
 }

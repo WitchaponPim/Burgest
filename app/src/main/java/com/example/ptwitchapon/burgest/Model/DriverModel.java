@@ -33,7 +33,17 @@ public class DriverModel {
         private String firstname;
         private String lastname;
         private String position;
+        private String id_position;
         private String id_emp;
+
+
+        public String getId_position() {
+            return id_position;
+        }
+
+        public void setId_position(String id_position) {
+            this.id_position = id_position;
+        }
 
         public String getStatus() {
             return status;

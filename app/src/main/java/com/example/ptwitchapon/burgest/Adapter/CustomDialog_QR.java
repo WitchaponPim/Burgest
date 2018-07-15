@@ -20,24 +20,21 @@ import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.Product;
 import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.Tool.Utils;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 /**
  * Created by Killy77 on 27/4/2561.
  */
 
-public class CustomDialog extends Dialog implements View.OnClickListener {
+public class CustomDialog_QR extends Dialog implements View.OnClickListener {
 
     public Activity c;
     public Dialog d;
     public Button yes, no ,add,del;
     int p, exp, qtyp, total;
-
     String sauce;
     CheckBox c1, c2, c3, c4, ex1, ex2, ex3;
     String veg, extra, q;
@@ -48,7 +45,7 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
     Product.ProductBean.BurgurBean products;
     //pap na
 
-    public CustomDialog(Activity a, Product.ProductBean.BurgurBean products) {
+    public CustomDialog_QR(Activity a, Product.ProductBean.BurgurBean products) {
         super(a);
         // TODO Auto-generated constructor stub
         this.products = products;
