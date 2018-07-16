@@ -132,7 +132,7 @@ public class BasketActivity extends AppCompatActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
+//                if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
                     if (Double.valueOf(Utils.user.getChecklogin().getCash()) < gettotal()) {
                         Utils.toast(getApplicationContext(), "กรุณาเติมเงินในระบบก่อนครับ");
                     } else {
@@ -144,9 +144,9 @@ public class BasketActivity extends AppCompatActivity {
                         Log.d("Ammy", "onCreate: " + sb.toString());
                         connectManager.order(orderCallback, sb.toString());
                     }
-                } else {
-                    Utils.toast(getApplicationContext(), "ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
-                }
+//                } else {
+//                    Utils.toast(getApplicationContext(), "ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
+//                }
             }
         });
 
