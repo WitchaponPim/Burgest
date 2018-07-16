@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Paint;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
@@ -26,10 +27,12 @@ import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water_edit;
 import com.example.ptwitchapon.burgest.Callback.OrderCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
+import com.example.ptwitchapon.burgest.Callback.PromotionCallback;
 import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.OrderResponse;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
+import com.example.ptwitchapon.burgest.Model.PromotionModel;
 import com.example.ptwitchapon.burgest.Tool.GPSTracker;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.google.android.gms.maps.model.LatLng;
@@ -85,6 +88,28 @@ public class BasketActivity extends AppCompatActivity {
         @Override
         public void onBodyErrorIsNull() {
             Log.d(TAG, "onBodyErrorIsNull: ");
+        }
+    };
+    PromotionCallback promotionCallback = new PromotionCallback() {
+        @Override
+        public void onResponse(PromotionModel promotion, Retrofit retrofit) {
+
+            txttotal.setPaintFlags(txttotal.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBody) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
         }
     };
 
@@ -202,6 +227,7 @@ public class BasketActivity extends AppCompatActivity {
 
                 Log.d("Ammy", "onActivityResult: "+result.getContents());
                     id_promotion = result.getContents();
+                    connectManager.getPromotion(promotionCallback,id_promotion);
 
             }
         }

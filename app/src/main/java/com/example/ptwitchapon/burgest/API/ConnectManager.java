@@ -10,6 +10,7 @@ import com.example.ptwitchapon.burgest.Callback.MyDeliveryCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderListCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
+import com.example.ptwitchapon.burgest.Callback.PromotionCallback;
 import com.example.ptwitchapon.burgest.Callback.RegisterCallback;
 import com.example.ptwitchapon.burgest.Callback.StockCallback;
 import com.example.ptwitchapon.burgest.Callback.StoreCallback;
@@ -25,6 +26,7 @@ import com.example.ptwitchapon.burgest.Model.OrderResponse;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
 import com.example.ptwitchapon.burgest.Model.Product;
+import com.example.ptwitchapon.burgest.Model.PromotionModel;
 import com.example.ptwitchapon.burgest.Model.Regis;
 import com.example.ptwitchapon.burgest.Model.StockModel;
 import com.example.ptwitchapon.burgest.Model.StoreModel;
@@ -285,6 +287,31 @@ public class ConnectManager {
                 } else {
                     //200
                     listener.onResponse(stock, retrofit);
+                }
+            }
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onFailure(t);
+            }
+        });
+    }
+
+    public void getPromotion(final PromotionCallback listener, String id_promotion) {
+        Call call = con.getPromotion(id_promotion);
+        call.enqueue(new Callback<PromotionModel>() {
+            @Override
+            public void onResponse(Response<PromotionModel> response, Retrofit retrofit) {
+                PromotionModel promotion = response.body();
+                if (promotion == null) {
+                    ResponseBody responseBody = response.errorBody();
+                    if (responseBody != null) {
+                        listener.onBodyError(responseBody);
+                    } else {
+                        listener.onBodyErrorIsNull();
+                    }
+                } else {
+                    //200
+                    listener.onResponse(promotion, retrofit);
                 }
             }
             @Override

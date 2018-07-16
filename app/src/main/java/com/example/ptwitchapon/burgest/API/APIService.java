@@ -11,6 +11,7 @@ import com.example.ptwitchapon.burgest.Model.OrderResponse;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
 import com.example.ptwitchapon.burgest.Model.Product;
+import com.example.ptwitchapon.burgest.Model.PromotionModel;
 import com.example.ptwitchapon.burgest.Model.Regis;
 import com.example.ptwitchapon.burgest.Model.StockModel;
 import com.example.ptwitchapon.burgest.Model.StoreModel;
@@ -76,6 +77,10 @@ public interface APIService {
     @FormUrlEncoded
     @POST("get-stock.php")
     Call<StockModel> getStock(@Field("id_stock") String id_stock);
+
+    @FormUrlEncoded
+    @POST("get-stock.php")
+    Call<PromotionModel> getPromotion(@Field("id_promotion") String id_promotion);
 
     @FormUrlEncoded
     @POST("update-stock.php")
