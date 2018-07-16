@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         user = (EditText) findViewById(R.id.user);
         pass = (EditText) findViewById(R.id.pass);
         
-        connect.login (loginCallback,"o@a.com","1234",FirebaseInstanceId.getInstance().getToken());
+        connect.login (loginCallback,"a1@a.com","123456",FirebaseInstanceId.getInstance().getToken());
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

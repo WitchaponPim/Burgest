@@ -42,7 +42,6 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
         this.context = context;
         this.activity = activity;
         this.listener = listener;
-
     }
 
     @Override

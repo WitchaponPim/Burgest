@@ -89,7 +89,7 @@ public class Utils {
         Burgest.setAltitude(0);
 
         Location chk = new Location("chk");
-        chk.setLongitude(lat);
+        chk.setLatitude(lat);
         chk.setLongitude(lng);
         chk.setAltitude(0);
 

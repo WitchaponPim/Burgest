@@ -32,6 +32,66 @@
         android:layout_above="@id/scan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/promotionname"
+            android:layout_above="@id/total"
+            android:padding="@dimen/space"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Promotion :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/promoname"
+                android:paddingLeft="@dimen/space"
+                android:text="100 ฿"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/promotiondetail"
+            android:layout_above="@id/total"
+            android:padding="@dimen/space"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Discount:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/promodis"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:textSize="@dimen/textsize_XH"
+                android:text="100 ฿"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/totaltxtdis_a"
+            android:padding="@dimen/space"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/totaltxtdis"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:textSize="@dimen/textsize_XH"
+                android:text="100 ฿"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
         <LinearLayout
             android:padding="@dimen/space"
             android:orientation="horizontal"
@@ -44,58 +104,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:id="@+id/totaltxt"
-                android:gravity="right"
-
-                android:textStyle="bold"
-                android:textSize="@dimen/textsize_XH"
-                android:text="100 ฿"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/promotionname"
-            android:layout_above="@id/total"
-            android:padding="@dimen/space"
-            android:orientation="horizontal"
+            android:id="@+id/totaltxt"
+            android:gravity="right"
+            android:textStyle="bold"
+            android:textSize="@dimen/textsize_XH"
+            android:text="100 ฿"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="Promotion :"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/promotxt"
-                android:gravity="right"
-                android:textStyle="bold"
-                android:textSize="@dimen/textsize_XH"
-                android:text="100 ฿"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" />
 
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/promotiondetail"
-            android:layout_above="@id/total"
-            android:padding="@dimen/space"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="Discount:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/promotxt2"
-                android:gravity="right"
-                android:textStyle="bold"
-                android:textSize="@dimen/textsize_XH"
-                android:text="100 ฿"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
-        </LinearLayout>
     </LinearLayout>
 
 

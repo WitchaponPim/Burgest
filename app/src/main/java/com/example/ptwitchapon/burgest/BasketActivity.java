@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ptwitchapon.burgest.API.ConnectManager;
@@ -57,6 +58,8 @@ public class BasketActivity extends AppCompatActivity {
     private static final int REQUEST_LOCATION = 1;
 
     LocationManager locationManager;
+    LinearLayout proname,prodetail,totaltxtdis_a;
+    TextView promoname,promodis,txtdis,totaltxtdis;
     StringBuffer sb;
     TextView txttotal;
     String id_promotion = "0";
@@ -94,7 +97,22 @@ public class BasketActivity extends AppCompatActivity {
         @Override
         public void onResponse(PromotionModel promotion, Retrofit retrofit) {
 
-            txttotal.setPaintFlags(txttotal.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            if(Integer.valueOf(promotion.getPromotions().get(0).getPrice())>gettotal()){
+                Utils.toast(getApplicationContext(),"ไม่สามารถใช่โปรโมชั่นนี้ได้");
+            }else {
+                proname.setVisibility(View.VISIBLE);
+                prodetail.setVisibility(View.VISIBLE);
+                totaltxtdis_a.setVisibility(View.VISIBLE);
+                totaltxtdis.setText(String.valueOf(gettotal()) + " ฿");
+                totaltxtdis.setPaintFlags(totaltxtdis.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                promoname.setText(promotion.getPromotions().get(0).getPromotionName());
+                promodis.setText(promotion.getPromotions().get(0).getPrice()+" ฿");
+                int total = gettotal()-Integer.valueOf(promotion.getPromotions().get(0).getPrice());
+                txttotal.setText(String.valueOf(total)+" ฿");
+                txttotal.setTextColor(getResources().getColor(R.color.colorPrimary));
+            }
+
+
         }
 
         @Override
@@ -120,6 +138,13 @@ public class BasketActivity extends AppCompatActivity {
 
         orderlist = (RecyclerView) findViewById(R.id.order);
         txttotal = (TextView) findViewById(R.id.totaltxt);
+        prodetail = (LinearLayout) findViewById(R.id.promotiondetail);
+        proname = (LinearLayout) findViewById(R.id.promotionname);
+        totaltxtdis_a = (LinearLayout) findViewById(R.id.totaltxtdis_a);
+        totaltxtdis = (TextView) findViewById(R.id.totaltxtdis);
+        promoname = (TextView) findViewById(R.id.promoname);
+        promodis = (TextView) findViewById(R.id.promodis);
+        txtdis = (TextView) findViewById(R.id.totaltxtdis) ;
         pay = (Button) findViewById(R.id.pay);
         scan = (Button) findViewById(R.id.scan) ;
 
@@ -157,7 +182,8 @@ public class BasketActivity extends AppCompatActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
+                Log.d(TAG, "onClick: "+getLocation().latitude +" , "+getLocation().longitude);
+                if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
                     if (Double.valueOf(Utils.user.getChecklogin().getCash()) < gettotal()) {
                         Utils.toast(getApplicationContext(), "กรุณาเติมเงินในระบบก่อนครับ");
                     } else {
@@ -169,9 +195,9 @@ public class BasketActivity extends AppCompatActivity {
                         Log.d("Ammy", "onCreate: " + sb.toString());
                         connectManager.order(orderCallback, sb.toString());
                     }
-//                } else {
-//                    Utils.toast(getApplicationContext(), "ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
-//                }
+                } else {
+                    Utils.toast(getApplicationContext(), "ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
+                }
             }
         });
 
@@ -227,7 +253,7 @@ public class BasketActivity extends AppCompatActivity {
 
                 Log.d("Ammy", "onActivityResult: "+result.getContents());
                     id_promotion = result.getContents();
-                    connectManager.getPromotion(promotionCallback,id_promotion);
+                    connectManager.getPromotion(promotionCallback,result.getContents());
 
             }
         }

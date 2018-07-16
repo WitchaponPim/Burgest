@@ -66,7 +66,13 @@ public class CustomDialog_detailOrderlist extends Dialog implements View.OnClick
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         review.setLayoutManager(layoutManager);
         adapter = new Orderlist_itemAdapter(getContext(), item);
-        total.setText("Total : "+item.getItems().get(0).getTotalPrice()+" ฿");
+
+        int totals = 0;
+        for (int i = 0;i<item.getItems().size();i++){
+            totals = totals+(Integer.valueOf(item.getItems().get(i).getprice())*Integer.valueOf(item.getItems().get(i).getQty()));
+        }
+
+        total.setText("Total : "+String.valueOf(totals)+" ฿");
         review.setAdapter(adapter);
         yes.setOnClickListener(this);
 

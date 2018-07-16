@@ -8,7 +8,7 @@ public class PromotionModel {
      * status : success
      * code : 200
      * describtion : get promotions successfuly
-     * promotions : [{"id_promotion":"30001","PromotionName":"last year","Amount":"1000","Price":"10","Path":"10","DateStart":"2018-12-20 23:40:30","DateEnd":"2019-01-05 23:40:46","QRCode":"","id_promotionstatus":"1","Use":null,"limited":"1"}]
+     * promotions : [{"id_promotion":"30001","PromotionName":"last year","Amount":"1000","Price":"10","Path":"10","DateStart":"2018-12-20 23:40:30","DateEnd":"2019-01-05 23:40:46","QRCode":"","id_promotionstatus":"1","Use":null,"limited":"1","status":"พร้อมใช้งาน"},{"id_promotion":"30002","PromotionName":"FINAL DAY 5B","Amount":"50","Price":"5","Path":"ss","DateStart":"2018-05-10 19:38:05","DateEnd":"2018-05-31 19:38:08","QRCode":"","id_promotionstatus":"1","Use":null,"limited":"1","status":"พร้อมใช้งาน"},{"id_promotion":"30003","PromotionName":"mid year","Amount":"10","Price":"500","Path":"","DateStart":"2018-06-14 00:00:00","DateEnd":"2018-06-14 00:00:00","QRCode":"","id_promotionstatus":"1","Use":null,"limited":"1","status":"พร้อมใช้งาน"}]
      */
 
     private String status;
@@ -61,6 +61,7 @@ public class PromotionModel {
          * id_promotionstatus : 1
          * Use : null
          * limited : 1
+         * status : พร้อมใช้งาน
          */
 
         private String id_promotion;
@@ -74,6 +75,7 @@ public class PromotionModel {
         private String id_promotionstatus;
         private Object Use;
         private String limited;
+        private String status;
 
         public String getId_promotion() {
             return id_promotion;
@@ -161,6 +163,14 @@ public class PromotionModel {
 
         public void setLimited(String limited) {
             this.limited = limited;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
         }
     }
 }

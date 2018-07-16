@@ -79,7 +79,7 @@ public interface APIService {
     Call<StockModel> getStock(@Field("id_stock") String id_stock);
 
     @FormUrlEncoded
-    @POST("get-stock.php")
+    @POST("get-promotion.php")
     Call<PromotionModel> getPromotion(@Field("id_promotion") String id_promotion);
 
     @FormUrlEncoded
