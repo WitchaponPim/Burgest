@@ -7,6 +7,7 @@
     android:gravity="center"
     tools:context="com.example.ptwitchapon.burgest.TabActivity">
     <ScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -16,12 +17,11 @@
 
             <LinearLayout
                 android:id="@+id/userDetail"
-                android:visibility="gone"
                 android:background="@color/colorAccent"
                 android:orientation="vertical"
                 android:padding="@dimen/space_X"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

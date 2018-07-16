@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -36,6 +37,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -107,11 +109,25 @@ public class Fm_Location extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        try {
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            getContext(), R.raw.style_json));
+
+            if (!success) {
+                Log.e("test", "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e("test", "Can't find style. Error: ", e);
+        }
         // Add a marker in Sydney and move the camera , ,
         LatLng burgest = new LatLng(Double.valueOf(Utils.storeModel.getStore().get(0).getLatitude()), Double.valueOf(Utils.storeModel.getStore().get(0).getLongitude()));
         Burgest.setLatitude(Double.valueOf(Utils.storeModel.getStore().get(0).getLatitude()));
         Burgest.setLongitude(Double.valueOf(Utils.storeModel.getStore().get(0).getLongitude()));
         Burgest.setAltitude(0);
+
+        Log.d("Ammy", "onMapReady: "+burgest.latitude + " / "+ burgest.longitude);
         LatLng me = new LatLng(Double.valueOf(lattitude),Double.valueOf(longitude));
 //        PolylineOptions rectLine = new PolylineOptions()
 //                .add(new LatLng(13.761519, 100.548816))

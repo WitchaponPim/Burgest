@@ -68,14 +68,16 @@ public class CustomDialog_other_edit extends Dialog implements View.OnClickListe
         r3 = (RadioButton) findViewById(R.id.r3);
         r4 = (RadioButton) findViewById(R.id.r4);
 
+        qty.setText(orderBean.getQty());
         q = qty.getText().toString();
         qtyp = Integer.valueOf(q);
         p = Integer.valueOf(orderBean.getPrice());
         name.setText(getname(orderBean.getId_product()));
         total = Integer.valueOf(p * qtyp);
 
-        setAlltext();
-
+        Picasso.with(c)
+                .load(Utils.ipPic +orderBean.getPath())
+                .into(proImg);
         if (!orderBean.getSauce().isEmpty()){
             switch (orderBean.getSauce()){
                 case "tomato sauce":
@@ -94,9 +96,6 @@ public class CustomDialog_other_edit extends Dialog implements View.OnClickListe
 
         }
 
-        Picasso.with(c)
-                .load(Utils.ipPic + orderBean.getPath())
-                .into(proImg);
         qty.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -126,6 +125,7 @@ public class CustomDialog_other_edit extends Dialog implements View.OnClickListe
 
             }
         });
+        setAlltext();
         yes.setOnClickListener(this);
         no.setOnClickListener(this);
         add.setOnClickListener(this);
@@ -155,10 +155,12 @@ public class CustomDialog_other_edit extends Dialog implements View.OnClickListe
                 Utils.orderbean.setTotal(String.valueOf(total));
                 Utils.orderbean.setId_promotion("1");
                 Utils.orderbean.setSauce(getsauce());
-                Utils.orderbanlist.set(position,Utils.orderbean);
+                Utils.orderbean.setPath(orderBean.getPath());
 
+                Utils.orderbanlist.set(position,Utils.orderbean);
                 c.startActivity(new Intent(c,BasketActivity.class));
                 c.finish();
+
                 break;
             case R.id.btn_cancel:
                 dismiss();

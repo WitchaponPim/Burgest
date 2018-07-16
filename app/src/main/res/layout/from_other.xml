@@ -48,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <RadioButton
+                    android:buttonTint="@color/colorPrimary"
                     android:id="@+id/r1"
                     android:checked="true"
                     android:layout_width="wrap_content"
@@ -55,16 +56,19 @@
                     android:text="tomato Sauce" />
                 <RadioButton
                     android:id="@+id/r2"
+                    android:buttonTint="@color/colorPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="mayonnaise sauce" />
                 <RadioButton
                     android:id="@+id/r3"
+                    android:buttonTint="@color/colorPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="blackpaper sauce" />
                 <RadioButton
                     android:id="@+id/r4"
+                    android:buttonTint="@color/colorPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="thousand sauce" />
