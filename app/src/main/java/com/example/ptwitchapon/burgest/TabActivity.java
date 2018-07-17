@@ -21,6 +21,7 @@ import com.example.ptwitchapon.burgest.Adapter.CustomDialog_QR;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water;
 import com.example.ptwitchapon.burgest.Callback.OrderListCallback;
+import com.example.ptwitchapon.burgest.Callback.StoreCallback;
 import com.example.ptwitchapon.burgest.Fragment.Fm1;
 import com.example.ptwitchapon.burgest.Fragment.Fm_Location;
 import com.example.ptwitchapon.burgest.Fragment.OtherFM;
@@ -28,6 +29,7 @@ import com.example.ptwitchapon.burgest.Fragment.StatusTopup;
 import com.example.ptwitchapon.burgest.Fragment.fm_menu;
 import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
+import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -48,7 +50,27 @@ public class TabActivity extends AppCompatActivity {
     FloatingActionButton fab;
 
     ConnectManager connect = new ConnectManager();
+    StoreCallback callback = new StoreCallback() {
+        @Override
+        public void onResponse(StoreModel storeModel, Retrofit retrofit) {
+            Utils.storeModel = storeModel;
+        }
 
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBody) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+    };
 
 
     @Override
@@ -61,7 +83,7 @@ public class TabActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimary));
         getSupportActionBar().setTitle("Follow");
         toolbar.setVisibility(View.GONE);
-
+        connect.getstore(callback);
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.content_main, fm_menu.newInstance())

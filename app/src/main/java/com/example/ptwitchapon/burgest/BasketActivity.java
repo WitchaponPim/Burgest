@@ -26,17 +26,26 @@ import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other_edit;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water_edit;
+import com.example.ptwitchapon.burgest.Callback.LoginCallback;
+import com.example.ptwitchapon.burgest.Callback.Login_DCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
 import com.example.ptwitchapon.burgest.Callback.PromotionCallback;
+import com.example.ptwitchapon.burgest.Callback.StockCallback;
+import com.example.ptwitchapon.burgest.Callback.StoreCallback;
+import com.example.ptwitchapon.burgest.Model.DriverModel;
 import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.OrderResponse;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
 import com.example.ptwitchapon.burgest.Model.PromotionModel;
+import com.example.ptwitchapon.burgest.Model.StockModel;
+import com.example.ptwitchapon.burgest.Model.StoreModel;
+import com.example.ptwitchapon.burgest.Model.User;
 import com.example.ptwitchapon.burgest.Tool.GPSTracker;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -66,6 +75,53 @@ public class BasketActivity extends AppCompatActivity {
     String TAG = "Basket";
     Button pay,scan;
     ConnectManager connectManager = new ConnectManager();
+    LoginCallback loginCallback = new LoginCallback() {
+        @Override
+        public void onResponse(User user, Retrofit retrofit) {
+                Utils.user = user;
+                connectManager.getstore(storeCallback);
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+            Utils.toast(getApplicationContext(), t.toString());
+            Log.d(TAG, "onFailure: " + t.toString());
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBody) {
+            Utils.toast(getApplicationContext(), responseBody.toString());
+            Log.d(TAG, "onBodyError: " + responseBody.toString());
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+            Utils.toast(getApplicationContext(), "null!");
+            Log.d(TAG, "onBodyErrorIsNull: ");
+        }
+    };
+    StoreCallback storeCallback = new StoreCallback() {
+        @Override
+        public void onResponse(StoreModel storeModel, Retrofit retrofit) {
+            Utils.storeModel = storeModel;
+            onBackPressed();
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBody) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+    };
     OrderCallback orderCallback = new OrderCallback() {
         @Override
         public void onResponse(OrderResponse orderResponse, Retrofit retrofit) {
@@ -75,7 +131,8 @@ public class BasketActivity extends AppCompatActivity {
             Utils.orderbanlist = new ArrayList<>();
             Utils.order = new Order();
             Utils.toast(getApplicationContext(), orderResponse.getDescription());
-            onBackPressed();
+            connectManager.login(loginCallback,Utils.username,Utils.password, FirebaseInstanceId.getInstance().getToken());
+
         }
 
         @Override

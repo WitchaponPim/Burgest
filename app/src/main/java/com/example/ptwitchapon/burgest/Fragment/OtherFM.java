@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ptwitchapon.burgest.API.APIService2;
+import com.example.ptwitchapon.burgest.API.ConnectManager;
 import com.example.ptwitchapon.burgest.API.ConnectTopup;
 import com.example.ptwitchapon.burgest.AccountActivity;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog;
@@ -28,9 +29,11 @@ import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water_edit;
 import com.example.ptwitchapon.burgest.Adapter.FollowAdapter;
 import com.example.ptwitchapon.burgest.Adapter.OtherAdapter;
 import com.example.ptwitchapon.burgest.BasketActivity;
+import com.example.ptwitchapon.burgest.Callback.StoreCallback;
 import com.example.ptwitchapon.burgest.LoginActivity;
 
 import com.example.ptwitchapon.burgest.Model.QrScan;
+import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.TabActivity;
 import com.example.ptwitchapon.burgest.TabManagerActivity;
@@ -38,12 +41,14 @@ import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.example.ptwitchapon.burgest.TopupActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.squareup.okhttp.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import retrofit.Retrofit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -65,6 +70,28 @@ public class OtherFM extends Fragment {
     int REQUEST_QR_SCAN = 12345;
     List<String> othermenu = new ArrayList<>();
     List<String> loginedothermenu = new ArrayList<>();
+    ConnectManager connect = new ConnectManager();
+    StoreCallback callback = new StoreCallback() {
+        @Override
+        public void onResponse(StoreModel storeModel, Retrofit retrofit) {
+            Utils.storeModel = storeModel;
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBody) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+    };
 
     public static OtherFM newInstance() {
         return new OtherFM();
@@ -85,8 +112,9 @@ public class OtherFM extends Fragment {
         loginedothermenu.add("Top Up");
         loginedothermenu.add("Scan QR");
         loginedothermenu.add("Logout");
-
+        connect.getstore(callback);
         othermenu.add("Login/Register");
+
 
         userdetail = (LinearLayout) view.findViewById(R.id.userDetail);
         name = (TextView) view.findViewById(R.id.user);
@@ -95,7 +123,9 @@ public class OtherFM extends Fragment {
         recycleviewChick.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recycleviewChick.setLayoutManager(layoutManager);
-
+        if(Utils.user!=null){
+            settext();
+        }
         if (!Utils.isLogin) {
             adapter = new OtherAdapter(getContext(), othermenu, new OtherAdapter.OnItemClickListener() {
                 @Override
@@ -146,6 +176,10 @@ public class OtherFM extends Fragment {
         recycleviewChick.setAdapter(adapter);
 
 
+    }
+    public void settext(){
+        name.setText(Utils.user.getChecklogin().getFirstname()+" "+Utils.user.getChecklogin().getLastname());
+        cash.setText(Utils.user.getChecklogin().getCash()+" ฿");
     }
 
     @Override

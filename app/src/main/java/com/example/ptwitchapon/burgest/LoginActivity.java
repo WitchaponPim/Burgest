@@ -104,10 +104,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void Menu(View view){
-        String a,b;
-        a = user.getText().toString();
-        b = pass.getText().toString();
-        connect.login(loginCallback,a,b,FirebaseInstanceId.getInstance().getToken());
+        Utils.username = user.getText().toString();
+        Utils.password = pass.getText().toString();
+        connect.login(loginCallback, Utils.username, Utils.password ,FirebaseInstanceId.getInstance().getToken());
     }
 
 

@@ -48,6 +48,9 @@ public class Utils {
     public static JSONArray array=new JSONArray();
 
 
+    public static String username;
+    public static String password;
+
     public static double lat1 = 13.761519;
     public static double lng1 = 100.548816;
 
