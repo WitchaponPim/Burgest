@@ -72,7 +72,8 @@ public class CustomDialog_detailOrderlist extends Dialog implements View.OnClick
             totals = totals+(Integer.valueOf(item.getItems().get(i).getprice())*Integer.valueOf(item.getItems().get(i).getQty()));
         }
 
-        total.setText("Total : "+String.valueOf(totals)+" ฿");
+
+        total.setText("Total : "+item.getItems().get(0).getTotalPrice()+" ฿");
         review.setAdapter(adapter);
         yes.setOnClickListener(this);
 
