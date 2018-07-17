@@ -79,7 +79,8 @@ public class Orderlist_itemAdapter extends RecyclerView.Adapter<Orderlist_itemAd
 
         proname.setText(orderlist.getItems().get(getAdapterPosition()).getProductName());
         qty.setText(orderlist.getItems().get(getAdapterPosition()).getQty() + " Pc.");
-        total.setText(orderlist.getItems().get(getAdapterPosition()).getTotalPrice()+" ฿.");
+        int total_row = Integer.valueOf(orderlist.getItems().get(getAdapterPosition()).getprice())*Integer.valueOf(orderlist.getItems().get(getAdapterPosition()).getQty());
+        total.setText(String.valueOf(total_row)+" ฿.");
         Picasso.with(context)
                 .load(Utils.ipPic + orderlist.getItems().get(getAdapterPosition()).getPath())
                 .into(pic);
