@@ -79,7 +79,7 @@ public class Orderlist_itemAdapter extends RecyclerView.Adapter<Orderlist_itemAd
 
         proname.setText(orderlist.getItems().get(getAdapterPosition()).getProductName());
         qty.setText(orderlist.getItems().get(getAdapterPosition()).getQty() + " Pc.");
-        total.setText(orderlist.getItems().get(getAdapterPosition()).getprice()+" ฿.");
+        total.setText(orderlist.getItems().get(getAdapterPosition()).getTotalPrice()+" ฿.");
         Picasso.with(context)
                 .load(Utils.ipPic + orderlist.getItems().get(getAdapterPosition()).getPath())
                 .into(pic);

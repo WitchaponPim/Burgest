@@ -191,7 +191,7 @@ public class BasketActivity extends AppCompatActivity {
                         String jsonString = g.toJson(Utils.order.getOrder());
                         sb = new StringBuffer("{\"order\":");
                         sb.append(jsonString);
-                        sb.append(",\"id_member\":\"" + Utils.user.getChecklogin().getId_member() + "\",\"lat\":\"" + Utils.lat1 + "\",\"lng\":\"" + Utils.lng1 + "\",\"id_promotion\":\"" + id_promotion + "\"}");
+                        sb.append(",\"id_member\":\"" + Utils.user.getChecklogin().getId_member() + "\",\"lat\":\"" + getLocation().latitude + "\",\"lng\":\"" + getLocation().longitude + "\",\"id_promotion\":\"" + id_promotion + "\"}");
                         Log.d("Ammy", "onCreate: " + sb.toString());
                         connectManager.order(orderCallback, sb.toString());
                     }
