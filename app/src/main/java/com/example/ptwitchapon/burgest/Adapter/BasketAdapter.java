@@ -14,15 +14,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ptwitchapon.burgest.API.ConnectManager;
 import com.example.ptwitchapon.burgest.BasketActivity;
+import com.example.ptwitchapon.burgest.Callback.ProductCallback;
 import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Product;
+import com.example.ptwitchapon.burgest.Model.ProductModel;
 import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.Tool.Utils;
+import com.squareup.okhttp.ResponseBody;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import retrofit.Retrofit;
 
 /**
  * Created by Killy77 on 21/4/2561.
@@ -35,13 +41,16 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
     private Context context;
     private Activity activity;
     private static int currentPosition = 0;
+    private String name;
     BasketAdapter.OnItemClickListener listener;
+    ConnectManager connectManager = new ConnectManager();
 
     public BasketAdapter(Order order, Context context, Activity activity,BasketAdapter.OnItemClickListener listener) {
         this.order = order;
         this.context = context;
         this.activity = activity;
         this.listener = listener;
+
     }
 
     @Override
@@ -58,7 +67,28 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
     public void onBindViewHolder(final FollowViewHolder holder, final int position) {
         final Order.OrderBean listbean = order.getOrder().get(position);
         holder.ordername.setText("Order #"+listbean.getId_product());
-        holder.Pname.setText(getname(listbean.getId_product()));
+        ProductCallback callback = new ProductCallback() {
+            @Override
+            public void onResponse(ProductModel productModel, Retrofit retrofit) {
+                holder.Pname.setText(productModel.getProduct().get(0).getProductName());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+
+            @Override
+            public void onBodyError(ResponseBody responseBody) {
+
+            }
+
+            @Override
+            public void onBodyErrorIsNull() {
+
+            }
+        };
+        connectManager.getProduct(callback,listbean.getId_product());
         holder.price.setText(listbean.getPrice());
         holder.total.setText(listbean.getTotal());
 
@@ -139,162 +169,5 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.FollowView
         }
     }
 
-    public String getname(String name){
-        String productname = null;
 
-        switch (name){
-            case "10001" :
-                productname = "CHICKEN";
-                break;
-            case "10002" :
-                productname = "CHICKEN EGG";
-                break;
-            case "10003" :
-                productname = "CHICKEN CHEESE";
-                break;
-            case "10004" :
-                productname = "CHICKEN CHEESE BACON";
-                break;
-            case "10005" :
-                productname = "CHICKEN CHEESE BACON EGG";
-                break;
-            case "10006" :
-                productname = "FISH";
-                break;
-            case "10007" :
-                productname = "FISH EGG";
-                break;
-            case "10008" :
-                productname = "FISH CHEESE";
-                break;
-            case "10009" :
-                productname = "FISH CHEESE EGG";
-                break;
-            case "10010" :
-                productname = "FISH CHEESE BACON";
-                break;
-            case "10011" :
-                productname = "BEEF LARGE";
-                break;
-            case "10012" :
-                productname = "BEEF LARGE CHEESE";
-                break;
-            case "10013" :
-                productname = "BEEF LARGE BACON";
-                break;
-            case "10014" :
-                productname = "BEEF LARGE DOUBLE CHEESE";
-                break;
-            case "10015" :
-                productname = "BEEF LARGE CHEESE BACON";
-                break;
-            case "10016" :
-                productname = "BEEF LARGE CHEESE BACON EGG";
-                break;
-            case "10017" :
-                productname = "DUBLE BEEF";
-                break;
-            case "10018" :
-                productname = "DUBLE BEEF DUBLE CHEESE";
-                break;
-            case "10019" :
-                productname = "DUBLE BEEF DUBLE CHEESE BACON";
-                break;
-            case "10020" :
-                productname = "BEEF";
-                break;
-            case "10021" :
-                productname = "BEEF CHEESE";
-                break;
-            case "10022" :
-                productname = "BEEF CHEESE BACON";
-                break;
-            case "10023" :
-                productname = "PORK";
-                break;
-            case "10024" :
-                productname = "PORK EGG";
-                break;
-            case "10025" :
-                productname = "PORK CHEESE";
-                break;
-            case "10026" :
-                productname = "PORK BACON";
-                break;
-            case "10027" :
-                productname = "PORK CHEESE EGG";
-                break;
-            case "10028" :
-                productname = "PORK CHEESE BACON";
-                break;
-            case "10029" :
-                productname = "DUBLE PORK";
-                break;
-            case "10030" :
-                productname = "PORK CHEESE BACON EGG";
-                break;
-            case "10031" :
-                productname = "DUBLE PORK DUBLE CHEESE";
-                break;
-            case "10032" :
-                productname = "DUBLE PORK DUBLE CHEESE BACON";
-                break;
-            case "10033" :
-                productname = "SPICY";
-                break;
-            case "10034" :
-                productname = "SPICY CHEESE";
-                break;
-            case "10035" :
-                productname = "FRENFRIED SMALL";
-                break;
-            case "10036" :
-                productname = "FRENFRIED MEDIUM";
-                break;
-            case "10037" :
-                productname = "FRENFRIED LARGE";
-                break;
-            case "10038" :
-                productname = "KARA-AGE";
-                break;
-            case "10039" :
-                productname = "CHEESE BALL";
-                break;
-            case "10040" :
-                productname = "COKE MEDIUM";
-                break;
-            case "10041" :
-                productname = "COKE SMALL";
-                break;
-            case "10042" :
-                productname = "SPRITE MEDIUM";
-                break;
-            case "10043" :
-                productname = "SPRITE SMALL";
-                break;
-            case "10044" :
-                productname = "WATER MEDIUM";
-                break;
-            case "10045" :
-                productname = "WATER SMALL";
-                break;
-            case "10046" :
-                productname = "SET A BEEF LARGE CHEESE + FRENFRIED SMALL + COKE SMALL";
-                break;
-            case "10047" :
-                productname = "SET B PORK CHEESE + FRENFRIED SMALL + COKE SMALL";
-                break;
-            case "10048" :
-                productname = "SET C CHICKEN CHEESE + FRENFRIED SMALL + COKE SMALL";
-                break;
-            case "10049" :
-                productname = "SET D SPICY CHEESE + FRENFRIED SMALL + COKE SMALL";
-                break;
-            case "10050" :
-                productname = "SET E FISH CHEESE + FRENFRIED SMALL + COKE SMALL";
-                break;
-        }
-
-        return productname;
-    }
 }

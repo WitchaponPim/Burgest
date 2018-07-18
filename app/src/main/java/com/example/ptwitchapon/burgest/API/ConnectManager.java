@@ -1,5 +1,7 @@
 package com.example.ptwitchapon.burgest.API;
 
+import android.view.Menu;
+
 import com.example.ptwitchapon.burgest.Callback.CompleteCallback;
 import com.example.ptwitchapon.burgest.Callback.DriverOrderCallback;
 import com.example.ptwitchapon.burgest.Callback.EditCallback;
@@ -10,6 +12,7 @@ import com.example.ptwitchapon.burgest.Callback.MyDeliveryCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderListCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
+import com.example.ptwitchapon.burgest.Callback.ProductCallback;
 import com.example.ptwitchapon.burgest.Callback.PromotionCallback;
 import com.example.ptwitchapon.burgest.Callback.RegisterCallback;
 import com.example.ptwitchapon.burgest.Callback.StockCallback;
@@ -26,6 +29,7 @@ import com.example.ptwitchapon.burgest.Model.OrderResponse;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
 import com.example.ptwitchapon.burgest.Model.Product;
+import com.example.ptwitchapon.burgest.Model.ProductModel;
 import com.example.ptwitchapon.burgest.Model.PromotionModel;
 import com.example.ptwitchapon.burgest.Model.Regis;
 import com.example.ptwitchapon.burgest.Model.StockModel;
@@ -287,6 +291,31 @@ public class ConnectManager {
                 } else {
                     //200
                     listener.onResponse(stock, retrofit);
+                }
+            }
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onFailure(t);
+            }
+        });
+    }
+
+    public void getProduct(final ProductCallback listener, String id_product) {
+        Call call = con.getProduct(id_product);
+        call.enqueue(new Callback<ProductModel>() {
+            @Override
+            public void onResponse(Response<ProductModel> response, Retrofit retrofit) {
+                ProductModel product = response.body();
+                if (product == null) {
+                    ResponseBody responseBody = response.errorBody();
+                    if (responseBody != null) {
+                        listener.onBodyError(responseBody);
+                    } else {
+                        listener.onBodyErrorIsNull();
+                    }
+                } else {
+                    //200
+                    listener.onResponse(product, retrofit);
                 }
             }
             @Override

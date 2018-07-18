@@ -14,18 +14,22 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.ptwitchapon.burgest.API.ConnectManager;
+import com.example.ptwitchapon.burgest.Callback.ProductCallback;
 import com.example.ptwitchapon.burgest.Model.DeliveryOrderModel;
 import com.example.ptwitchapon.burgest.Model.DriverModel;
 import com.example.ptwitchapon.burgest.Model.MyDeliverDriver;
 import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Product;
+import com.example.ptwitchapon.burgest.Model.ProductModel;
 import com.example.ptwitchapon.burgest.Model.QrScan;
 import com.example.ptwitchapon.burgest.Model.StockModel;
 import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.Model.User;
 import com.google.android.gms.maps.model.LatLng;
 import com.mindorks.paracamera.Camera;
+import com.squareup.okhttp.ResponseBody;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,6 +41,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Retrofit;
 
 /**
  * Created by ptwitchapon on 9/2/2561.
@@ -104,8 +110,6 @@ public class Utils {
             return false;
         }
     }
-
-
 
     public static void toast(Context context, String string) {
         Toast toast = Toast.makeText(context, string, Toast.LENGTH_SHORT);

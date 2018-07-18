@@ -15,15 +15,21 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.example.ptwitchapon.burgest.API.ConnectManager;
 import com.example.ptwitchapon.burgest.BasketActivity;
+import com.example.ptwitchapon.burgest.Callback.ProductCallback;
 import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.Product;
+import com.example.ptwitchapon.burgest.Model.ProductModel;
 import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.Tool.Utils;
+import com.squareup.okhttp.ResponseBody;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import retrofit.Retrofit;
 
 /**
  * Created by Killy77 on 27/4/2561.
@@ -42,6 +48,28 @@ public class CustomDialog_other_edit extends Dialog implements View.OnClickListe
     EditText qty;
     RadioButton r1,r2,r3,r4;
     Order.OrderBean orderBean;
+    ConnectManager connect = new ConnectManager();
+    ProductCallback callback = new ProductCallback() {
+        @Override
+        public void onResponse(ProductModel productModel, Retrofit retrofit) {
+            name.setText(productModel.getProduct().get(0).getProductName());
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBody) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+    };
     public CustomDialog_other_edit(Activity a, Order.OrderBean orderBean, int position) {
         super(a);
         // TODO Auto-generated constructor stub
@@ -72,7 +100,7 @@ public class CustomDialog_other_edit extends Dialog implements View.OnClickListe
         q = qty.getText().toString();
         qtyp = Integer.valueOf(q);
         p = Integer.valueOf(orderBean.getPrice());
-        name.setText(getname(orderBean.getId_product()));
+        connect.getProduct(callback,orderBean.getId_product());
         total = Integer.valueOf(p * qtyp);
 
         Picasso.with(c)
@@ -170,164 +198,7 @@ public class CustomDialog_other_edit extends Dialog implements View.OnClickListe
         }
 
     }
-    public static String getname(String name) {
-        String productname = null;
 
-        switch (name) {
-            case "10001":
-                productname = "CHICKEN";
-                break;
-            case "10002":
-                productname = "CHICKEN EGG";
-                break;
-            case "10003":
-                productname = "CHICKEN CHEESE";
-                break;
-            case "10004":
-                productname = "CHICKEN CHEESE BACON";
-                break;
-            case "10005":
-                productname = "CHICKEN CHEESE BACON EGG";
-                break;
-            case "10006":
-                productname = "FISH";
-                break;
-            case "10007":
-                productname = "FISH EGG";
-                break;
-            case "10008":
-                productname = "FISH CHEESE";
-                break;
-            case "10009":
-                productname = "FISH CHEESE EGG";
-                break;
-            case "10010":
-                productname = "FISH CHEESE BACON";
-                break;
-            case "10011":
-                productname = "BEEF LARGE";
-                break;
-            case "10012":
-                productname = "BEEF LARGE CHEESE";
-                break;
-            case "10013":
-                productname = "BEEF LARGE BACON";
-                break;
-            case "10014":
-                productname = "BEEF LARGE DOUBLE CHEESE";
-                break;
-            case "10015":
-                productname = "BEEF LARGE CHEESE BACON";
-                break;
-            case "10016":
-                productname = "BEEF LARGE CHEESE BACON EGG";
-                break;
-            case "10017":
-                productname = "DUBLE BEEF";
-                break;
-            case "10018":
-                productname = "DUBLE BEEF DUBLE CHEESE";
-                break;
-            case "10019":
-                productname = "DUBLE BEEF DUBLE CHEESE BACON";
-                break;
-            case "10020":
-                productname = "BEEF";
-                break;
-            case "10021":
-                productname = "BEEF CHEESE";
-                break;
-            case "10022":
-                productname = "BEEF CHEESE BACON";
-                break;
-            case "10023":
-                productname = "PORK";
-                break;
-            case "10024":
-                productname = "PORK EGG";
-                break;
-            case "10025":
-                productname = "PORK CHEESE";
-                break;
-            case "10026":
-                productname = "PORK BACON";
-                break;
-            case "10027":
-                productname = "PORK CHEESE EGG";
-                break;
-            case "10028":
-                productname = "PORK CHEESE BACON";
-                break;
-            case "10029":
-                productname = "DUBLE PORK";
-                break;
-            case "10030":
-                productname = "PORK CHEESE BACON EGG";
-                break;
-            case "10031":
-                productname = "DUBLE PORK DUBLE CHEESE";
-                break;
-            case "10032":
-                productname = "DUBLE PORK DUBLE CHEESE BACON";
-                break;
-            case "10033":
-                productname = "SPICY";
-                break;
-            case "10034":
-                productname = "SPICY CHEESE";
-                break;
-            case "10035":
-                productname = "FRENFRIED SMALL";
-                break;
-            case "10036":
-                productname = "FRENFRIED MEDIUM";
-                break;
-            case "10037":
-                productname = "FRENFRIED LARGE";
-                break;
-            case "10038":
-                productname = "KARA-AGE";
-                break;
-            case "10039":
-                productname = "CHEESE BALL";
-                break;
-            case "10040":
-                productname = "COKE MEDIUM";
-                break;
-            case "10041":
-                productname = "COKE SMALL";
-                break;
-            case "10042":
-                productname = "SPRITE MEDIUM";
-                break;
-            case "10043":
-                productname = "SPRITE SMALL";
-                break;
-            case "10044":
-                productname = "WATER MEDIUM";
-                break;
-            case "10045":
-                productname = "WATER SMALL";
-                break;
-            case "10046":
-                productname = "SET A BEEF LARGE CHEESE + FRENFRIED SMALL + COKE SMALL";
-                break;
-            case "10047":
-                productname = "SET B PORK CHEESE + FRENFRIED SMALL + COKE SMALL";
-                break;
-            case "10048":
-                productname = "SET C CHICKEN CHEESE + FRENFRIED SMALL + COKE SMALL";
-                break;
-            case "10049":
-                productname = "SET D SPICY CHEESE + FRENFRIED SMALL + COKE SMALL";
-                break;
-            case "10050":
-                productname = "SET E FISH CHEESE + FRENFRIED SMALL + COKE SMALL";
-                break;
-        }
-
-        return productname;
-    }
     public String getsauce(){
         if (r1.isChecked()){
             sauce = r1.getText().toString();

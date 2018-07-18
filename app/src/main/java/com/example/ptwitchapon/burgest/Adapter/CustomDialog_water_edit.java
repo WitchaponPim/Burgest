@@ -12,17 +12,23 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ptwitchapon.burgest.API.ConnectManager;
 import com.example.ptwitchapon.burgest.BasketActivity;
+import com.example.ptwitchapon.burgest.Callback.ProductCallback;
 import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.Product;
+import com.example.ptwitchapon.burgest.Model.ProductModel;
 import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.Tool.Utils;
+import com.squareup.okhttp.ResponseBody;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.example.ptwitchapon.burgest.Adapter.CustomDialog_other_edit.getname;
+import retrofit.Retrofit;
+
+
 
 /**
  * Created by Killy77 on 27/4/2561.
@@ -40,6 +46,28 @@ public class CustomDialog_water_edit extends Dialog implements View.OnClickListe
     int  qtyp,p,total;
     EditText qty;
     Order.OrderBean orderBean;
+    ConnectManager connect = new ConnectManager();
+    ProductCallback callback = new ProductCallback() {
+        @Override
+        public void onResponse(ProductModel productModel, Retrofit retrofit) {
+            name.setText(productModel.getProduct().get(0).getProductName());
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBody) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+    };
     public CustomDialog_water_edit(Activity a, Order.OrderBean orderBean, int position) {
         super(a);
         // TODO Auto-generated constructor stub
@@ -61,7 +89,7 @@ public class CustomDialog_water_edit extends Dialog implements View.OnClickListe
         name = (TextView) findViewById(R.id.name);
         price = (TextView) findViewById(R.id.price) ;
         qty = (EditText) findViewById(R.id.qty);
-        name.setText(CustomDialog_edit.getname(orderBean.getId_product()));
+        connect.getProduct(callback,orderBean.getId_product());
         price.setText(orderBean.getPrice()+ " ฿");
         Picasso.with(c)
                 .load(Utils.ipPic + orderBean.getPath())
@@ -70,7 +98,7 @@ public class CustomDialog_water_edit extends Dialog implements View.OnClickListe
         q = qty.getText().toString();
         qtyp = Integer.valueOf(q);
         p = Integer.valueOf(orderBean.getPrice());
-        name.setText(getname(orderBean.getId_product()));
+        connect.getProduct(callback,orderBean.getId_product());
         total = Integer.valueOf(p * qtyp);
         yes.setOnClickListener(this);
         no.setOnClickListener(this);

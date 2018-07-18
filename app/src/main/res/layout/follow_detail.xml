@@ -40,7 +40,54 @@
                     android:text="Status"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse" />
             </RelativeLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:background="#727272"
+                android:orientation="vertical"
+                android:padding="@dimen/space"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="@dimen/textsize"
+                    android:text="Confirm Order..."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textSize="@dimen/textsize"
+                    android:text="Please check your Burger"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:theme="@style/Button"
+                    android:text="Check"
+                    android:textColor="#ffff"
 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/cancel"
+                        android:textColor="#ffff"
+                        android:theme="@style/Button2"
+                        android:text="Cancel"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content" />
+                    <Button
+                        android:textColor="#ffff"
+                        android:theme="@style/Accept"
+                        android:id="@+id/complete"
+                        android:text="Confirm"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
+
     </android.support.v7.widget.CardView>
 </RelativeLayout>

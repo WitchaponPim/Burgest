@@ -30,6 +30,7 @@ import com.example.ptwitchapon.burgest.Callback.LoginCallback;
 import com.example.ptwitchapon.burgest.Callback.Login_DCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
+import com.example.ptwitchapon.burgest.Callback.ProductCallback;
 import com.example.ptwitchapon.burgest.Callback.PromotionCallback;
 import com.example.ptwitchapon.burgest.Callback.StockCallback;
 import com.example.ptwitchapon.burgest.Callback.StoreCallback;
@@ -38,6 +39,7 @@ import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.OrderResponse;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
+import com.example.ptwitchapon.burgest.Model.ProductModel;
 import com.example.ptwitchapon.burgest.Model.PromotionModel;
 import com.example.ptwitchapon.burgest.Model.StockModel;
 import com.example.ptwitchapon.burgest.Model.StoreModel;
@@ -150,6 +152,33 @@ public class BasketActivity extends AppCompatActivity {
             Log.d(TAG, "onBodyErrorIsNull: ");
         }
     };
+    ProductCallback productCallback = new ProductCallback() {
+        @Override
+        public void onResponse(ProductModel productModel, Retrofit retrofit) {
+            if (productModel.getProduct().get(0).getId_productType().equals("7")){
+
+            }else if(productModel.getProduct().get(0).getId_productType().equals("7")){
+
+            }else{
+
+            }
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBody) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+    };
     PromotionCallback promotionCallback = new PromotionCallback() {
         @Override
         public void onResponse(PromotionModel promotion, Retrofit retrofit) {
@@ -220,6 +249,7 @@ public class BasketActivity extends AppCompatActivity {
             public void onItemClick(Order.OrderBean orderlist, int position) {
                 Utils.toast(getApplicationContext(), orderlist.getId_product());
                 if (Integer.valueOf(orderlist.getId_product()) >= 10035 && Integer.valueOf(orderlist.getId_product()) <= 10039) {
+
                     CustomDialog_other_edit other = new CustomDialog_other_edit(BasketActivity.this, orderlist, position);
                     other.show();
                 } else if (Integer.valueOf(orderlist.getId_product()) >= 10040 && Integer.valueOf(orderlist.getId_product()) <= 10045) {
@@ -240,7 +270,7 @@ public class BasketActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: "+getLocation().latitude +" , "+getLocation().longitude);
-                if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
+//                if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
                     if (Double.valueOf(Utils.user.getChecklogin().getCash()) < gettotal()) {
                         Utils.toast(getApplicationContext(), "กรุณาเติมเงินในระบบก่อนครับ");
                     } else {
@@ -250,11 +280,11 @@ public class BasketActivity extends AppCompatActivity {
                         sb.append(jsonString);
                         sb.append(",\"id_member\":\"" + Utils.user.getChecklogin().getId_member() + "\",\"lat\":\"" + getLocation().latitude + "\",\"lng\":\"" + getLocation().longitude + "\",\"id_promotion\":\"" + id_promotion + "\"}");
                         Log.d("Ammy", "onCreate: " + sb.toString());
-                        connectManager.order(orderCallback, sb.toString());
+                       //connectManager.order(orderCallback, sb.toString());
                     }
-                } else {
-                    Utils.toast(getApplicationContext(), "ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
-                }
+//                } else {
+//                    Utils.toast(getApplicationContext(), "ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
+//                }
             }
         });
 
