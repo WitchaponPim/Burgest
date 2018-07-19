@@ -98,8 +98,6 @@ public class CustomDialog_stock extends Dialog implements View.OnClickListener {
 
         id.setText(stock.getStocks().get(0).getId_stock());
         name.setText(stock.getStocks().get(0).getName());
-        exp.setText(stock.getStocks().get(0).getEXP());
-        amount.setText(stock.getStocks().get(0).getAmount());
 
 
 

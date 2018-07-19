@@ -6,7 +6,6 @@ import com.example.ptwitchapon.burgest.Model.DeliveryOrderModel;
 import com.example.ptwitchapon.burgest.Model.DriverModel;
 import com.example.ptwitchapon.burgest.Model.EditResponse;
 import com.example.ptwitchapon.burgest.Model.MyDeliverDriver;
-import com.example.ptwitchapon.burgest.Model.Order;
 import com.example.ptwitchapon.burgest.Model.OrderResponse;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
@@ -14,6 +13,8 @@ import com.example.ptwitchapon.burgest.Model.Product;
 import com.example.ptwitchapon.burgest.Model.ProductModel;
 import com.example.ptwitchapon.burgest.Model.PromotionModel;
 import com.example.ptwitchapon.burgest.Model.Regis;
+import com.example.ptwitchapon.burgest.Model.ResponseModel;
+import com.example.ptwitchapon.burgest.Model.StockDetailModel;
 import com.example.ptwitchapon.burgest.Model.StockModel;
 import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.Model.TakeDelivery;
@@ -21,10 +22,7 @@ import com.example.ptwitchapon.burgest.Model.TopupModel;
 import com.example.ptwitchapon.burgest.Model.UpdateStockResponse;
 import com.example.ptwitchapon.burgest.Model.User;
 
-import org.json.JSONObject;
-
 import retrofit.Call;
-import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
@@ -97,16 +95,25 @@ public interface APIService {
     @GET("get-order-delivery.php")
     Call<DeliveryOrderModel> getDriverorder();
 
+    @FormUrlEncoded
+    @POST("update-status_type.php")
+    Call<ResponseModel> updateStatusType(@Field("id_order") String id_order, @Field("status_type") String status_type);
+
+    @FormUrlEncoded
+    @POST("accept-member.php")
+    Call<ResponseModel> acceptMember(@Field("id_order") String id_order, @Field("id_status") String id_status);
+
+    @FormUrlEncoded
+    @POST("get-stock-details-app.php")
+    Call<StockDetailModel> getStockDetail(@Field("id_stock") String id_stock);
 
     @FormUrlEncoded
     @POST("get-delivery.php")
     Call<MyDeliverDriver> myDeliver(@Field("id_emp") String id_emp);
 
-
     @FormUrlEncoded
     @POST("order.php")
     Call<OrderResponse> order(@Field("strData") String data);
-
 
     @FormUrlEncoded
     @POST("take-delivery.php")

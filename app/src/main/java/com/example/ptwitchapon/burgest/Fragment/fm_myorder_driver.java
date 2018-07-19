@@ -19,9 +19,11 @@ import com.example.ptwitchapon.burgest.API.ConnectManager;
 import com.example.ptwitchapon.burgest.Adapter.MainAdapter_Driver_mydeliver;
 import com.example.ptwitchapon.burgest.Callback.CompleteCallback;
 import com.example.ptwitchapon.burgest.Callback.MyDeliveryCallback;
+import com.example.ptwitchapon.burgest.Callback.ResponseCallback;
 import com.example.ptwitchapon.burgest.MapsActivity;
 import com.example.ptwitchapon.burgest.Model.CompleteModel;
 import com.example.ptwitchapon.burgest.Model.MyDeliverDriver;
+import com.example.ptwitchapon.burgest.Model.ResponseModel;
 import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.google.android.gms.maps.GoogleMap;
@@ -45,11 +47,11 @@ public class fm_myorder_driver extends Fragment {
     RecyclerView.Adapter adapter;
     BottomNavigationView mBottomNav;
     ConnectManager connectManager = new ConnectManager();
-    CompleteCallback completeCallback = new CompleteCallback() {
+    ResponseCallback responseCallback = new ResponseCallback() {
         @Override
-        public void onResponse(CompleteModel response, Retrofit retrofit) {
-            Utils.toast(getContext(),response.getDescribtion());
-            connectManager.myDeliver(myDeliveryCallback, Utils.driver.getCheckloginadmin().getId_emp());
+        public void onResponse(ResponseModel responseModel, Retrofit retrofit) {
+            Utils.toast(getContext(),responseModel.getDescribtion());
+            connectManager.myDeliver(myDeliveryCallback,Utils.driver.getCheckloginadmin().getId_emp());
         }
 
         @Override
@@ -75,7 +77,6 @@ public class fm_myorder_driver extends Fragment {
                 @Override
                 public void onViewmapClick(List<MyDeliverDriver.OrderBean> orderlist, int position) {
                     Utils.toast(getContext(),"Lat : "+orderlist.get(position).getLatitude()+"Lng : "+orderlist.get(position).getLongitude());
-
                     Utils.latview = Double.valueOf(orderlist.get(position).getLatitude());
                     Utils.lngview = Double.valueOf(orderlist.get(position).getLongitude());
                     startActivity(new Intent(getActivity(), MapsActivity.class));
@@ -83,7 +84,7 @@ public class fm_myorder_driver extends Fragment {
 
                 @Override
                 public void onCompleteClick(List<MyDeliverDriver.OrderBean> orderlist, int position) {
-                    connectManager.driver_complete(completeCallback,orderlist.get(position).getId_order(),"4");
+                 connectManager.updateStatusType(responseCallback,orderlist.get(position).getId_order(),"1");
                 }
             });
             recycleviewPromo.setAdapter(adapter);

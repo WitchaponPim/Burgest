@@ -85,6 +85,7 @@ public class MyDeliverDriver {
         private String id_orderType;
         private String latitude;
         private String longitude;
+        private String status_type;
         private String Firstname;
         private String Lastname;
         private String Email;
@@ -94,6 +95,14 @@ public class MyDeliverDriver {
         private String Latitude;
         private String Longitude;
         private String token;
+
+        public String getStatus_type() {
+            return status_type;
+        }
+
+        public void setStatus_type(String status_type) {
+            this.status_type = status_type;
+        }
 
         public String getId_order() {
             return id_order;

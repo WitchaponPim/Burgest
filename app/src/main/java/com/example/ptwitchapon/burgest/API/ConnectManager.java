@@ -1,7 +1,5 @@
 package com.example.ptwitchapon.burgest.API;
 
-import android.view.Menu;
-
 import com.example.ptwitchapon.burgest.Callback.CompleteCallback;
 import com.example.ptwitchapon.burgest.Callback.DriverOrderCallback;
 import com.example.ptwitchapon.burgest.Callback.EditCallback;
@@ -15,7 +13,9 @@ import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
 import com.example.ptwitchapon.burgest.Callback.ProductCallback;
 import com.example.ptwitchapon.burgest.Callback.PromotionCallback;
 import com.example.ptwitchapon.burgest.Callback.RegisterCallback;
+import com.example.ptwitchapon.burgest.Callback.ResponseCallback;
 import com.example.ptwitchapon.burgest.Callback.StockCallback;
+import com.example.ptwitchapon.burgest.Callback.StockDetailCallback;
 import com.example.ptwitchapon.burgest.Callback.StoreCallback;
 import com.example.ptwitchapon.burgest.Callback.TakeDeliveryCallback;
 import com.example.ptwitchapon.burgest.Callback.TopupListCallback;
@@ -32,6 +32,8 @@ import com.example.ptwitchapon.burgest.Model.Product;
 import com.example.ptwitchapon.burgest.Model.ProductModel;
 import com.example.ptwitchapon.burgest.Model.PromotionModel;
 import com.example.ptwitchapon.burgest.Model.Regis;
+import com.example.ptwitchapon.burgest.Model.ResponseModel;
+import com.example.ptwitchapon.burgest.Model.StockDetailModel;
 import com.example.ptwitchapon.burgest.Model.StockModel;
 import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.Model.TakeDelivery;
@@ -291,6 +293,81 @@ public class ConnectManager {
                 } else {
                     //200
                     listener.onResponse(stock, retrofit);
+                }
+            }
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onFailure(t);
+            }
+        });
+    }
+    public void getstockDetail(final StockDetailCallback listener, String id_stock) {
+        Call call = con.getStockDetail(id_stock);
+        call.enqueue(new Callback<StockDetailModel>() {
+            @Override
+            public void onResponse(Response<StockDetailModel> response, Retrofit retrofit) {
+                StockDetailModel stock = response.body();
+                if (stock == null) {
+                    ResponseBody responseBody = response.errorBody();
+                    if (responseBody != null) {
+                        listener.onBodyError(responseBody);
+                    } else {
+                        listener.onBodyErrorIsNull();
+                    }
+                } else {
+                    //200
+                    listener.onResponse(stock, retrofit);
+                }
+            }
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onFailure(t);
+            }
+        });
+    }
+
+
+    public void updateStatusType(final ResponseCallback listener, String id_order,String status_type) {
+        Call call = con.updateStatusType(id_order,status_type);
+        call.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Response<ResponseModel> response, Retrofit retrofit) {
+                ResponseModel responseModel = response.body();
+                if (responseModel == null) {
+                    ResponseBody responseBody = response.errorBody();
+                    if (responseBody != null) {
+                        listener.onBodyError(responseBody);
+                    } else {
+                        listener.onBodyErrorIsNull();
+                    }
+                } else {
+                    //200
+                    listener.onResponse(responseModel, retrofit);
+                }
+            }
+            @Override
+            public void onFailure(Throwable t) {
+                listener.onFailure(t);
+            }
+        });
+    }
+
+    public void acceptMember(final ResponseCallback listener, String id_order,String id_status) {
+        Call call = con.acceptMember(id_order,id_status);
+        call.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Response<ResponseModel> response, Retrofit retrofit) {
+                ResponseModel responseModel = response.body();
+                if (responseModel == null) {
+                    ResponseBody responseBody = response.errorBody();
+                    if (responseBody != null) {
+                        listener.onBodyError(responseBody);
+                    } else {
+                        listener.onBodyErrorIsNull();
+                    }
+                } else {
+                    //200
+                    listener.onResponse(responseModel, retrofit);
                 }
             }
             @Override

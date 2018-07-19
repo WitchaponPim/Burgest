@@ -53,6 +53,9 @@ public class Utils {
     public static JSONObject object2 = new JSONObject();
     public static JSONArray array=new JSONArray();
 
+    public static JSONArray arrayVeg  = new JSONArray();
+    public static JSONArray arrayEx = new JSONArray();
+
 
     public static String username;
     public static String password;

@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
                     android:checked="true"
-                    android:text="Lettus" />
+                    android:text="Lettuce" />
             </LinearLayout>
 
             <LinearLayout

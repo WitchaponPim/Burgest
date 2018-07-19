@@ -13,11 +13,15 @@ import android.view.ViewGroup;
 
 import com.example.ptwitchapon.burgest.API.ConnectManager;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_detailOrderlist;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_detailStock;
+import com.example.ptwitchapon.burgest.Adapter.CustomDialog_stock;
 import com.example.ptwitchapon.burgest.Adapter.MainAdapter_Driver;
 import com.example.ptwitchapon.burgest.Adapter.MainAdapter_Manager;
 import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
+import com.example.ptwitchapon.burgest.Callback.StockDetailCallback;
 import com.example.ptwitchapon.burgest.Model.DeliveryOrderModel;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
+import com.example.ptwitchapon.burgest.Model.StockDetailModel;
 import com.example.ptwitchapon.burgest.Model.StockModel;
 import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.Tool.Utils;
@@ -37,7 +41,29 @@ public class fm_stock_manager extends Fragment {
     RecyclerView recycleviewPromo;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
+    ConnectManager connectManager = new ConnectManager();
+   StockDetailCallback callback = new StockDetailCallback() {
+       @Override
+       public void onResponse(StockDetailModel stock, Retrofit retrofit) {
+           CustomDialog_detailStock cs = new CustomDialog_detailStock(getActivity(),stock);
+           cs.show();
+       }
 
+       @Override
+       public void onFailure(Throwable t) {
+
+       }
+
+       @Override
+       public void onBodyError(ResponseBody responseBody) {
+
+       }
+
+       @Override
+       public void onBodyErrorIsNull() {
+
+       }
+   };
     public static fm_stock_manager newInstance() {
         return new fm_stock_manager();
     }
@@ -59,7 +85,7 @@ public class fm_stock_manager extends Fragment {
         adapter = new MainAdapter_Manager(getContext(), Utils.stock.getStocks(), new MainAdapter_Manager.OnItemClickListener() {
             @Override
             public void onItemClick(List<StockModel.StocksBean> orderlist, int position) {
-
+                connectManager.getstockDetail(callback,orderlist.get(position).getId_stock());
             }
 
         });

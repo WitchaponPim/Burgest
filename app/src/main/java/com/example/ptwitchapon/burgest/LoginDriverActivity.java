@@ -24,15 +24,17 @@ public class LoginDriverActivity extends AppCompatActivity {
     Login_DCallback callback = new Login_DCallback() {
         @Override
         public void onResponse(DriverModel driver, Retrofit retrofit) {
-
-            Utils.driver = driver;
-            if (driver.getCheckloginadmin().getId_position().equals("2")){
-                FirebaseMessaging.getInstance().subscribeToTopic("Driver");
-                Utils.toast(getApplicationContext(),driver.getCheckloginadmin().getFirstname());
-                connectManager.getAllOrder(driverOrderCallback);
-
+            if (driver.getCheckloginadmin().getCode().equals("200")) {
+                Utils.driver = driver;
+                if (driver.getCheckloginadmin().getId_position().equals("2")) {
+                    FirebaseMessaging.getInstance().subscribeToTopic("Driver");
+                    Utils.toast(getApplicationContext(), driver.getCheckloginadmin().getFirstname());
+                    connectManager.getAllOrder(driverOrderCallback);
+                } else {
+                    Utils.toast(getApplicationContext(), "Not your position");
+                }
             }else {
-                Utils.toast(getApplicationContext(),"Not your position");
+                Utils.toast(getApplicationContext(), "ว๊าย password ผิด");
             }
         }
 

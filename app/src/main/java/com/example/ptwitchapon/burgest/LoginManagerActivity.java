@@ -27,12 +27,17 @@ public class LoginManagerActivity extends AppCompatActivity {
         @Override
         public void onResponse(DriverModel driver, Retrofit retrofit) {
             //Driver = Manager na ja
-            Utils.driver = driver;
-            if (driver.getCheckloginadmin().getId_position().equals("3")){
-            connectManager.getstock(stockCallback,"");
-            }else {
-                Utils.toast(getApplicationContext(),"Not your position");
+            if(!driver.getCheckloginadmin().getCode().equals("200")){
+                Utils.toast(getApplicationContext(), "ว๊าย password ผิด");
+            }else{
+                Utils.driver = driver;
+                if (driver.getCheckloginadmin().getId_position().equals("3")){
+                    connectManager.getstock(stockCallback,"");
+                }else {
+                    Utils.toast(getApplicationContext(),"Not your position");
+                }
             }
+
         }
 
         @Override

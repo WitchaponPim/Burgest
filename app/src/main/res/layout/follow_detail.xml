@@ -25,7 +25,6 @@
                     android:gravity="right"
                     android:text="Order..."
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse" />
-
                 <Button
                     android:layout_marginLeft="@dimen/space"
                     android:layout_alignParentRight="true"
@@ -42,6 +41,7 @@
             </RelativeLayout>
             <LinearLayout
                 android:visibility="gone"
+                android:id="@+id/confrimArea"
                 android:background="#727272"
                 android:orientation="vertical"
                 android:padding="@dimen/space"
@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:textSize="@dimen/textsize"
+                    android:id="@+id/message"
                     android:text="Confirm Order..."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -57,22 +58,16 @@
                     android:text="Please check your Burger"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-                <Button
-                    android:theme="@style/Button"
-                    android:text="Check"
-                    android:textColor="#ffff"
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <Button
-                        android:id="@+id/cancel"
+                        android:id="@+id/check"
                         android:textColor="#ffff"
-                        android:theme="@style/Button2"
-                        android:text="Cancel"
+                        android:theme="@style/Button"
+                        android:text="Check"
                         android:layout_width="0dp"
                         android:layout_weight=".5"
                         android:layout_height="wrap_content" />

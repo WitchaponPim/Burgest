@@ -51,65 +51,35 @@ public class Order {
 
     public static class OrderBean {
         /**
-         * total : 400
-         * veg : onion tomato
-         * price : 40
-         * id_product : 23
-         * qty : 10
+         * comment :
+         * extra : ["20007","20008","20009"]
+         * id_product : 10023
          * id_promotion : 1
-         * comment : ....
-         * sauce : mayonnaise sauce
+         * path : p40b.png
+         * price : 40
+         * qty : 1
+         * sauce : 20024
+         * total : 40
+         * veg : ["20011","20012","20013","20014"]
          */
 
-        private String total;
-        private String veg;
-        private String extra;
-        private String price;
-        private String id_product;
-        private String qty;
-        private String id_promotion;
         private String comment;
-        private String sauce;
+        private String id_product;
+        private String id_promotion;
         private String path;
+        private String price;
+        private String qty;
+        private String sauce;
+        private String total;
+        private List<String> extra;
+        private List<String> veg;
 
-        public String getExtra() {
-            return extra;
+        public String getComment() {
+            return comment;
         }
 
-        public void setExtra(String extra) {
-            this.extra = extra;
-        }
-
-        public String getPath() {
-            return path;
-        }
-
-        public void setPath(String path) {
-            this.path = path;
-        }
-
-        public String getTotal() {
-            return total;
-        }
-
-        public void setTotal(String total) {
-            this.total = total;
-        }
-
-        public String getVeg() {
-            return veg;
-        }
-
-        public void setVeg(String veg) {
-            this.veg = veg;
-        }
-
-        public String getPrice() {
-            return price;
-        }
-
-        public void setPrice(String price) {
-            this.price = price;
+        public void setComment(String comment) {
+            this.comment = comment;
         }
 
         public String getId_product() {
@@ -120,14 +90,6 @@ public class Order {
             this.id_product = id_product;
         }
 
-        public String getQty() {
-            return qty;
-        }
-
-        public void setQty(String qty) {
-            this.qty = qty;
-        }
-
         public String getId_promotion() {
             return id_promotion;
         }
@@ -136,12 +98,28 @@ public class Order {
             this.id_promotion = id_promotion;
         }
 
-        public String getComment() {
-            return comment;
+        public String getPath() {
+            return path;
         }
 
-        public void setComment(String comment) {
-            this.comment = comment;
+        public void setPath(String path) {
+            this.path = path;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
+        public void setPrice(String price) {
+            this.price = price;
+        }
+
+        public String getQty() {
+            return qty;
+        }
+
+        public void setQty(String qty) {
+            this.qty = qty;
         }
 
         public String getSauce() {
@@ -151,5 +129,131 @@ public class Order {
         public void setSauce(String sauce) {
             this.sauce = sauce;
         }
+
+        public String getTotal() {
+            return total;
+        }
+
+        public void setTotal(String total) {
+            this.total = total;
+        }
+
+        public List<String> getExtra() {
+            return extra;
+        }
+
+        public void setExtra(List<String> extra) {
+            this.extra = extra;
+        }
+
+        public List<String> getVeg() {
+            return veg;
+        }
+
+        public void setVeg(List<String> veg) {
+            this.veg = veg;
+        }
+
+//        /**
+//         * total : 400
+//         * veg : onion tomato
+//         * price : 40
+//         * id_product : 23
+//         * qty : 10
+//         * id_promotion : 1
+//         * comment : ....
+//         * sauce : mayonnaise sauce
+//         */
+//
+//        private String total;
+//        private String veg;
+//        private String extra;
+//        private String price;
+//        private String id_product;
+//        private String qty;
+//        private String id_promotion;
+//        private String comment;
+//        private String sauce;
+//        private String path;
+//
+//        public String getExtra() {
+//            return extra;
+//        }
+//
+//        public void setExtra(String extra) {
+//            this.extra = extra;
+//        }
+//
+//        public String getPath() {
+//            return path;
+//        }
+//
+//        public void setPath(String path) {
+//            this.path = path;
+//        }
+//
+//        public String getTotal() {
+//            return total;
+//        }
+//
+//        public void setTotal(String total) {
+//            this.total = total;
+//        }
+//
+//        public String getVeg() {
+//            return veg;
+//        }
+//
+//        public void setVeg(String veg) {
+//            this.veg = veg;
+//        }
+//
+//        public String getPrice() {
+//            return price;
+//        }
+//
+//        public void setPrice(String price) {
+//            this.price = price;
+//        }
+//
+//        public String getId_product() {
+//            return id_product;
+//        }
+//
+//        public void setId_product(String id_product) {
+//            this.id_product = id_product;
+//        }
+//
+//        public String getQty() {
+//            return qty;
+//        }
+//
+//        public void setQty(String qty) {
+//            this.qty = qty;
+//        }
+//
+//        public String getId_promotion() {
+//            return id_promotion;
+//        }
+//
+//        public void setId_promotion(String id_promotion) {
+//            this.id_promotion = id_promotion;
+//        }
+//
+//        public String getComment() {
+//            return comment;
+//        }
+//
+//        public void setComment(String comment) {
+//            this.comment = comment;
+//        }
+//
+//        public String getSauce() {
+//            return sauce;
+//        }
+//
+//        public void setSauce(String sauce) {
+//            this.sauce = sauce;
+//        }
     }
 }

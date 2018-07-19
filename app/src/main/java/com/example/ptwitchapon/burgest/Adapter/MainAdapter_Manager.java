@@ -60,27 +60,53 @@ public class MainAdapter_Manager extends RecyclerView.Adapter<MainAdapter_Manage
 
     public class MenuViewHolder extends RecyclerView.ViewHolder {
         TextView id,name,amount,exp;
+        Button deatil;
 
         public MenuViewHolder(View itemView) {
             super(itemView);
             id = (TextView) itemView.findViewById(R.id.stock_id);
             name = (TextView) itemView.findViewById(R.id.stock_name);
             amount = (TextView) itemView.findViewById(R.id.stock_amount);
-            exp = (TextView) itemView.findViewById(R.id.stock_exp);
+            exp = (TextView) itemView.findViewById(R.id.stock_status);
+            deatil = (Button) itemView.findViewById(R.id.detail);
+
+            deatil.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClick(stock,getAdapterPosition());
+                }
+            });
 
         }
 
         public void setMenu(final List<StockModel.StocksBean> stock,int position){
             id.setText(stock.get(position).getId_stock());
             name.setText(stock.get(position).getName());
-            amount.setText(stock.get(position).getAmount());
-            if (stock.get(position).getEXP()!=null&&!stock.get(position).getEXP().equals("")){
-                exp.setText(stock.get(position).getEXP());
-            }else {
-                exp.setText("--/--/--");
+            amount.setText(stock.get(position).getTotal_amount());
+            exp.setText(stock.get(position).getDesc());
+            exp.setTextColor(context.getResources().getColor(getcolor(stock.get(position).getDesc())));
+
+        }
+
+        public int getcolor(String status){
+            int colorres = 0;
+
+            switch (status){
+                case "1":
+                    colorres = R.color.colorS3;
+                    break;
+                case "2":
+                    colorres = R.color.colorPrimary;
+                    break;
+                case "3":
+                    colorres = R.color.colorS1;
+                    break;
+                case "4":
+                    colorres = R.color.colorS2;
+                    break;
             }
 
-
+            return colorres;
         }
     }
 }

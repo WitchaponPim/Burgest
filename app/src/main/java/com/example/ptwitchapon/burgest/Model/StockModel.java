@@ -7,12 +7,14 @@ import java.util.List;
  */
 
 public class StockModel {
+
     /**
      * status : success
      * code : 200
      * describtion : get stock successfuly
-     * stocks : [{"id_stock":"20001","Name":"CHICKEN","Amount":"978","EXP":null,"QRCode":""},{"id_stock":"20002","Name":"FISH","Amount":"96","EXP":null,"QRCode":""},{"id_stock":"20003","Name":"BEEF LARGE","Amount":"53","EXP":null,"QRCode":""},{"id_stock":"20004","Name":"BEEF","Amount":"76","EXP":null,"QRCode":""},{"id_stock":"20005","Name":"PORK","Amount":"43","EXP":null,"QRCode":""},{"id_stock":"20006","Name":"CHICKEN SPICY","Amount":"98","EXP":null,"QRCode":""},{"id_stock":"20007","Name":"EGG","Amount":"35","EXP":null,"QRCode":""},{"id_stock":"20008","Name":"CHEESE","Amount":"933","EXP":"2018-04-30","QRCode":""},{"id_stock":"20009","Name":"BACON","Amount":"14","EXP":"2018-04-30","QRCode":""},{"id_stock":"20010","Name":"BREAD","Amount":"448","EXP":"2018-05-19","QRCode":""},{"id_stock":"20011","Name":"LETTUCE","Amount":"128","EXP":"2018-04-30","QRCode":""},{"id_stock":"20012","Name":"TOMATO","Amount":"116","EXP":"2018-04-28","QRCode":""},{"id_stock":"20013","Name":"ONION","Amount":"111","EXP":"2018-04-28","QRCode":""},{"id_stock":"20014","Name":"CUCUMBER","Amount":"59","EXP":"2018-05-25","QRCode":""},{"id_stock":"20015","Name":"FRENFRIED","Amount":"95399","EXP":null,"QRCode":""},{"id_stock":"20016","Name":"KARA-AGE","Amount":"99","EXP":null,"QRCode":""},{"id_stock":"20017","Name":"NUGGET CHEESE","Amount":"99","EXP":null,"QRCode":""},{"id_stock":"20018","Name":"COKE MEDIUM","Amount":"34","EXP":null,"QRCode":""},{"id_stock":"20019","Name":"COKE SMALL","Amount":"19","EXP":null,"QRCode":""},{"id_stock":"20020","Name":"SPRITE MEDIUM","Amount":"49","EXP":null,"QRCode":""},{"id_stock":"20021","Name":"SPRITE SMALL","Amount":"49","EXP":null,"QRCode":""},{"id_stock":"20022","Name":"WATER MEDIUM","Amount":"49","EXP":null,"QRCode":""},{"id_stock":"20023","Name":"WATER SMALL","Amount":"49","EXP":null,"QRCode":""},{"id_stock":"20024","Name":"KETCHUP","Amount":"998","EXP":null,"QRCode":""},{"id_stock":"20025","Name":"MAYONNAISE","Amount":"998","EXP":null,"QRCode":""},{"id_stock":"20026","Name":"THOUSAND","Amount":"998","EXP":null,"QRCode":""},{"id_stock":"20027","Name":"BLACK PEPPER","Amount":"998","EXP":null,"QRCode":""}]
+     * stocks : [{"id_stock":"20001","Name":"CHICKEN","total_amount":"1590","desc":"Ready"},{"id_stock":"20002","Name":"FISH","total_amount":"2000","desc":"Ready"},{"id_stock":"20003","Name":"BEEF LARGE","total_amount":"1000","desc":"Ready"},{"id_stock":"20004","Name":"BEEF","total_amount":"1000","desc":"Ready"},{"id_stock":"20005","Name":"PORK","total_amount":"1000","desc":"Ready"},{"id_stock":"20006","Name":"CHICKEN SPICY","total_amount":"1000","desc":"Ready"},{"id_stock":"20007","Name":"EGG","total_amount":"1580","desc":"Ready"},{"id_stock":"20008","Name":"CHEESE","total_amount":"985","desc":"Ready"},{"id_stock":"20009","Name":"BACON","total_amount":"1991","desc":"Ready"},{"id_stock":"20010","Name":"BREAD","total_amount":"795","desc":"Ready"},{"id_stock":"20011","Name":"LETTUCE","total_amount":"785","desc":"Ready"},{"id_stock":"20012","Name":"TOMATO","total_amount":"785","desc":"Ready"},{"id_stock":"20013","Name":"ONION","total_amount":"790","desc":"Ready"},{"id_stock":"20014","Name":"CUCUMBER","total_amount":"780","desc":"Ready"},{"id_stock":"20015","Name":"FRENFRIED","total_amount":"1000","desc":"Ready"},{"id_stock":"20016","Name":"KARA-AGE","total_amount":"1000","desc":"Ready"},{"id_stock":"20017","Name":"NUGGET CHEESE","total_amount":"1000","desc":"Ready"},{"id_stock":"20018","Name":"COKE MEDIUM","total_amount":"1000","desc":"Ready"},{"id_stock":"20019","Name":"COKE SMALL","total_amount":"1000","desc":"Ready"},{"id_stock":"20020","Name":"SPRITE MEDIUM","total_amount":"1000","desc":"Ready"},{"id_stock":"20021","Name":"SPRITE SMALL","total_amount":"1000","desc":"Ready"},{"id_stock":"20022","Name":"WATER MEDIUM","total_amount":"1000","desc":"Ready"},{"id_stock":"20023","Name":"WATER SMALL","total_amount":"1000","desc":"Ready"},{"id_stock":"20024","Name":"KETCHUP","total_amount":"1775","desc":"Ready"},{"id_stock":"20025","Name":"MAYONNAISE","total_amount":"1000","desc":"Ready"},{"id_stock":"20026","Name":"THOUSAND","total_amount":"1000","desc":"Ready"},{"id_stock":"20027","Name":"BLACK PEPPER","total_amount":"995","desc":"Ready"}]
      */
+
     private String status;
     private String code;
     private String describtion;
@@ -54,16 +56,14 @@ public class StockModel {
         /**
          * id_stock : 20001
          * Name : CHICKEN
-         * Amount : 978
-         * EXP : null
-         * QRCode :
+         * total_amount : 1590
+         * desc : Ready
          */
 
         private String id_stock;
         private String Name;
-        private String Amount;
-        private String EXP;
-        private String QRCode;
+        private String total_amount;
+        private String desc;
 
         public String getId_stock() {
             return id_stock;
@@ -81,28 +81,20 @@ public class StockModel {
             this.Name = Name;
         }
 
-        public String getAmount() {
-            return Amount;
+        public String getTotal_amount() {
+            return total_amount;
         }
 
-        public void setAmount(String Amount) {
-            this.Amount = Amount;
+        public void setTotal_amount(String total_amount) {
+            this.total_amount = total_amount;
         }
 
-        public String getEXP() {
-            return EXP;
+        public String getDesc() {
+            return desc;
         }
 
-        public void setEXP(String EXP) {
-            this.EXP = EXP;
-        }
-
-        public String getQRCode() {
-            return QRCode;
-        }
-
-        public void setQRCode(String QRCode) {
-            this.QRCode = QRCode;
+        public void setDesc(String desc) {
+            this.desc = desc;
         }
     }
 }

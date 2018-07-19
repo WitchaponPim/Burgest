@@ -4,7 +4,6 @@ package com.example.ptwitchapon.burgest.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,28 +14,18 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.ptwitchapon.burgest.API.APIService2;
 import com.example.ptwitchapon.burgest.API.ConnectManager;
-import com.example.ptwitchapon.burgest.API.ConnectTopup;
 import com.example.ptwitchapon.burgest.AccountActivity;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog;
-import com.example.ptwitchapon.burgest.Adapter.CustomDialog_QR;
-import com.example.ptwitchapon.burgest.Adapter.CustomDialog_edit;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other;
-import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other_edit;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water;
-import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water_edit;
-import com.example.ptwitchapon.burgest.Adapter.FollowAdapter;
 import com.example.ptwitchapon.burgest.Adapter.OtherAdapter;
-import com.example.ptwitchapon.burgest.BasketActivity;
 import com.example.ptwitchapon.burgest.Callback.StoreCallback;
 import com.example.ptwitchapon.burgest.LoginActivity;
 
-import com.example.ptwitchapon.burgest.Model.QrScan;
 import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.TabActivity;
-import com.example.ptwitchapon.burgest.TabManagerActivity;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.example.ptwitchapon.burgest.TopupActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -46,14 +35,7 @@ import com.squareup.okhttp.ResponseBody;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit.Retrofit;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static android.app.Activity.RESULT_OK;
 
 
 /**

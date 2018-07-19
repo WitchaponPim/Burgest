@@ -33,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Retrofit;
 
@@ -45,8 +46,8 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
     public Activity c;
     public Dialog d;
     public Button yes, no,add,del;
-    String[] extraarray;
-    String[] vegarray;
+    List<String> extraarray;
+    List<String> vegarray;
     int p, exp, qtyp, total,position;
     String sauce;
     CheckBox c1, c2, c3, c4, ex1, ex2, ex3;
@@ -139,16 +140,16 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
 
         if (!orderBean.getSauce().isEmpty()){
             switch (orderBean.getSauce()){
-                case "tomato sauce":
+                case "20024":
                     r1.setChecked(true);
                     break;
-                case "mayonnaise sauce":
+                case "20025":
                     r2.setChecked(true);
                     break;
-                case "blackpaper sauce":
+                case "20027":
                     r3.setChecked(true);
                     break;
-                case "thousand sauce":
+                case "20026":
                     r4.setChecked(true);
                     break;
             }
@@ -156,17 +157,16 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
         }
 
         if (!orderBean.getExtra().isEmpty()){
-            extraarray = orderBean.getExtra().split("\\|");
-            for (int i=0;i<extraarray.length;i++){
-                Log.d("EditDialog", "onCreate: "+extraarray[i]);
-                switch (extraarray[i]){
-                    case "Egg":
+            extraarray = orderBean.getExtra();
+            for (int i=0;i<extraarray.size();i++){
+                switch (extraarray.get(i)){
+                    case "20007":
                         ex1.setChecked(true);
                         break;
-                    case "Cheese":
+                    case "20008":
                         ex2.setChecked(true);
                         break;
-                    case "Bacon":
+                    case "20009":
                         ex3.setChecked(true);
                         break;
                     default:
@@ -175,20 +175,19 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
             }
         }
         if (!orderBean.getVeg().isEmpty()){
-            vegarray = orderBean.getVeg().split("\\|");
-            for (int i=0;i<vegarray.length;i++){
-                Log.d("EditDialog", "onCreate: "+vegarray[i]);
-                switch (vegarray[i]){
-                    case "Onion":
+            vegarray = orderBean.getVeg();
+            for (int i=0;i<vegarray.size();i++){
+                switch (vegarray.get(i)){
+                    case "20013":
                         c1.setChecked(true);
                         break;
-                    case "Lettus":
+                    case "20011":
                         c2.setChecked(true);
                         break;
-                    case "Tomato":
+                    case "20012":
                         c3.setChecked(true);
                         break;
-                    case "Cucumber":
+                    case "20014":
                         c4.setChecked(true);
                         break;
                     default:
@@ -329,97 +328,55 @@ public class CustomDialog_edit extends Dialog implements View.OnClickListener {
 
     public String getsauce() {
         if (r1.isChecked()) {
-            sauce = r1.getText().toString();
+            sauce = "20024";
         }
         if (r2.isChecked()) {
-            sauce = r2.getText().toString();
+            sauce = "20025";
         }
         if (r3.isChecked()) {
-            sauce = r3.getText().toString();
+            sauce = "20027";
         }
         if (r4.isChecked()) {
-            sauce = r4.getText().toString();
+            sauce = "20026";
         }
         return sauce;
     }
 
-    public String getVeg() {
-        StringBuffer add = new StringBuffer();
-        boolean f =true;
+    public List<String> getVeg() {
+        List<String> veg = new ArrayList<>();
         if (c1.isChecked()) {
-            if (f){
-                add.append(c1.getText().toString());
-                f = false;
-            }else {
-                add.append("|" + c1.getText().toString());
-            }
+            veg.add("20013");
         }
 
         if (c2.isChecked()) {
-            if (f){
-                add.append(c2.getText().toString());
-                f = false;
-            }else {
-                add.append("|" + c2.getText().toString());
-            }
+            veg.add("20011");
         }
 
         if (c3.isChecked()) {
-            if (f){
-                add.append(c3.getText().toString());
-                f = false;
-            }else {
-                add.append("|" + c3.getText().toString());
-            }
+            veg.add("20012");
         }
 
         if (c4.isChecked()) {
-            if (f){
-                add.append(c4.getText().toString());
-                f = false;
-            }else {
-                add.append("|" + c4.getText().toString());
-            }
+            veg.add("20014");
         }
-
-        veg = add.toString();
-        Log.d("Veg", "getVeg: "+veg);
+        Log.d("Veg", "getVeg: " + veg.size());
         return veg;
     }
 
-    public String getExtra() {
-        StringBuffer add = new StringBuffer();
-        boolean f =true;
+    public List<String> getExtra() {
+        List<String> ex = new ArrayList<>();
         if (ex1.isChecked()) {
-            if (f){
-                add.append(ex1.getText().toString());
-                f = false;
-            }else {
-                add.append("|" + ex1.getText().toString());
-            }
+            ex.add("20007");
         }
 
         if (ex2.isChecked()) {
-            if (f){
-                add.append(ex2.getText().toString());
-                f = false;
-            }else {
-                add.append("|" + ex2.getText().toString());
-            }
+            ex.add("20008");
         }
 
         if (ex3.isChecked()) {
-            if (f){
-                add.append(ex3.getText().toString());
-                f = false;
-            }else {
-                add.append("|" + ex3.getText().toString());
-            }
+            ex.add("20009");
         }
-
-        extra = add.toString();
-        Log.d("Veg", "getVeg: "+veg);
-        return extra.replace(" 10฿","");
+        return ex;
     }
 
     public int getexp() {

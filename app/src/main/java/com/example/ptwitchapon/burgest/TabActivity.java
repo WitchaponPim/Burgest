@@ -1,13 +1,10 @@
 package com.example.ptwitchapon.burgest;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,29 +14,19 @@ import android.view.View;
 
 import com.example.ptwitchapon.burgest.API.ConnectManager;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog;
-import com.example.ptwitchapon.burgest.Adapter.CustomDialog_QR;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_other;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_water;
-import com.example.ptwitchapon.burgest.Callback.OrderListCallback;
 import com.example.ptwitchapon.burgest.Callback.StoreCallback;
 import com.example.ptwitchapon.burgest.Fragment.Fm1;
 import com.example.ptwitchapon.burgest.Fragment.Fm_Location;
 import com.example.ptwitchapon.burgest.Fragment.OtherFM;
 import com.example.ptwitchapon.burgest.Fragment.StatusTopup;
 import com.example.ptwitchapon.burgest.Fragment.fm_menu;
-import com.example.ptwitchapon.burgest.Model.Order;
-import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.StoreModel;
 import com.example.ptwitchapon.burgest.Tool.Utils;
-import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.squareup.okhttp.ResponseBody;
-
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit.Retrofit;
 

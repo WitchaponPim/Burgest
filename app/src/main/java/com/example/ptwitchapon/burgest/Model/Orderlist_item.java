@@ -74,7 +74,6 @@ public class Orderlist_item {
          * QRCode :
          * Path : fren204060b.png
          */
-
         private String id_order;
         private String id_member;
         private Object id_emp;
@@ -87,6 +86,7 @@ public class Orderlist_item {
         private String id_product;
         private String price;
         private String qty;
+
         private String note;
         private String status;
         private String ProductName;

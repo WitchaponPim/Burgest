@@ -19,8 +19,10 @@ import com.example.ptwitchapon.burgest.Adapter.FollowAdapter;
 
 import com.example.ptwitchapon.burgest.Callback.OrderListCallback;
 import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
+import com.example.ptwitchapon.burgest.Callback.ResponseCallback;
 import com.example.ptwitchapon.burgest.Model.Orderlist;
 import com.example.ptwitchapon.burgest.Model.Orderlist_item;
+import com.example.ptwitchapon.burgest.Model.ResponseModel;
 import com.example.ptwitchapon.burgest.R;
 import com.example.ptwitchapon.burgest.Tool.Utils;
 import com.squareup.okhttp.ResponseBody;
@@ -41,7 +43,27 @@ public class Fm1 extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
     ConnectManager connect = new ConnectManager();
+    ResponseCallback responseCallback = new ResponseCallback() {
+        @Override
+        public void onResponse(ResponseModel responseModel, Retrofit retrofit) {
+            Utils.toast(getContext(),responseModel.getDescribtion());
+        }
 
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBody) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+    };
     OrderList_ItemCallback orderList_itemCallback= new OrderList_ItemCallback() {
         @Override
         public void onResponse(Orderlist_item listItem, Retrofit retrofit) {
@@ -73,6 +95,11 @@ public class Fm1 extends Fragment {
                 @Override
                 public void onItemClick(List<Orderlist.ItemsBean> orderlist, int position) {
                     connect.orderList_item(orderList_itemCallback,orderlist.get(position).getId_order());
+                }
+
+                @Override
+                public void onConfirm(List<Orderlist.ItemsBean> orderlist, int position) {
+                    connect.acceptMember(responseCallback,orderlist.get(position).getId_order(),"4");
                 }
             });
             recycleviewChick.setAdapter(adapter);

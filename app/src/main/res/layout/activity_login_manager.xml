@@ -91,12 +91,4 @@
 
     </LinearLayout>
 
-<TextView
-    android:id="@+id/regis"
-    android:layout_alignParentBottom="true"
-    android:layout_centerInParent="true"
-    android:textColor="@color/colorWhite"
-    android:text="Register"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
 </RelativeLayout>

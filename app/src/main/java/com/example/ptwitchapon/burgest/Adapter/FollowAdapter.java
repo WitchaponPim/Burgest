@@ -40,10 +40,8 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FollowView
     FollowAdapter.OnItemClickListener listener;
     List<Orderlist.ItemsBean> orderlist = new ArrayList<>();
 
-    private Context context;
-    ConnectManager connectManager = new ConnectManager();
-    OrderList_ItemCallback orderList_itemCallback;
-    private static int currentPosition = 0;
+    Context context;
+
 
     public FollowAdapter(Context context,List<Orderlist.ItemsBean> orderlist,FollowAdapter.OnItemClickListener listener) {
         this.orderlist = orderlist;
@@ -53,6 +51,7 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FollowView
 
     public interface OnItemClickListener {
         void onItemClick(List<Orderlist.ItemsBean> orderlist, int position);
+        void onConfirm(List<Orderlist.ItemsBean> orderlist, int position);
     }
 
     @Override
@@ -65,13 +64,18 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FollowView
     public void onBindViewHolder(final FollowViewHolder holder, final int position) {
         Orderlist.ItemsBean items = orderlist.get(position);
 
-
         holder.textOrder.setText("Order : "+items.getId_order());
 //        holder.count.setText(items.getFirstname());
-
         holder.status.setText(items.getStatus());
-        holder.status.setBackgroundResource(getcolor(items.getId_status()));
 
+        holder.status.setBackgroundResource(getcolor(items.getId_status()));
+        if (items.getStatus_type()!=null) {
+            if (items.getStatus_type().equals("0")) {
+                holder.confirm_a.setVisibility(View.GONE);
+            } else {
+                holder.confirm_a.setVisibility(View.VISIBLE);
+            }
+        }
 
     }
 
@@ -81,8 +85,10 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FollowView
     }
 
     class FollowViewHolder extends RecyclerView.ViewHolder {
-        TextView textOrder,textstatus;
+        TextView textOrder,textstatus,message;
         Button status;
+        LinearLayout confirm_a;
+        Button btn_check,btn_confirm;
         ListView listView;
 
 
@@ -90,14 +96,31 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FollowView
             super(itemView);
             status = (Button) itemView.findViewById(R.id.textstatus);
             textOrder = (TextView) itemView.findViewById(R.id.textOrder);
+            confirm_a = (LinearLayout) itemView.findViewById(R.id.confrimArea);
+            btn_check = (Button) itemView.findViewById(R.id.check);
+            btn_confirm = (Button) itemView.findViewById(R.id.complete);
             //------------------------------------------------------------//
 //            count = (TextView) itemView.findViewById(R.id.count);
+            btn_check.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClick(orderlist,getAdapterPosition());
+                }
+            });
+            btn_confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onConfirm(orderlist,getAdapterPosition());
+                }
+            });
             status.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.onItemClick(orderlist,getAdapterPosition());
                 }
             });
+
+
 
 
         }
@@ -122,4 +145,5 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FollowView
 
         return colorres;
     }
+
 }

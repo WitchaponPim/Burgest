@@ -80,6 +80,7 @@ public class Orderlist {
         private Object id_promotion;
         private String id_status;
         private String id_orderType;
+        private String status_type;
         private String status;
         private String Firstname;
         private String Lastname;
@@ -89,6 +90,14 @@ public class Orderlist {
         private String Tel;
         private String Latitude;
         private String Longitude;
+
+        public String getStatus_type() {
+            return status_type;
+        }
+
+        public void setStatus_type(String status_type) {
+            this.status_type = status_type;
+        }
 
         public String getId_order() {
             return id_order;
