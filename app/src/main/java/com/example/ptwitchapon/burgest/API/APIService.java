@@ -88,7 +88,6 @@ public interface APIService {
     @FormUrlEncoded
     @POST("update-stock.php")
     Call<UpdateStockResponse> updateStock(@Field("id_stock") String id_stock
-            ,@Field("name") String name
             ,@Field("amount") String amount
             ,@Field("EXP") String exp);
 

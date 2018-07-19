@@ -1,6 +1,8 @@
 package com.example.ptwitchapon.burgest.Adapter;
 
 import android.app.Activity;
+
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -39,6 +42,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import retrofit.Retrofit;
 
 /**
@@ -48,6 +55,9 @@ import retrofit.Retrofit;
 public class CustomDialog_stock extends Dialog implements View.OnClickListener {
 
     public Activity c;
+    private DatePickerDialog mDatePicker;
+    private Calendar mCalendar;
+
     private GoogleMap mMap;
     Button yes;
     TextView id,name;
@@ -99,19 +109,14 @@ public class CustomDialog_stock extends Dialog implements View.OnClickListener {
         id.setText(stock.getStocks().get(0).getId_stock());
         name.setText(stock.getStocks().get(0).getName());
 
-
-
         yes.setOnClickListener(this);
     }
-
-
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_ok:
                     connectManager.updatestock(updateStockCallback,id.getText().toString()
-                            ,name.getText().toString()
                             ,amount.getText().toString()
                             ,exp.getText().toString());
                 break;
@@ -119,5 +124,6 @@ public class CustomDialog_stock extends Dialog implements View.OnClickListener {
                 break;
         }
     }
+
 
 }

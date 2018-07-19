@@ -70,7 +70,7 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FollowView
 
         holder.status.setBackgroundResource(getcolor(items.getId_status()));
         if (items.getStatus_type()!=null) {
-            if (items.getStatus_type().equals("0")) {
+            if (items.getStatus_type().equals("0")||items.getId_status().equals("4")) {
                 holder.confirm_a.setVisibility(View.GONE);
             } else {
                 holder.confirm_a.setVisibility(View.VISIBLE);

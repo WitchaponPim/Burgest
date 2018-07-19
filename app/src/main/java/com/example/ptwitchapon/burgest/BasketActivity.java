@@ -270,21 +270,23 @@ public class BasketActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: "+getLocation().latitude +" , "+getLocation().longitude);
-//                if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
+                if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
                     if (Double.valueOf(Utils.user.getChecklogin().getCash()) < gettotal()) {
                         Utils.toast(getApplicationContext(), "กรุณาเติมเงินในระบบก่อนครับ");
-                    } else {
+                    } else if(Utils.order.getOrder().size()!=0){
                         Gson g = new Gson();
                         String jsonString = g.toJson(Utils.order.getOrder());
                         sb = new StringBuffer("{\"order\":");
                         sb.append(jsonString);
                         sb.append(",\"id_member\":\"" + Utils.user.getChecklogin().getId_member() + "\",\"lat\":\"" + getLocation().latitude + "\",\"lng\":\"" + getLocation().longitude + "\",\"id_promotion\":\"" + id_promotion + "\"}");
                         Log.d("Ammy", "onCreate: " + sb.toString());
-                        //connectManager.order(orderCallback, sb.toString());
+                        connectManager.order(orderCallback, sb.toString());
+                    }else {
+                        Utils.toast(getApplicationContext(),"กรุณาสั่งสินค้าก่อน");
                     }
-//                } else {
-//                    Utils.toast(getApplicationContext(), "ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
-//                }
+                } else {
+                    Utils.toast(getApplicationContext(), "ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
+                }
             }
         });
 

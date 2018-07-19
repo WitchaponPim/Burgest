@@ -68,7 +68,7 @@ public class MainAdapter_Manager extends RecyclerView.Adapter<MainAdapter_Manage
             name = (TextView) itemView.findViewById(R.id.stock_name);
             amount = (TextView) itemView.findViewById(R.id.stock_amount);
             exp = (TextView) itemView.findViewById(R.id.stock_status);
-            deatil = (Button) itemView.findViewById(R.id.detail);
+            deatil = (Button) itemView.findViewById(R.id.stock_detail);
 
             deatil.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -84,7 +84,7 @@ public class MainAdapter_Manager extends RecyclerView.Adapter<MainAdapter_Manage
             name.setText(stock.get(position).getName());
             amount.setText(stock.get(position).getTotal_amount());
             exp.setText(stock.get(position).getDesc());
-            exp.setTextColor(context.getResources().getColor(getcolor(stock.get(position).getDesc())));
+            exp.setTextColor(getcolor(stock.get(position).getDesc()));
 
         }
 

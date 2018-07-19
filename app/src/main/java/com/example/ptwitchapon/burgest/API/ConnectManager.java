@@ -427,8 +427,8 @@ public class ConnectManager {
         });
     }
 
-    public void updatestock(final UpdateStockCallback listener, String id_stock,String name , String amount,String exp) {
-        Call call = con.updateStock(id_stock,name,amount,exp);
+    public void updatestock(final UpdateStockCallback listener, String id_stock , String amount,String exp) {
+        Call call = con.updateStock(id_stock,amount,exp);
         call.enqueue(new Callback<UpdateStockResponse>() {
             @Override
             public void onResponse(Response<UpdateStockResponse> response, Retrofit retrofit) {
