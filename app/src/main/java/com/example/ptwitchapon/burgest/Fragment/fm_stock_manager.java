@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.example.ptwitchapon.burgest.API.ConnectManager;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_detailOrderlist;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog_detailStock;
-import com.example.ptwitchapon.burgest.Adapter.CustomDialog_stock;
+
 import com.example.ptwitchapon.burgest.Adapter.MainAdapter_Driver;
 import com.example.ptwitchapon.burgest.Adapter.MainAdapter_Manager;
 import com.example.ptwitchapon.burgest.Callback.OrderList_ItemCallback;
@@ -93,5 +93,9 @@ public class fm_stock_manager extends Fragment {
         recycleviewPromo.setAdapter(adapter);
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 }

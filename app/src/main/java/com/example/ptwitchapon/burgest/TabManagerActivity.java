@@ -21,7 +21,7 @@ import com.example.ptwitchapon.burgest.API.APIService2;
 import com.example.ptwitchapon.burgest.API.ConnectManager;
 import com.example.ptwitchapon.burgest.API.ConnectTopup;
 import com.example.ptwitchapon.burgest.Adapter.CustomDialog;
-import com.example.ptwitchapon.burgest.Adapter.CustomDialog_stock;
+
 import com.example.ptwitchapon.burgest.Callback.StockCallback;
 import com.example.ptwitchapon.burgest.Firebase.MyFirebaseInstanceIDService;
 import com.example.ptwitchapon.burgest.Firebase.MyFirebaseMessagingService;
@@ -53,8 +53,32 @@ public class TabManagerActivity extends AppCompatActivity  {
     StockCallback stockCallback = new StockCallback() {
         @Override
         public void onResponse(StockModel stock, Retrofit retrofit) {
-            CustomDialog_stock st = new CustomDialog_stock(TabManagerActivity.this,stock);
-            st.show();
+//            CustomDialog_stock st = new CustomDialog_stock(TabManagerActivity.this,stock);
+//            st.show();
+            Utils.stock_edit = stock;
+            startActivityForResult(new Intent(TabManagerActivity.this,EditStockActivity.class),2);
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBody) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+    };
+    StockCallback refresh = new StockCallback() {
+        @Override
+        public void onResponse(StockModel stock, Retrofit retrofit) {
+            Utils.stock = stock;
+
         }
 
         @Override
@@ -122,13 +146,12 @@ public class TabManagerActivity extends AppCompatActivity  {
             if(result.getContents() == null) {
                 Log.d("Ammy", "fail ");
             } else {
-
                 Log.d("Ammy", "onActivityResult: "+result.getContents());
-
                 connect.getstock(stockCallback,result.getContents());
-
-
             }
+        }
+        if(requestCode == 2){
+            connect.getstock(refresh,"");
         }
     }
 }

@@ -47,6 +47,7 @@ public class Fm1 extends Fragment {
         @Override
         public void onResponse(ResponseModel responseModel, Retrofit retrofit) {
             Utils.toast(getContext(),responseModel.getDescribtion());
+            connect.orderList(orderListCallback,Utils.user.getChecklogin().getId_member());
         }
 
         @Override

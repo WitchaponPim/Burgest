@@ -90,6 +90,8 @@ public class Utils {
     public static DeliveryOrderModel driver_allOrder;
     public static MyDeliverDriver driver_myOrder;
     public static StockModel stock;
+
+    public static StockModel stock_edit;
     public static Orderlist orderlist;
 
     public static boolean isLogin = false;

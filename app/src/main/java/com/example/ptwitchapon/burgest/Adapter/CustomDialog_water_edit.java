@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -90,16 +92,47 @@ public class CustomDialog_water_edit extends Dialog implements View.OnClickListe
         price = (TextView) findViewById(R.id.price) ;
         qty = (EditText) findViewById(R.id.qty);
         connect.getProduct(callback,orderBean.getId_product());
-        price.setText(orderBean.getPrice()+ " ฿");
-        Picasso.with(c)
-                .load(Utils.ipPic + orderBean.getPath())
-                .into(proImg);
-
+        qty.setText(orderBean.getQty());
         q = qty.getText().toString();
         qtyp = Integer.valueOf(q);
         p = Integer.valueOf(orderBean.getPrice());
         connect.getProduct(callback,orderBean.getId_product());
         total = Integer.valueOf(p * qtyp);
+
+        setAlltext();
+        qty.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String a;
+                if (charSequence.toString().isEmpty()) {
+                    charSequence = "0";
+                    a = String.valueOf(charSequence);
+                    q = a;
+                    qtyp = Integer.valueOf(q);
+                    total = qtyp * p;
+                    setAlltext();
+                } else {
+                    a = String.valueOf(charSequence);
+                    q = a;
+                    qtyp = Integer.valueOf(q);
+                    total = qtyp * p;
+                    setAlltext();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        Picasso.with(c)
+                .load(Utils.ipPic + orderBean.getPath())
+                .into(proImg);
+
         yes.setOnClickListener(this);
         no.setOnClickListener(this);
         add.setOnClickListener(this);
@@ -107,6 +140,10 @@ public class CustomDialog_water_edit extends Dialog implements View.OnClickListe
 
     }
 
+    public void setAlltext() {
+        price.setText(total + " ฿");
+        qtyp = Integer.valueOf(q);
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

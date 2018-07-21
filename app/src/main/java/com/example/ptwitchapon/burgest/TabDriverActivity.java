@@ -108,7 +108,6 @@ public class TabDriverActivity extends AppCompatActivity {
                 double longi = location.getLongitude();
                 Utils.mylattitude = String.valueOf(latti);
                 Utils.mylongitude = String.valueOf(longi);
-
             } else {
 
             }

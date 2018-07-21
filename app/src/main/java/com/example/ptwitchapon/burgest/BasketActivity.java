@@ -280,7 +280,7 @@ public class BasketActivity extends AppCompatActivity {
                         sb.append(jsonString);
                         sb.append(",\"id_member\":\"" + Utils.user.getChecklogin().getId_member() + "\",\"lat\":\"" + getLocation().latitude + "\",\"lng\":\"" + getLocation().longitude + "\",\"id_promotion\":\"" + id_promotion + "\"}");
                         Log.d("Ammy", "onCreate: " + sb.toString());
-                        connectManager.order(orderCallback, sb.toString());
+                       connectManager.order(orderCallback, sb.toString());
                     }else {
                         Utils.toast(getApplicationContext(),"กรุณาสั่งสินค้าก่อน");
                     }

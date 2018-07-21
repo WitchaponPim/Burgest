@@ -77,10 +77,12 @@
         </service>
 
         <activity android:name=".LoginDriverActivity" />
-        <activity android:name=".LoginManagerActivity" />
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".EditStockActivity">
+
+        </activity>
     </application>
 
 </manifest>
