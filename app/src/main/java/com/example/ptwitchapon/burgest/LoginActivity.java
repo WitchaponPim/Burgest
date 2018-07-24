@@ -92,9 +92,9 @@ public class LoginActivity extends AppCompatActivity {
         user = (EditText) findViewById(R.id.user);
         pass = (EditText) findViewById(R.id.pass);
 
-        Utils.username = "a@m.com";
-        Utils.password = "123456";
-        connect.login (loginCallback,Utils.username, Utils.password,FirebaseInstanceId.getInstance().getToken());
+        //Utils.username = "a@m.com";
+        //Utils.password = "123456";
+        //connect.login (loginCallback,Utils.username, Utils.password,FirebaseInstanceId.getInstance().getToken());
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
