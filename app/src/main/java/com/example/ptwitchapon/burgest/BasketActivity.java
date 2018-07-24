@@ -278,7 +278,7 @@ public class BasketActivity extends AppCompatActivity {
                 Log.d(TAG, "onClick: "+getLocation().latitude +" , "+getLocation().longitude);
                 if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
                     if (Double.valueOf(Utils.user.getChecklogin().getCash()) < gettotal()) {
-                        Utils.toast(getApplicationContext(), "กรุณาเติมเงินในระบบก่อนครับ");
+                        dialog_money("กรุณาเติมเงินในระบบก่อนครับ");
                     } else {
                         Gson g = new Gson();
                         String jsonString = g.toJson(Utils.order.getOrder());
@@ -373,5 +373,17 @@ public class BasketActivity extends AppCompatActivity {
             }
         }).show();
 
+    }
+    public void dialog_money(String msg) {
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("เงินไม่พอ");
+        builder.setMessage(msg);
+        builder.setPositiveButton("ต้องการ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        }).show();
     }
 }
