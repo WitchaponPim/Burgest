@@ -351,10 +351,10 @@ public class BasketActivity extends AppCompatActivity {
         }
     }
     public void dialog(String msg) {
-        AlertDialog dialog;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("แจ้งเตือน");
-        builder.setMessage(msg+"\nต้องการแก้ไข Order หรือไม่");
+        String res = msg.replace(",","\n");
+        builder.setMessage(res+"\nต้องการแก้ไข Order หรือไม่");
         builder.setPositiveButton("ต้องการ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -375,7 +375,6 @@ public class BasketActivity extends AppCompatActivity {
 
     }
     public void dialog_money(String msg) {
-        AlertDialog dialog;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("เงินไม่พอ");
         builder.setMessage(msg);
