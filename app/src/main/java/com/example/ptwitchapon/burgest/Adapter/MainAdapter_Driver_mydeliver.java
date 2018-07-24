@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ptwitchapon.burgest.Model.DeliveryOrderModel;
@@ -62,6 +63,7 @@ public class MainAdapter_Driver_mydeliver extends RecyclerView.Adapter<MainAdapt
 
         public TextView name,order,tel,distance;
         double distance_length;
+        LinearLayout btn;
         Button viewmap,complete;
         Location order_location = new Location("order");
         Location driver_location = new Location("driver");
@@ -73,6 +75,7 @@ public class MainAdapter_Driver_mydeliver extends RecyclerView.Adapter<MainAdapt
             distance =(TextView) itemView.findViewById(R.id.mem_distance);
             viewmap = (Button) itemView.findViewById(R.id.viewmap);
             complete = (Button) itemView.findViewById(R.id.complete);
+            btn = (LinearLayout) itemView.findViewById(R.id.btn);
 
             complete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,6 +93,13 @@ public class MainAdapter_Driver_mydeliver extends RecyclerView.Adapter<MainAdapt
         }
 
         public void setMenu(final List<MyDeliverDriver.OrderBean> orderlist,int position){
+
+            if (position == 0){
+                btn.setVisibility(View.VISIBLE);
+            }else {
+                btn.setVisibility(View.GONE);
+            }
+
             order_location.setLatitude(Double.valueOf(orderlist.get(position).getLatitude()));
             order_location.setLongitude(Double.valueOf(orderlist.get(position).getLongitude()));
             order_location.setAltitude(0);

@@ -2,12 +2,14 @@ package com.example.ptwitchapon.burgest;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -127,13 +129,18 @@ public class BasketActivity extends AppCompatActivity {
     OrderCallback orderCallback = new OrderCallback() {
         @Override
         public void onResponse(OrderResponse orderResponse, Retrofit retrofit) {
-            Utils.object = new JSONObject();
-            Utils.object2 = new JSONObject();
-            Utils.array = new JSONArray();
-            Utils.orderbanlist = new ArrayList<>();
-            Utils.order = new Order();
-            Utils.toast(getApplicationContext(), orderResponse.getDescription());
-            connectManager.login(loginCallback,Utils.username,Utils.password, FirebaseInstanceId.getInstance().getToken());
+            if(orderResponse.getCode().equals("800")){
+                Utils.object = new JSONObject();
+                Utils.object2 = new JSONObject();
+                Utils.array = new JSONArray();
+                Utils.orderbanlist = new ArrayList<>();
+                Utils.order = new Order();
+                Utils.toast(getApplicationContext(), orderResponse.getDescription());
+                connectManager.login(loginCallback,Utils.username,Utils.password, FirebaseInstanceId.getInstance().getToken());
+            }else {
+                dialog(orderResponse.getDescription());
+            }
+
 
         }
 
@@ -249,7 +256,6 @@ public class BasketActivity extends AppCompatActivity {
             public void onItemClick(Order.OrderBean orderlist, int position) {
                 Utils.toast(getApplicationContext(), orderlist.getId_product());
                 if (Integer.valueOf(orderlist.getId_product()) >= 10035 && Integer.valueOf(orderlist.getId_product()) <= 10039) {
-
                     CustomDialog_other_edit other = new CustomDialog_other_edit(BasketActivity.this, orderlist, position);
                     other.show();
                 } else if (Integer.valueOf(orderlist.getId_product()) >= 10040 && Integer.valueOf(orderlist.getId_product()) <= 10045) {
@@ -273,16 +279,14 @@ public class BasketActivity extends AppCompatActivity {
                 if (Utils.Checklocation(getLocation().latitude, getLocation().longitude)) {
                     if (Double.valueOf(Utils.user.getChecklogin().getCash()) < gettotal()) {
                         Utils.toast(getApplicationContext(), "กรุณาเติมเงินในระบบก่อนครับ");
-                    } else if(Utils.order.getOrder().size()!=0){
+                    } else {
                         Gson g = new Gson();
                         String jsonString = g.toJson(Utils.order.getOrder());
                         sb = new StringBuffer("{\"order\":");
                         sb.append(jsonString);
                         sb.append(",\"id_member\":\"" + Utils.user.getChecklogin().getId_member() + "\",\"lat\":\"" + getLocation().latitude + "\",\"lng\":\"" + getLocation().longitude + "\",\"id_promotion\":\"" + id_promotion + "\"}");
                         Log.d("Ammy", "onCreate: " + sb.toString());
-                       connectManager.order(orderCallback, sb.toString());
-                    }else {
-                        Utils.toast(getApplicationContext(),"กรุณาสั่งสินค้าก่อน");
+                        connectManager.order(orderCallback, sb.toString());
                     }
                 } else {
                     Utils.toast(getApplicationContext(), "ไม่สามารถสั่งได้ เนื่องจากอยุ่นอกพื้นที่");
@@ -343,9 +347,31 @@ public class BasketActivity extends AppCompatActivity {
                 Log.d("Ammy", "onActivityResult: "+result.getContents());
                     id_promotion = result.getContents();
                     connectManager.getPromotion(promotionCallback,result.getContents());
-
             }
         }
+    }
+    public void dialog(String msg) {
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("แจ้งเตือน");
+        builder.setMessage(msg+"\nต้องการแก้ไข Order หรือไม่");
+        builder.setPositiveButton("ต้องการ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.setNegativeButton("ละทิ้ง", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Utils.object = new JSONObject();
+                Utils.object2 = new JSONObject();
+                Utils.array = new JSONArray();
+                Utils.orderbanlist = new ArrayList<>();
+                Utils.order = new Order();
+                connectManager.login(loginCallback,Utils.username,Utils.password, FirebaseInstanceId.getInstance().getToken());
+            }
+        }).show();
 
     }
 }
