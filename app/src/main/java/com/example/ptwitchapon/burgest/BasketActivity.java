@@ -378,7 +378,7 @@ public class BasketActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("เงินไม่พอ");
         builder.setMessage(msg);
-        builder.setPositiveButton("ต้องการ", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("ยืนยัน", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
